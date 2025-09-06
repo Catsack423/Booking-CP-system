@@ -1,5 +1,5 @@
 <x-guest-layout>
-  {{-- CSS เฉพาะหน้านี้: ล็อคหน้าตาให้ตรงภาพ --}}
+  {{-- CSS เฉพาะหน้านี้:}}
   <style>
     .rb-center{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
     #login-card{
@@ -16,7 +16,7 @@
     .rb-label{display:block;font-size:14px;color:#374151;margin-bottom:6px}
     .rb-input{
       width:100%;padding:10px 14px;border-radius:12px;border:1px solid #d1d5db;
-      background:#fff;box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.25);
+      background:#fff;box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.25);box-shadow:inset 0 4px 3px rgba(0, 0, 0, 0.25);
     }
     .rb-input:focus{
       outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.20), inset 0 1px 2px rgba(0,0,0,.08)
@@ -42,7 +42,7 @@
   <div class="rb-center">
     <div id="login-card">
       <img src="{{ asset('images/logo-room-booking.png') }}" alt="logo" class="rb-logo" >
-      <div class="rb-title">sign in</div>
+      <div class="rb-title">Welcome Admin!</div>
 
       {{-- errors / status --}}
       <x-validation-errors />
