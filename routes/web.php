@@ -11,7 +11,17 @@ use Illuminate\Support\Facades\Route;
 //     return view('pages.index');
 // })->name('home');
 
-Route::get('/about', function () {
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
 
@@ -34,14 +44,5 @@ Route::get('/floor2', function () {
  Route::get('/floor5', function () {
      return view('pages.floor5');
  })->name('floor5');
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 });
 
