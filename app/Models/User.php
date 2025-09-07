@@ -58,4 +58,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function requsets(){
+        return $this->hasMany(Request::class,"user_id","id");
+    }
 }
