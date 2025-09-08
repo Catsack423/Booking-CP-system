@@ -2,11 +2,12 @@
 <html lang="th">
 <head>
   <meta charset="utf-8" />
-  <title>Navbar Frame</title>
+  <title>@yield('title', 'Booking CP')</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>
 <body>
+  <!-- Navbar ของคุณ -->
   <div class="navbar">
     <div class="navbar-logo">
       <img src="{{ asset('img/logo.png') }}" alt="logo">
@@ -14,10 +15,8 @@
 
     <div class="navbar-top">
       <div class="navbar-user">
-        <span>pawat.pa@kkumail.com</span>
-        <a href="../profile">
-            <img src="{{ asset('img/test-account.png') }}" alt="user">
-        </a>
+        <span>{{ Auth::user()->email }}</span>
+        <img src="{{ asset('img/test-account.png') }}" alt="user">
       </div>
     </div>
 
@@ -31,15 +30,18 @@
         <a href="{{ route('guide') }}" class="{{ request()->routeIs('guide') ? 'active' : '' }}">วิธีใช้งาน</a>
 
         <form method="POST" action="{{ route('logout') }}" class="logout-form">
-    @csrf
-    <button type="submit" class="logout-btn">
-        <img src="{{ asset('img/logout.png') }}" alt="logout">
-    </button>
-</form>
-
-
+          @csrf
+          <button type="submit" class="logout-btn">
+              <img src="{{ asset('img/logout.png') }}" alt="logout">
+          </button>
+        </form>
       </div>
     </div>
+  </div>
+
+  <!-- Content ของแต่ละหน้า -->
+  <div class="main-content">
+      @yield('content')
   </div>
 </body>
 </html>

@@ -1,0 +1,98 @@
+/* body พื้นหลังทั่วหน้า */
+body {
+  font-family: 'Noto Sans Thai', sans-serif;
+  background-color: #f5f5f5;  /* สีพื้นหลัง */
+  color: #333;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;           /* ให้เต็มความสูงหน้าจอ */
+  display: flex;
+  justify-content: center;
+  align-items: center;         /* กึ่งกลางแนวตั้ง */
+}
+
+/* Container profile */
+.profile-content {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Card */
+.profile-content .card {
+  flex: 1 1 400px;
+  max-width: 450px;
+  background-color: #fff;     /* สี card ขาว */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
+}
+
+
+/* --- Card Title --- */
+.profile-content .card h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* --- Form Input --- */
+.profile-content input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+/* --- Readonly / Disabled fields --- */
+.profile-content input[readonly] {
+  background-color: #f3f4f6;
+}
+
+/* --- Buttons --- */
+.profile-content button {
+  width: fit-content;
+  padding: 10px 25px;
+  border-radius: 8px;
+  border: none;
+  background-color: #3b82f6;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+  align-self: flex-start;
+}
+
+.profile-content button:hover {
+  background-color: #2563eb;
+}
+
+/* --- User Image --- */
+.profile-content .user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+/* --- Responsive --- */
+@media screen and (max-width: 900px) {
+  .profile-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  body {
+    margin-left: 0;
+    padding: 20px 15px;
+  }
+}

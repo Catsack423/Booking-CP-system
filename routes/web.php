@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Laravel\Jetstream\Http\Controllers\ProfileController;
 
  Route::get('/', function () {
      return view('welcome');
@@ -21,28 +21,33 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
     Route::get('/about', function () {
-    return view('pages.about');
-})->name('about');
+        return view('pages.about');
+    })->name('about');
 
-Route::get('/guide', function () {
-    return view('pages.guide');
-})->name('guide');
+    Route::get('/guide', function () {
+        return view('pages.guide');
+    })->name('guide');
 
-Route::get('/floor1', function () {
-    return view('pages.floor1');
-})->name('floor1');
+    Route::get('/floor1', function () {
+        return view('pages.floor1');
+    })->name('floor1');
 
-Route::get('/floor2', function () {
-    return view('pages.floor2');
-})->name('floor2');
+    Route::get('/floor2', function () {
+        return view('pages.floor2');
+    })->name('floor2');
 
- Route::get('/floor4', function () {
-     return view('pages.floor4');
- })->name('floor4');
+    Route::get('/floor4', function () {
+        return view('pages.floor4');
+    })->name('floor4');
 
- Route::get('/floor5', function () {
-     return view('pages.floor5');
- })->name('floor5');
+    Route::get('/floor5', function () {
+        return view('pages.floor5');
+    })->name('floor5');
+
+    Route::get('/profile', function () {
+    return view('profile');
+    })->name('profile');
 });
 
