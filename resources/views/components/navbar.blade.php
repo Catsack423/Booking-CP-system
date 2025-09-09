@@ -14,7 +14,7 @@
 
     <div class="navbar-top">
       <div class="navbar-user">
-        <span>pawat.pa@kkumail.com</span>
+        <span>{{auth()->user()->getEmailAddressAttribute()}}</span>
         <img src="{{ asset('img/test-account.png') }}" alt="user">
       </div>
     </div>
