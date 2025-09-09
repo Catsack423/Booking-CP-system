@@ -14,7 +14,13 @@
 
     <div class="navbar-top">
       <div class="navbar-user">
-        <span>pawat.pa@kkumail.com</span>
+        <span>
+          <div class="col-span-6 sm:col-span-4 mt-4">
+    <p class="mt-1 block w-full border rounded px-3 py-2 bg-gray-100 text-gray-700">
+        {{ $state['email'] ?? Auth::user()->email }}
+    </p>
+</div>
+        </span>
         <a href="../profile">
             <img src="{{ asset('img/test-account.png') }}" alt="user">
         </a>

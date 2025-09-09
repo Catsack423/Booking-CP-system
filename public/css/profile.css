@@ -9,21 +9,24 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;         /* กึ่งกลางแนวตั้ง */
+  margin-top: 70px;
 }
 
 /* Container profile */
 .profile-content {
-  width: 100%;
+  width: 800px;
   max-width: 1000px;
   display: flex;
   gap: 30px;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: center;
+  /* margin-top: 220px; */
 }
 
 /* Card */
 .profile-content .card {
-  flex: 1 1 400px;
+  flex-grow: 1;
+  width: 50px; 
   max-width: 450px;
   background-color: #fff;     /* สี card ขาว */
   padding: 20px;
@@ -43,6 +46,15 @@ body {
   margin-bottom: 15px;
 }
 
+.tag-label {
+  display: flex;
+  margin-left: 10px;
+  font-size: 15px;
+  margin-top: 10px ;
+  margin-bottom: 2px ;
+  /* border: black solid 1px; */
+
+}
 /* --- Form Input --- */
 .profile-content input {
   width: 100%;
@@ -69,6 +81,7 @@ body {
   cursor: pointer;
   transition: 0.2s;
   align-self: flex-start;
+  margin-top: 15px ;
 }
 
 .profile-content button:hover {
@@ -77,11 +90,18 @@ body {
 
 /* --- User Image --- */
 .profile-content .user-avatar {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 15px;
+}
+
+.cardProfile-img{
+  display: flex;
+  justify-content: center;
+  
+  
 }
 
 /* --- Responsive --- */
