@@ -27,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'admin',
     ];
 
     /**
@@ -39,6 +40,7 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        
     ];
 
     /**
@@ -48,6 +50,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'admin' => 'boolean'
     ];
 
     /**
@@ -58,9 +61,18 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    public function getEmailAddressAttribute()
+    {
+        return $this->email;
+    }
 
+    public function getadminAttribute()
+    {
+        return  $this->attributes['admin'] ?? null;
+    }
 
-    public function requsets(){
-        return $this->hasMany(Request::class,"user_id","id");
+    public function requsets()
+    {
+        return $this->hasMany(Request::class, "user_id", "id");
     }
 }
