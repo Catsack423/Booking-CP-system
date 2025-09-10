@@ -41,11 +41,8 @@
     .room-btn {
         position: absolute;
         cursor: pointer;
-        transform: translate(-50%, -50%);
-        width: 113px;
-        height: 113px;
-        width: 113px;
-        height: 113px;
+        aspect-ratio: 1 / 1; 
+        width: 6vw;
         padding: 5px 10px;
         border-radius: 50%;
         border: none;
