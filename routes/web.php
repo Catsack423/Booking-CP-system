@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Floor1Controller;
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,9 +34,7 @@ Route::middleware([
         return view('pages.guide');
     })->name('guide');
 
-    Route::get('/floor1', function () {
-        return view('pages.floor1');
-    })->name('floor1');
+    Route::get('/floor1', [Floor1Controller::class,'index'])->name('floor1');
 
     Route::get('/floor2', function () {
         return view('pages.floor2');
