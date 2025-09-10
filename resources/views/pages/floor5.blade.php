@@ -1,101 +1,92 @@
 @extends('layouts.app')
 
-@section('title', 'floor5')
+@section('title', 'floor2')
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
     body {
-        
         margin: 0;
         padding: 0;
         display: flex;
         justify-content: center;
-        /* จัดแนวนอนกลาง */
         align-items: center;
-        /* จัดแนวตั้งกลาง */
         min-height: 100vh;
-        /* เต็มจอ */
         background: rgba(148, 138, 138, 0.562);
+        font-family: 'Noto Sans Thai', sans-serif;
     }
 
     .floor-plan {
         background-color: rgb(245, 238, 238);
-        padding: 5% 5% 5% 5%;
+        padding: 2%;
         position: relative;
         width: 60vw;
-        /* กำหนดขนาดรูป */
-        height: auto;
-        justify-content: center;
-        align-self: center;
+        max-width: 1000px;
         border-radius: 5%;
+        margin: auto;
+    }
+
+    .map-wrapper {
+    position: relative;
+    width: 100%;
+    }
+
+    .map-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
     }
 
     .floor-plan img {
-        margin-top: 10px;
         width: 100%;
-        /* ปรับให้รูปเต็ม container */
+        height: auto;
         display: block;
-
     }
 
     .room-btn {
         position: absolute;
-        cursor: pointer;
         transform: translate(-50%, -50%);
-        aspect-ratio: 1 / 1; 
-        width: 6vw;
-        padding: 5px 10px;
+        width: 10%;
+        aspect-ratio: 1 / 1;
         border-radius: 50%;
-        border: none;
-    }
-
-    .room-btn {
+        border: 3px solid black;
         cursor: pointer;
         background: rgba(5, 255, 80, 0.719);
-        color: white;
-
+        transition: transform 0.2s;
     }
 
     .room-btn:hover {
-        border: 1px solid black;
+        transform: translate(-50%, -50%) scale(1.1);
+        border: 2px solid black;
     }
 
     .room-btn-notavailable {
-        cursor: default;
         background: rgba(255, 0, 21, 0.719);
-        color: white;
+        cursor: default;
     }
 
 
-    /* กำหนดตำแหน่งปุ่มแต่ละห้อง */
-    #CP9525 {
-        top: 42.6%;
-        left: 27.4%;
-    }
-    #LAB9524 {
-        top: 42.6%;
-        left: 48.4%;
-    }
+#room9524 {
+    top: 35.5%;
+    left: 25%;
+}
+
+#room9525 {
+    top: 35.5%;
+    left: 48.2%;
+}
+
 </style>
+
 @section('content')
+<body style="background: rgba(119, 118, 118, 0.137);">
+    <br><br><br><br><br><br><br>
 
-
-    <body style="background: rgba(119, 118, 118, 0.137);">
-        <br><br><br><br><br><br><br>
-
-        <div class="floor-plan">
-            <h1 style="text-indent: 60px; font-size: 30px; text-decoration: underline;">ชั้น 5</h1><br>
-            <img src="{{ asset('img/floor5map.png') }}" alt="Error">
-            <div class="room-container">
-                <a href="{{ route('Booking') }}" class="{{ request()->routeIs('Booking') ? 'active' : '' }}">
-                    <button id="CP9525" class="room-btn"></button>
-                </a>
-            </div>
-            <div class="room-container">
-                <a href="{{ route('Booking') }}" class="{{ request()->routeIs('Booking') ? 'active' : '' }}">
-                    <button id="LAB9524" class="room-btn"></button>
-                </a>
-            </div>
-          </div>
-    </body>
-
+    <div class="floor-plan">
+        <h1 style="margin-left: 60px; font-size: 30px; text-decoration: underline;">ชั้น 5</h1><br>
+        <div class="map-wrapper">
+        <img src="{{ asset('img/floor5map.png') }}" alt="Error">
+        <a href=""><button id="room9524" class="room-btn room-btn-notavailable"></button></a>
+        <a href=""><button id="room9525" class="room-btn "></button></a>
+    </div>
+</body>
 @endsection
