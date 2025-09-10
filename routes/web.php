@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Floor1Controller;
 use Illuminate\Support\Facades\Route;
-
+use Laravel\Jetstream\Http\Controllers\ProfileController;
 
 
 Route::get('/', function () {
@@ -26,15 +26,17 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
     Route::get('/about', function () {
         return view('pages.about');
     })->name('about');
+
 
     Route::get('/guide', function () {
         return view('pages.guide');
     })->name('guide');
 
-    Route::get('/floor1', [Floor1Controller::class,'index'])->name('floor1');
+   Route::get('/floor1', [Floor1Controller::class,'index'])->name('floor1');
 
     Route::get('/floor2', function () {
         return view('pages.floor2');
@@ -47,6 +49,11 @@ Route::middleware([
     Route::get('/floor5', function () {
         return view('pages.floor5');
     })->name('floor5');
+
+    Route::get('/profile', function () {
+    return view('profile');
+    })->name('profile');
+
 });
 
 Route::middleware([
