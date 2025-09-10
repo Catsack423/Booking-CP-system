@@ -40,14 +40,11 @@
     .room-btn {
         position: absolute;
         cursor: pointer;
-        transform: translate(-50%, -50%);
-        width: 100px;
-        height: 100px;
-        width: 100px;
-        height: 100px;
+        width: 6vw;
         padding: 5px 10px;
         border-radius: 50%;
         border: none;
+        aspect-ratio: 1 / 1; 
     }
 
     .room-btn {
@@ -70,16 +67,16 @@
 
     /* กำหนดตำแหน่งปุ่มแต่ละห้อง */
     #room9228 {
-        top: 38.8%;
-        left: 21.3%;
+        top: 31%;
+        left: 16.3%;
     }
     #room9227 {
-        top: 38.8%;
-        left: 35.1%;
+        top: 31%;
+        left: 30%;
     }
     #room9226 {
-        top: 38.8%;
-        left: 48.3%;
+        top: 31%;
+        left: 43.4%;
     }
 
 </style>
