@@ -1,15 +1,20 @@
 <?php
 
+use App\Http\Controllers\Floor1Controller;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\ProfileController;
 
- Route::get('/', function () {
-     return view('welcome');
- });
+
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Route::get('/', function () {
 //     return view('pages.index');
 // })->name('home');
+
+
+
 
 
 
@@ -26,13 +31,12 @@ Route::middleware([
         return view('pages.about');
     })->name('about');
 
+
     Route::get('/guide', function () {
         return view('pages.guide');
     })->name('guide');
 
-    Route::get('/floor1', function () {
-        return view('pages.floor1');
-    })->name('floor1');
+   Route::get('/floor1', [Floor1Controller::class,'index'])->name('floor1');
 
     Route::get('/floor2', function () {
         return view('pages.floor2');
@@ -49,5 +53,16 @@ Route::middleware([
     Route::get('/profile', function () {
     return view('profile');
     })->name('profile');
+
 });
 
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'admin',
+])->group(function () {
+    Route::get('/loginadmin', function () {
+        return view('auth.loginAdmin');
+    });
+});

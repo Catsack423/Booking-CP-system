@@ -5,4 +5,12 @@
 @section('content')
   
   <h1 style="text-indent: 60px; font-size: 30px; text-decoration: underline;">ชั้น 1</h1><br>
+  {{-- testdata --}}
+  @foreach ($rooms as $data )
+    {{ $data }}
+  @endforeach
+  {{-- end --}}
+
+
+  
 @endsection

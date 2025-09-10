@@ -34,6 +34,7 @@
             </div>
         </div>
 
+
         <div class="navbar-bottom">
             <div class="navbar-menu">
                 <a href="{{ route('floor1') }}" class="{{ request()->routeIs('floor1') ? 'active' : '' }}">ชั้น 1</a>
@@ -45,12 +46,14 @@
                 <a href="{{ route('guide') }}"
                     class="{{ request()->routeIs('guide') ? 'active' : '' }}">วิธีใช้งาน</a>
 
+
                 <form method="POST" action="{{ route('logout') }}" class="logout-form">
                     @csrf
                     <button type="submit" class="logout-btn">
                         <img src="{{ asset('img/logout.png') }}" alt="logout">
                     </button>
                 </form>
+
 
 
             </div>
