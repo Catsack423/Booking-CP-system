@@ -17,6 +17,7 @@
         background: rgba(148, 138, 138, 0.562);
     }
 
+
     .floor-plan {
         background-color: rgb(245, 238, 238);
         padding: 5% 5% 5% 5%;
@@ -55,6 +56,7 @@
         background: rgba(5, 255, 80, 0.719);
         color: white;
         
+
 
     }
 

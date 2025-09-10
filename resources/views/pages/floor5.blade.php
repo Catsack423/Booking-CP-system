@@ -80,6 +80,7 @@
 </style>
 @section('content')
 
+
     <body style="background: rgba(119, 118, 118, 0.137);">
         <br><br><br><br><br><br><br>
 
@@ -98,4 +99,5 @@
             </div>
           </div>
     </body>
+
 @endsection
