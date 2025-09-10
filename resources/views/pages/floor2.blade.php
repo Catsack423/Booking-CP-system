@@ -83,7 +83,7 @@
             <h1 style="text-indent: 60px; font-size: 30px; text-decoration: underline;">ชั้น 2</h1><br>
             <img src="{{ asset('img/floor2map.png') }}" alt="Error">
             <div class="room-container">
-                <a href="">
+                <a href="{{ route('Booking') }}" class="{{ request()->routeIs('Booking') ? 'active' : '' }}">
                     <button id="room9228" class="room-btn"></button>
                 </a>
             </div>

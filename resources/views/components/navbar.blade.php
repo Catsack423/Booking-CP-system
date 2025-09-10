@@ -28,6 +28,7 @@
         <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">เกี่ยวกับเรา</a>
         <a href="{{ route('guide') }}" class="{{ request()->routeIs('guide') ? 'active' : '' }}">วิธีใช้งาน</a>
 
+
         <form method="POST" action="{{ route('logout') }}" class="logout-form">
     @csrf
     <button type="submit" class="logout-btn" title="logout">

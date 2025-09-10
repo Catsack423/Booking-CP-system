@@ -1,16 +1,12 @@
 @extends('layouts.app')
-
-@section('title', 'floor5')
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
     body {
         
-        margin: 0;
+        margin: 100px ;
         padding: 0;
         display: flex;
         justify-content: center;
-        /* จัดแนวนอนกลาง */
-        align-items: center;
+
         /* จัดแนวตั้งกลาง */
         min-height: 100vh;
         /* เต็มจอ */
@@ -41,10 +37,10 @@
         position: absolute;
         cursor: pointer;
         transform: translate(-50%, -50%);
-        width: 112px;
-        height: 112px;
-        width: 112px;
-        height: 112px;
+        width: 110px;
+        height: 110px;
+        width: 110px;
+        height: 110px;
         padding: 5px 10px;
         border-radius: 50%;
         border: none;
@@ -54,6 +50,7 @@
         cursor: pointer;
         background: rgba(5, 255, 80, 0.719);
         color: white;
+        
 
     }
 
@@ -69,33 +66,18 @@
 
 
     /* กำหนดตำแหน่งปุ่มแต่ละห้อง */
-    #CP9525 {
-        top: 42.6%;
-        left: 27.4%;
-    }
-    #LAB9524 {
-        top: 42.6%;
-        left: 48.4%;
+    #room9127 {
+        top: 44.5%;
+        left: 22.9%;
     }
 </style>
+@section('title', 'Booking')
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+
 @section('content')
+<div class="floor-plan">
 
-    <body style="background: rgba(119, 118, 118, 0.137);">
-        <br><br><br><br><br><br><br>
 
-        <div class="floor-plan">
-            <h1 style="text-indent: 60px; font-size: 30px; text-decoration: underline;">ชั้น 5</h1><br>
-            <img src="{{ asset('img/floor5map.png') }}" alt="Error">
-            <div class="room-container">
-                <a href="{{ route('Booking') }}" class="{{ request()->routeIs('Booking') ? 'active' : '' }}">
-                    <button id="CP9525" class="room-btn"></button>
-                </a>
-            </div>
-            <div class="room-container">
-                <a href="{{ route('Booking') }}" class="{{ request()->routeIs('Booking') ? 'active' : '' }}">
-                    <button id="LAB9524" class="room-btn"></button>
-                </a>
-            </div>
-          </div>
-    </body>
+</div>
+
 @endsection
