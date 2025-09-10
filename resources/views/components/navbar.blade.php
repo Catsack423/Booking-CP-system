@@ -47,6 +47,15 @@
                     class="{{ request()->routeIs('guide') ? 'active' : '' }}">วิธีใช้งาน</a>
 
 
+
+        <form method="POST" action="{{ route('logout') }}" class="logout-form">
+    @csrf
+    <button type="submit" class="logout-btn" title="logout">
+        <img src="{{ asset('img/logout.png') }}" alt="logout" title="logout">
+    </button>
+</form>
+
+
                 <form method="POST" action="{{ route('logout') }}" class="logout-form">
                     @csrf
                     <button type="submit" class="logout-btn">

@@ -50,9 +50,15 @@ Route::middleware([
         return view('pages.floor5');
     })->name('floor5');
 
+    Route::get('/Booking', function () {
+        return view('pages.Booking');
+    })->name('Booking');
+
+
     Route::get('/profile', function () {
     return view('profile');
     })->name('profile');
+
 
 });
 
