@@ -70,9 +70,18 @@
 
     /* กำหนดตำแหน่งปุ่มแต่ละห้อง */
     #room9228 {
-        top: 40%;
-        left: 21.6%;
+        top: 38.8%;
+        left: 21.3%;
     }
+    #room9227 {
+        top: 38.8%;
+        left: 35.1%;
+    }
+    #room9226 {
+        top: 38.8%;
+        left: 48.3%;
+    }
+
 </style>
 @section('content')
 
@@ -88,7 +97,18 @@
                     <button id="room9228" class="room-btn"></button>
                 </a>
             </div>
+            <div class="room-container">
+                <a href="">
+                    <button id="room9227" class="room-btn"></button>
+                </a>
+            </div>
+            <div class="room-container">
+                <a href="">
+                    <button id="room9226" class="room-btn"></button>
+                </a>
+            </div>
         </div>
     </body>
 
 @endsection
+
