@@ -4,6 +4,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
     body {
+        
         margin: 0;
         padding: 0;
         display: flex;
@@ -13,17 +14,14 @@
         /* จัดแนวตั้งกลาง */
         min-height: 100vh;
         /* เต็มจอ */
-        background-image: url("public/images/BG-login.jpg");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: rgba(148, 138, 138, 0.562);
     }
 
     .floor-plan {
-        background-color: white;
-        padding: 10%;
+        background-color: rgb(245, 238, 238);
+        padding: 5% 5% 5% 5%;
         position: relative;
-        width: 1200px;
+        width: 60vw;
         /* กำหนดขนาดรูป */
         height: auto;
         justify-content: center;
@@ -36,6 +34,7 @@
         width: 100%;
         /* ปรับให้รูปเต็ม container */
         display: block;
+
     }
 
     .room-btn {
@@ -55,8 +54,9 @@
         cursor: pointer;
         background: rgba(5, 255, 80, 0.719);
         color: white;
-        
+
     }
+
     .room-btn:hover {
         border: 1px solid black;
     }
@@ -67,28 +67,18 @@
         color: white;
     }
 
-    .backgroundIMG {
-        position: absolute;
-        /* หรือ fixed ก็ได้ */
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-    }
 
     /* กำหนดตำแหน่งปุ่มแต่ละห้อง */
     #room9228 {
         top: 40%;
-        left: 24.6%;
+        left: 21.6%;
     }
 </style>
 @section('content')
 
-    <body>
-        <img src="{{ asset('images/BG-login.jpg') }}" alt="error" class="backgroundIMG">
+    <body style="background: rgba(119, 118, 118, 0.137);">
         <br><br><br><br><br><br><br>
-        
+
         <div class="floor-plan">
             <h1 style="text-indent: 60px; font-size: 30px; text-decoration: underline;">ชั้น 2</h1><br>
             <img src="{{ asset('img/floor2map.png') }}" alt="Error">
