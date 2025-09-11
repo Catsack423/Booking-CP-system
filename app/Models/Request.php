@@ -10,8 +10,7 @@ class Request extends Model
     use HasFactory;
     protected $table = "request";
     protected $primaryKey = "id";
-    public $incrementing = false;
-    public $timestamp = true;
+
     protected $fillable = [
         'day',
         'wait_status',
@@ -19,7 +18,7 @@ class Request extends Model
         'reject_status',
         'room_id',
         'user_id',
-        'frist_name',
+        'first_name',
         'last_name',
         'detail',
         'phone',
@@ -35,7 +34,7 @@ class Request extends Model
         '17_18_slot',
         '18_19_slot',
     ];
-    
+
     public function room()
     {
         return $this->belongsTo(Room::class, 'room_id', 'id');
@@ -45,4 +44,23 @@ class Request extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public static function slots(): array
+    {
+        return [
+            '8_9_slot',
+            '9_10_slot',
+            '10_11_slot',
+            '11_12_slot',
+            '12_13_slot',
+            '13_14_slot',
+            '14_15_slot',
+            '15_16_slot',
+            '16_17_slot',
+            '17_18_slot',
+            '18_19_slot',
+        ];
+    }
+
+
 }
