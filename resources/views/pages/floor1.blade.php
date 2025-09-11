@@ -26,14 +26,14 @@
     }
 
     .map-wrapper {
-    position: relative;
-    width: 100%;
+        position: relative;
+        width: 100%;
     }
 
     .map-wrapper img {
-    width: 100%;
-    height: auto;
-    display: block;
+        width: 100%;
+        height: auto;
+        display: block;
     }
 
     .floor-plan img {
@@ -65,24 +65,33 @@
     }
 
 
-#room9127 {
-    top: 37.8%;
-    left: 19.8%;
-}
-
-
+    #CP9127 {
+        top: 37.8%;
+        left: 19.8%;
+    }
 </style>
 
 @section('content')
-<body style="background: rgba(119, 118, 118, 0.137);">
-    <br><br><br><br><br><br><br>
 
-    <div class="floor-plan">
-        <h1 style="margin-left: 60px; font-size: 30px; text-decoration: underline;">ชั้น 1</h1><br>
-        <div class="map-wrapper">
-        <img src="{{ asset('img/floor1map.png') }}" alt="Error">
+    <body style="background: rgba(119, 118, 118, 0.137);">
+        <?php
+        $now = date('Y-m-d');
+        ?>
+        <br><br><br><br><br><br><br>
 
-        <a href=""><button id="room9127" class="room-btn room-btn-notavailable"></button></a>
-    </div>
-</body>
+        <div class="floor-plan">
+            <h1 style="margin-left: 60px; font-size: 30px; text-decoration: underline;">ชั้น 1</h1><br>
+            <div class="map-wrapper">
+                <img src="{{ asset('img/floor1map.png') }}" alt="Error">
+                {{-- false คือยังว่าง true คือโดนจอง --}}
+                @foreach ($rooms as $room)
+                    @if ($room->status == false)
+                        <a href="/booking/{{ $room->id }}/{{ $now }}"><button id="{{ $room->id }}" title="{{ $room->id }}" class="room-btn"></button></a>
+                    @else
+                        <a href=""><button id="{{ $room->id }}" class="room-btn-notavailable" disabled></button></a>
+                    @endif
+                @endforeach
+
+            </div>
+    </body>
 @endsection

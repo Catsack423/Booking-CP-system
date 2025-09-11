@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('room', function (Blueprint $table) {
             
             $table->string('id')->primary();
-            $table ->date('day');
-            $table->boolean('status')->default(true);
+            $table ->date('day')->default(null);
+            $table->boolean('status')->default(false);
             $table->boolean("8_9_slot")->default(false);
             $table->boolean("9_10_slot")->default(false);
             $table->boolean("10_11_slot")->default(false);
