@@ -83,7 +83,7 @@
             <h1 style="margin-left: 60px; font-size: 30px; text-decoration: underline;">ชั้น 1</h1><br>
             <div class="map-wrapper">
                 <img src="{{ asset('img/floor1map.png') }}" alt="Error">
-                {{-- false คือยังว่าง true คือโดนจอง --}}
+                {{--  คือยังว่าง true คือโดนจอง --}}
                 @foreach ($rooms as $room)
                     @if ($room->status == false)
                         <a href="/booking/{{ $room->id }}/{{ $now }}"><button id="{{ $room->id }}" title="{{ $room->id }}" class="room-btn"></button></a>
