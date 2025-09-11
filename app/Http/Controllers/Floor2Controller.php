@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use Illuminate\Http\Request;
 
-class Floor1Controller extends Controller
+class Floor2Controller extends Controller
 {
-    function index()
-    {
-        $rooms = Room::where('id', 'like', 'CP91%')->get();
+    function index(){
+        $rooms = Room::where('id', 'like', 'CP92%')->get();
         if ($rooms) {
             $now = date("Y-m-d");
             foreach ($rooms as $room) {
@@ -51,6 +50,6 @@ class Floor1Controller extends Controller
             }
         }
 
-        return view('pages.floor1', compact('rooms'));
-    }
+        return view('pages.floor2', compact('rooms'));
+    } 
 }
