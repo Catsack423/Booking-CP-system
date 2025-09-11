@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Floor1Controller;
+use App\Http\Controllers\Floor5Controller;
+
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\ProfileController;
 
@@ -12,11 +14,6 @@ Route::get('/', function () {
 // Route::get('/', function () {
 //     return view('pages.index');
 // })->name('home');
-
-
-
-
-
 
 Route::middleware([
     'auth:sanctum',
@@ -46,9 +43,7 @@ Route::middleware([
         return view('pages.floor4');
     })->name('floor4');
 
-    Route::get('/floor5', function () {
-        return view('pages.floor5');
-    })->name('floor5');
+    Route::get('/floor5', [Floor5Controller::class,'index'])->name('floor5');
 
     Route::get('/Booking', function () {
         return view('pages.Booking');
