@@ -64,13 +64,13 @@
         cursor: default;
     }
 
-#room9421 {
+#CP9421 {
     top: 17.5%;
     left: 43%;
 }
 
 
-#room9422 {
+#CP9422 {
     top: 52.5%;
     left: 43%;
 }
@@ -79,14 +79,22 @@
 
 @section('content')
 <body style="background: rgba(119, 118, 118, 0.137);">
+    <?php
+        $now = date('Y-m-d');
+        ?>
     <br><br><br><br><br><br><br>
 
     <div class="floor-plan">
         <h1 style="margin-left: 60px; font-size: 30px; text-decoration: underline;">ชั้น 4</h1><br>
         <div class="map-wrapper">
         <img src="{{ asset('img/floor4map.png') }}" alt="Error">
-        <a href=""><button id="room9421" class="room-btn room-btn-notavailable"></button></a>
-        <a href=""><button id="room9422" class="room-btn "></button></a>
+        @foreach ($rooms as $room)
+                    @if ($room->status == false)
+                        <a href="/booking/{{ $room->id }}/{{ $now }}"><button id="{{ $room->id }}" title="{{ $room->id }}" class="room-btn"></button></a>
+                    @else
+                        <a href=""><button id="{{ $room->id }}" class="room-btn-notavailable" disabled></button></a>
+                    @endif
+        @endforeach
         
     </div>
 </body>

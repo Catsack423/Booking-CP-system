@@ -4,6 +4,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
+    
     body {
         margin: 0;
         padding: 0;
@@ -65,19 +66,19 @@
     }
 
 
-#room9228 {
+#CP9228 {
     top: 30.4%;
     left: 18%;
 }
 
 
-#room9227 {
+#CP9227 {
     top: 30.4%;
     left: 33.5%;
 }
 
 
-#room9226 {
+#CP9226 {
     top: 30.4%;
     left: 48%;
 }
@@ -86,15 +87,22 @@
 
 @section('content')
 <body style="background: rgba(119, 118, 118, 0.137);">
+    <?php
+        $now = date('Y-m-d');
+        ?>
     <br><br><br><br><br><br><br>
 
     <div class="floor-plan">
         <h1 style="margin-left: 60px; font-size: 30px; text-decoration: underline;">ชั้น 2</h1><br>
         <div class="map-wrapper">
         <img src="{{ asset('img/floor2map.png') }}" alt="Error">
-        <a href=""><button id="room9228" class="room-btn room-btn-notavailable"></button></a>
-        <a href=""><button id="room9227" class="room-btn "></button></a>
-        <a href=""><button id="room9226" class="room-btn"></button></a>
+        @foreach ($rooms as $room)
+                    @if ($room->status == false)
+                        <a href="/booking/{{ $room->id }}/{{ $now }}"><button id="{{ $room->id }}" title="{{ $room->id }}" class="room-btn"></button></a>
+                    @else
+                        <a href=""><button id="{{ $room->id }}" class="room-btn-notavailable" disabled></button></a>
+                    @endif
+                @endforeach
     </div>
 </body>
 @endsection
