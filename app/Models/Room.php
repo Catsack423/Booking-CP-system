@@ -29,7 +29,7 @@ class Room extends Model
     ];
 
 
-    public function request()
+    public function requests()
     {
         return $this->hasOne(Request::class, 'room_id', 'id');
     }
@@ -50,4 +50,43 @@ class Room extends Model
             '18_19_slot',
         ];
     }
+
+    public function checkstatus(): void
+    {
+        $this->status = true;
+        foreach (Room::slots() as $key) {
+            if ($this->$key == false) {
+                $this->status = false;
+                $this->save();
+                return;
+            }
+        }
+        return;
+    }
+
+
+    public function checkslot($requests): void
+    {
+            foreach ($requests as $request) {
+                foreach (Room::slots() as $key) {
+                    if ($request->$key == 1) {
+                        $this->$key = $request->$key;
+                    }
+                }
+            }
+        $this->save();
+        return;
+    }
+
+
+    public function resetslot():void{
+        foreach(Room::slots() as $key){
+            $this->$key = false;
+        }
+        $this->status = false;
+        $this->save();
+        return;
+    }
+
+
 }
