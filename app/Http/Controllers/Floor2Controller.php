@@ -3,53 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
-use Illuminate\Http\Request;
-
+use App\Models\Request;
 class Floor2Controller extends Controller
 {
-    function index(){
+    function index()
+    {
         $rooms = Room::where('id', 'like', 'CP92%')->get();
         if ($rooms) {
             $now = date("Y-m-d");
-            foreach ($rooms as $room) {
+             foreach ($rooms as $room) {
                 //เช็คว่าขึ้นวันใหม่มั้ย
-                if ($room['day'] < $now || $room['day'] == null || $room['day'] == "0000-00-00") {
+                if ($room->day  < $now || $room->day  == null || $room->day  == "0000-00-00") {
                     $room->day = $now;
                     //flase (0) คือว่าง true (1) คือเต็ม
                     $room->status = false;
                     $room->save();
-                } else if ($room['day'] == $now) {
+                } else if ($room->day == $now) {
                     # ถ้าresetวันแล้ว
-                    if (!$room->request) {
+                    $requests = Request::where('day', '=', $now)->where('room_id',"=",$room->id)->get();
+                    if ($requests->isEmpty()) {
+                        $room->resetslot();
                         continue;
                     }
-                    $requests = $room->request->where('day', '=', $now)->get();
                     //loop set ค่าroomด้วยslot
-                    if ($requests->isEmpty()) {
-                        continue; // ใช้ continue ให้ไปยัง roomถัดไป
-                    }
-                    foreach ($requests as $request) {
-                        foreach ($room->slot() as $key => $data) {
-                            if ($request[$key] == 1) {
-                                $data[$key] = $request[$key];
-                            }
-                        }
-                    }
-                    
-                    
+                    $room->checkslot($requests);
                 }
-                //กำหนดให้โดนจองไว้ แล้วค่อยไปแก้ในloop
-                $room->status = 1;
-                    foreach ($room->slot() as $key => $data) {
-
-                        if ($data[$key] == 0) {
-                            $room->status = 0;
-                            break;
-                        }
-                }   
+                $room->checkstatus();
             }
         }
 
         return view('pages.floor2', compact('rooms'));
-    } 
+    }
 }

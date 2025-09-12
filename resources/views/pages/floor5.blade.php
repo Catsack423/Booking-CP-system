@@ -60,6 +60,13 @@
     }
 
     .room-btn-notavailable {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        width: 10%;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        border: 3px solid black;
+        transition: transform 0.2s;
         background: rgba(255, 0, 21, 0.719);
         cursor: default;
     }
