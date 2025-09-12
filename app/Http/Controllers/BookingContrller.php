@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+
 use App\Models\Request as BookingRequest; // ตาราง request
 use Illuminate\Http\Request;              // HTTP request
 use Illuminate\Validation\Rule;
@@ -15,11 +16,13 @@ class BookingContrller extends Controller
     $rooms = Room::where("id",'=',$room)->get();
         if (!$rooms->isEmpty()) {
            return view('pages.Booking',compact('rooms','day'));
+
         }
         else{
             redirect()->route("floor1");
         }
     }
+
 
     public function store(Request $request)
     {
@@ -55,13 +58,13 @@ class BookingContrller extends Controller
 
         $userId = Auth::id();
 
-        // แปลงค่าจาก slots[] ให้เป็นรายชื่อคอลัมน์ในตาราง (รองรับเคสส่งมาเป็นชื่อคอลัมน์ตรง ๆ)
+       
         $slotColumns = [];
         foreach ($data['slots'] as $val) {
-            $slotColumns[] = $slotMap[$val] ?? $val; // ถ้า $val = '8_9_slot' อยู่แล้วก็ใช้เลย
+            $slotColumns[] = $slotMap[$val] ?? $val; 
         }
 
-        //  ตรวจชน: ห้องเดียวกัน + วันเดียวกัน + (ยังไม่ถูก reject) + มีคอลัมน์ใดคอลัมน์หนึ่งเป็น 1 อยู่แล้ว
+       
         $conflict = BookingRequest::where('room_id', $data['room_id'])
             ->whereDate('day', Carbon::parse($data['day'])->toDateString())
             ->where('reject_status', 0)            // ยังไม่ถูกปฏิเสธ
@@ -78,7 +81,7 @@ class BookingContrller extends Controller
                 ->withErrors(['slots' => 'ช่วงเวลาที่เลือกถูกจองแล้ว โปรดเลือกช่วงเวลาอื่น']);
         }
 
-        // เตรียม payload ตามตารางจริง
+       
         $payload = [
             'day'            => $data['day'],
             'room_id'        => $data['room_id'],
@@ -87,7 +90,7 @@ class BookingContrller extends Controller
             'last_name'      => $data['last_name'],
             'phone'          => $data['phone'],
             'detail'         => $data['detail'] ?? null,
-            // สถานะเริ่มต้น: รออนุมัติ
+            
             'wait_status'    => 1,
             'approve_status' => 0,
             'reject_status'  => 0,
@@ -104,4 +107,5 @@ class BookingContrller extends Controller
             ->route('booking.show', [$data['room_id'], $data['day']])
             ->with('status', 'ส่งคำขอจองเรียบร้อยแล้ว');
     }
+
 }

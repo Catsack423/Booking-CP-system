@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
   @if (session('status'))
     <div class="p-3 bg-green-100 text-green-800 rounded mb-3">
       {{ session('status') }}
@@ -71,43 +72,90 @@
     .bk-table{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:16px;}
     .bk-head{display:grid;grid-template-columns:repeat(12,1fr);}
     .bk-head > div{background:#fff;border-right:1px solid var(--line);padding:8px;text-align:center;font-weight:600}
-    /* ตารางเวลา */
 
-    .bk-status{display:grid;grid-template-columns:repeat(12,1fr)}
+   
+
+    .bk-status {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr)
+    }
 
     /* คอลลัมตาราง */
-    .bk-cell{position:relative;border-right:1px solid var(--line);border-bottom:1px solid var(--line);height:70px;display:flex;align-items:center;justify-content:center;font-weight:600}
-    /* คอลลัมตาราง */
+    .bk-cell {
+        position: relative;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600
+    }
+
+   
 
     /* ตัวหนังสือในคอลลัมตาราง */
-    .bk-chip{position:absolute;top:6px;left:10px;font-size:12px}
+    .bk-chip {
+        position: absolute;
+        top: 6px;
+        left: 10px;
+        font-size: 12px
+    }
+
     /* ตัวหนังสือในคอลลัมตาราง */
-/* ตาราง */
+    /* ตาราง */
 
     /* ลบ */
-    .bk-del{position:absolute;top:26px;left:10px;background:#C91818;color:#fff;border:none;border-radius:6px;padding:2px 8px;font-size:12px}
+    .bk-del {
+        position: absolute;
+        top: 26px;
+        left: 10px;
+        background: #C91818;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 2px 8px;
+        font-size: 12px
+    }
+
     /* ลบ */
 
     /* ปุ่มเช็ค */
-    .bk-check{transform:scale(1.2)}
+    .bk-check {
+        transform: scale(1.2)
+    }
+
     /* ปุ่มเช็ค */
 
     /* ช่องที่บอกว่าจองแล้ว */
-    .bg-booked{background:var(--red)}
+    .bg-booked {
+        background: var(--red)
+    }
+
     /* ช่องที่บอกว่าจองแล้ว */
 
     /* ช่องที่จองได้สีเขียว */
-    .bg-free{background:var(--green)}
+    .bg-free {
+        background: var(--green)
+    }
+
     /* ช่องที่จองได้สีเขียว */
 
     /* ช่องที่รออนุมัติสีเหลือง */
-    .bg-pending{background:var(--yellow)}
+    .bg-pending {
+        background: var(--yellow)
+    }
+
     /* ช่องที่รออนุมัติสีเหลือง */
 
     /* ช่องที่เต็มแล้วสีแดง */
-    .bg-full{background:#f4a4a4}
+    .bg-full {
+        background: #f4a4a4
+    }
+
     /* ช่องที่เต็มแล้วสีแดง */
-  </style>
+</style>
+
 
 @php
      $times = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
@@ -138,6 +186,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 
 @section('content')
+
  <div class="bk-wrap">
     {{-- ฟอร์มข้อมูล --}}
      <form id="bookingForm" method="POST" action="{{ route('booking.store') }}">
@@ -207,3 +256,4 @@
     </form>
   </div>
 @endsection
+
