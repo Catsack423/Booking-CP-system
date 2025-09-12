@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     use HasFactory;
-    protected $table = "room";
+    protected $table = 'room';
     protected $primaryKey = "id";
     public $incrementing = false;
     public $timestamp = true;
