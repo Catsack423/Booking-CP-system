@@ -1,0 +1,107 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Room;
+use App\Models\Request as BookingRequest; // ตาราง request
+use Illuminate\Http\Request;              // HTTP request
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
+
+class BookingContrller extends Controller
+{
+    public function show($room, $day = null){
+    $rooms = Room::where("id",'=',$room)->get();
+        if (!$rooms->isEmpty()) {
+           return view('pages.Booking',compact('rooms','day'));
+        }
+        else{
+            redirect()->route("floor1");
+        }
+    }
+
+    public function store(Request $request)
+    {
+         // mapping เวลา → คอลัมน์ในตาราง
+        $slotMap = [
+            '08:00' => '8_9_slot',
+            '09:00' => '9_10_slot',
+            '10:00' => '10_11_slot',
+            '11:00' => '11_12_slot',
+            '12:00' => '12_13_slot',
+            '13:00' => '13_14_slot',
+            '14:00' => '14_15_slot',
+            '15:00' => '15_16_slot',
+            '16:00' => '16_17_slot',
+            '17:00' => '17_18_slot',
+            '18:00' => '18_19_slot',
+        ];
+        $data = $request->validate([
+            'room_id'    => ['required', Rule::exists('room', 'id')],   // ตารางชื่อ room, คอลัมน์ id
+            'day'        => ['required', 'date'],
+            'first_name' => ['required', 'string', 'max:200'],
+            'last_name'  => ['required', 'string', 'max:200'],
+            'phone'      => ['required', 'regex:/^[0-9]{10}$/'],
+            'detail'     => ['nullable', 'string', 'max:1000'],
+            'slots'      => ['required', 'array', 'min:1'],
+            'slots.*'    => ['string'],
+        ], [
+            'room_id.exists' => 'ไม่พบห้องที่เลือก',
+            'phone.regex'    => 'กรุณากรอกเบอร์โทรให้ครบ 10 หลัก',
+            'slots.required' => 'กรุณาเลือกช่วงเวลาอย่างน้อย 1 ช่อง',
+            'slots.min'      => 'กรุณาเลือกช่วงเวลาอย่างน้อย 1 ช่อง',
+        ]);
+
+        $userId = Auth::id();
+
+        // แปลงค่าจาก slots[] ให้เป็นรายชื่อคอลัมน์ในตาราง (รองรับเคสส่งมาเป็นชื่อคอลัมน์ตรง ๆ)
+        $slotColumns = [];
+        foreach ($data['slots'] as $val) {
+            $slotColumns[] = $slotMap[$val] ?? $val; // ถ้า $val = '8_9_slot' อยู่แล้วก็ใช้เลย
+        }
+
+        //  ตรวจชน: ห้องเดียวกัน + วันเดียวกัน + (ยังไม่ถูก reject) + มีคอลัมน์ใดคอลัมน์หนึ่งเป็น 1 อยู่แล้ว
+        $conflict = BookingRequest::where('room_id', $data['room_id'])
+            ->whereDate('day', Carbon::parse($data['day'])->toDateString())
+            ->where('reject_status', 0)            // ยังไม่ถูกปฏิเสธ
+            ->where(function ($q) use ($slotColumns) {
+                foreach ($slotColumns as $col) {
+                    $q->orWhere($col, 1);
+                }
+            })
+            ->exists();
+
+        if ($conflict) {
+            return back()
+                ->withInput()
+                ->withErrors(['slots' => 'ช่วงเวลาที่เลือกถูกจองแล้ว โปรดเลือกช่วงเวลาอื่น']);
+        }
+
+        // เตรียม payload ตามตารางจริง
+        $payload = [
+            'day'            => $data['day'],
+            'room_id'        => $data['room_id'],
+            'user_id'        => $userId,
+            'first_name'     => $data['first_name'],
+            'last_name'      => $data['last_name'],
+            'phone'          => $data['phone'],
+            'detail'         => $data['detail'] ?? null,
+            // สถานะเริ่มต้น: รออนุมัติ
+            'wait_status'    => 1,
+            'approve_status' => 0,
+            'reject_status'  => 0,
+        ];
+
+        // set คอลัมน์ช่วงเวลาที่เลือกเป็น 1 (คอลัมน์อื่น default 0 อยู่แล้วตามตาราง)
+        foreach ($slotColumns as $col) {
+            $payload[$col] = 1;
+        }
+
+        BookingRequest::create($payload);
+        
+        return redirect()
+            ->route('booking.show', [$data['room_id'], $data['day']])
+            ->with('status', 'ส่งคำขอจองเรียบร้อยแล้ว');
+    }
+}
