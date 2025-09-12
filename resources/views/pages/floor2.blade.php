@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+<<<<<<< HEAD
 @section('title', 'floor2')
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -74,6 +75,10 @@
         left: 21.6%;
     }
 </style>
+=======
+@section('title', 'ชั้น 2')
+<link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png">
+>>>>>>> 710d257 (Update Profile and nav Sidebar Menu)
 @section('content')
 
 
