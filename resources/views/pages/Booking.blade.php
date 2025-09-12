@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 <style>
     :root {
         --blue: #0B76BC;
@@ -84,7 +85,15 @@
     .bk-head {
         display: grid;
         grid-template-columns: repeat(12, 1fr)
+
     }
+    .bk-wrap{max-width:1150px;margin:12px auto;padding:0 16px;margin-top: 150px;}
+    .bk-card{background:var(--card);border:1px solid #BFC6C9;border-radius:12px;padding:14px}
+    .bk-grid{display:grid;grid-template-columns:170px 1fr 1fr 1fr;gap:10px}
+    .bk-lbl{font-size:13px;margin-bottom:4px;color:#444}
+    .bk-input{width:100%;padding:10px 12px;border:1px solid #CDD5DA;border-radius:10px;background:#fff}
+    .bk-input[disabled]{background:#e9eef2;color:#6b7280}
+
 
     .bk-head>div {
         background: #fff;
@@ -177,16 +186,12 @@
     /* ช่องที่เต็มแล้วสีแดง */
 </style>
 
-    /* กำหนดตำแหน่งปุ่มแต่ละห้อง */
-    #room9127 {
-        top: 44.5%;
-        left: 22.9%;
-    }
-</style>
+
 @section('title', 'Booking')
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 
 @section('content')
+
     <div class="bk-wrap">
         {{-- ฟอร์มข้อมูล --}}
         <div class="bk-card">
@@ -272,3 +277,4 @@
         </div>
     </div>
 @endsection
+
