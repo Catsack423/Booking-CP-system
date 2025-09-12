@@ -69,7 +69,7 @@ body {
   padding: 10px 25px;
   border-radius: 8px;
   border: none;
-  background-color: #3b82f6;
+  background-color: #0B76BC;
   color: #fff;
   font-weight: 500;
   cursor: pointer;
@@ -79,7 +79,7 @@ body {
 }
 
 .profile-content button:hover {
-  background-color: #2563eb;
+  background-color: #0B76BC;
 }
 
 .profile-content .user-avatar {

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'เกี่ยวกับเรา')
-
+<link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png">
 @section('content')
   <h1>เกี่ยวกับเรา</h1>
   <p>นี่คือรายละเอียดเกี่ยวกับระบบจองห้อง...</p><br>
