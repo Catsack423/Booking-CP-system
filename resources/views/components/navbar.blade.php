@@ -43,8 +43,10 @@
                 <a href="{{ route('floor2') }}" class="{{ request()->routeIs('floor2') ? 'active' : '' }}">ชั้น 2</a>
                 <a href="{{ route('floor4') }}" class="{{ request()->routeIs('floor4') ? 'active' : '' }}">ชั้น 4</a>
                 <a href="{{ route('floor5') }}" class="{{ request()->routeIs('floor5') ? 'active' : '' }}">ชั้น 5</a>
+
                 <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">เกี่ยวกับเรา</a>
                 <a href="{{ route('guide') }}" class="{{ request()->routeIs('guide') ? 'active' : '' }}">วิธีใช้งาน</a>
+
                 <form method="POST" action="{{ route('logout') }}" class="logout-form">
                     @csrf
                     <button type="submit" class="logout-btn">

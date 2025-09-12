@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\BookingContrller;
 use App\Http\Controllers\Floor1Controller;
+use App\Http\Controllers\Floor2Controller;
+use App\Http\Controllers\Floor4Controller;
+use App\Http\Controllers\Floor5Controller;
+
+
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\ProfileController;
 
@@ -12,11 +18,6 @@ Route::get('/', function () {
 // Route::get('/', function () {
 //     return view('pages.index');
 // })->name('home');
-
-
-
-
-
 
 Route::middleware([
     'auth:sanctum',
@@ -37,22 +38,19 @@ Route::middleware([
     })->name('guide');
 
    Route::get('/floor1', [Floor1Controller::class,'index'])->name('floor1');
+   Route::get('/floor2', [Floor2Controller::class,'index'])->name('floor2');
+   Route::get('/floor4', [Floor4Controller::class,'index'])->name('floor4');
+    Route::get('/floor5', [Floor5Controller::class,'index'])->name('floor5');
 
-    Route::get('/floor2', function () {
-        return view('pages.floor2');
-    })->name('floor2');
+    Route::get('/booking/{roomId?}/{date?}', [BookingContrller::class, 'show'])->name('booking.show');
+    Route::post('/booking', [BookingContrller::class, 'store'])->name('booking.store');
 
-    Route::get('/floor4', function () {
-        return view('pages.floor4');
-    })->name('floor4');
 
-    Route::get('/floor5', function () {
-        return view('pages.floor5');
-    })->name('floor5');
 
     Route::get('/profile', function () {
     return view('profile');
     })->name('profile');
+
 
 });
 

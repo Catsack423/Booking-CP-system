@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean("reject_status")->default(false);
             $table->string("room_id");
             $table->string("user_id");
-            $table->string("frist_name",200);
+            $table->string("first_name",200);
             $table->string("last_name",200);
             $table->string("detail",1000);
             $table->string("phone",20);
