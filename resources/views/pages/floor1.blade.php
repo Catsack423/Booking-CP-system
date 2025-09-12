@@ -80,9 +80,10 @@
         <br><br><br><br><br><br><br>
 
         <div class="floor-plan">
+          <div class="room-container">
             <h1 style="text-indent: 60px; font-size: 30px; text-decoration: underline;">ชั้น 1</h1><br>
             <img src="{{ asset('img/floor1map.png') }}" alt="Error">
-            <div class="room-container">
+            
                 <a href="{{ route('Booking') }}" class="{{ request()->routeIs('Booking') ? 'active' : '' }}">
                     <button id="room9127" class="room-btn"></button>
                 </a>
