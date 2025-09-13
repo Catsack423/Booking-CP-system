@@ -69,11 +69,11 @@
 /* ตาราง */
     /* ตารางเวลา */
     .bk-table{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:16px;}
-    .bk-head{display:grid;grid-template-columns:repeat(12,1fr);}
+    .bk-head{display:grid;grid-template-columns:repeat(11,1fr);}
     .bk-head > div{background:#fff;border-right:1px solid var(--line);padding:8px;text-align:center;font-weight:600}
     /* ตารางเวลา */
 
-    .bk-status{display:grid;grid-template-columns:repeat(12,1fr)}
+    .bk-status{display:grid;grid-template-columns:repeat(11,1fr)}
 
     /* คอลลัมตาราง */
     .bk-cell{position:relative;border-right:1px solid var(--line);border-bottom:1px solid var(--line);height:70px;display:flex;align-items:center;justify-content:center;font-weight:600}
@@ -110,29 +110,94 @@
   </style>
 
 @php
-     $times = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
+use Illuminate\Support\Carbon;
+  
 
     $room     = $room    ?? ($rooms->first() ?? null);
     $roomId   = $room->id       ?? ($rooms->first()->id ?? 1);
     $roomCode = $room->room_id  ?? ($rooms->first()->id ?? '');
     $dayVal   = $date ?? now()->toDateString(); // แก้ตรงนี้ ใช้ $dayVal
 
+    $timeToCol = [
+        '08:00-09:00' => '8_9_slot',
+        '09:00-10:00' => '9_10_slot',
+        '10:00-11:00' => '10_11_slot',
+        '11:00-12:00' => '11_12_slot',
+        '12:00-13:00' => '12_13_slot',
+        '13:00-14:00' => '13_14_slot',
+        '14:00-15:00' => '14_15_slot',
+        '15:00-16:00' => '15_16_slot',
+        '16:00-17:00' => '16_17_slot',
+        '17:00-18:00' => '17_18_slot',
+        '18:00-19:00' => '18_19_slot',
+    ];
+
+    // ป้ายเวลาที่จะใช้แสดงหัวคอลัมน์
+    $timeLabels = array_keys($timeToCol);
+
+    // ฟังก์ชันแปลง 08:00 => 08.00 (ตามรูปพี่)
+    $fmt = fn($t) => str_replace(':', '.', $t);
+    if (!isset($slotStatus)) {
+        $slotStatus = [];
+
+        // ใช้ $roomId และ $dayVal จากหัวไฟล์ของพี่
+        $requests = \App\Models\Request::where('room_id', $roomId)
+            ->whereDate('day', Carbon::parse($dayVal)->toDateString())
+            ->get([
+                'wait_status','approve_status','reject_status',
+                '8_9_slot','9_10_slot','10_11_slot','11_12_slot','12_13_slot',
+                '13_14_slot','14_15_slot','15_16_slot','16_17_slot','17_18_slot','18_19_slot'
+            ]);
+
+        foreach ($timeToCol as $time => $col) {
+            $state = 'free';
+            foreach ($requests as $r) {
+                if ((int)$r->{$col} === 1 && (int)$r->reject_status === 0) {
+                    if ((int)$r->approve_status === 1) { $state = 'approved'; break; }
+                    elseif ((int)$r->wait_status === 1) { $state = 'pending'; }
+                }
+            }
+            $slotStatus[$time] = match ($state) {
+                'approved' => ['status'=>'approved','label'=>'เต็มแล้ว','class'=>'bg-full'],
+                'pending'  => ['status'=>'pending','label'=>'รออนุมัติ','class'=>'bg-pending'],
+                default    => ['status'=>'free','label'=>'ว่าง','class'=>'bg-free'],
+            };
+        }
+    }
   @endphp
-  <script> function checkphone(){ /* เช็คเบอร์โทร ต้องมี 10 ตัว */
+
+
+  <script> 
+  function checkphone(){ /* เช็คเบอร์โทร ต้องมี 10 ตัว */
   let phone = document.getElementById("phone").value; 
   if (phone.length != 10) { 
     alert("กรุณากรอกเบอร์โทรให้ครบ 10 หลัก");
      e.preventDefault(); 
      /* ยกเลิกการส่งฟอร์ม */ 
-     return; } } 
-     function checkslot(){ /* เช็คเวลาจอง */ 
+     return; } 
+    } 
+     
+    function checkslot(){ /* เช็คเวลาจอง */ 
      let slots = document.querySelectorAll("input[name='slots[]']:checked"); 
      if (slots.length === 0) { 
       alert("กรุณาเลือกช่วงเวลาอย่างน้อย 1 ช่อง"); 
-      e.preventDefault(); return; } } 
+      e.preventDefault(); return; } 
+    } 
+  function checkdetail(){
+    let detail = document.getElementById("detail").value;
+    if (detail.length == 0) { 
+    alert("กรุณากรอกรายละเอียด!");
+     e.preventDefault(); 
+     /* ยกเลิกการส่งฟอร์ม */ 
+     return; 
+    } 
+  }
+
+
       function validate(){ 
         checkphone() 
         checkslot() 
+        checkdetail()
         } </script>
 @section('title', 'Booking')
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
@@ -165,14 +230,14 @@
     <div style="flex:1">
       <div class="bk-lbl">Phone</div>
       <input class="bk-input" name="phone" id="phone" placeholder="Phone"
-             value="{{ old('phone') }}" inputmode="numeric" pattern="\d{10}"
-             maxlength="10" required>
+             value="{{ old('phone') }}" inputmode="numeric" onblur="checkphone()"
+             maxlength="10" required >
     </div>
   </div>
 
   <div>
     <div class="bk-lbl">Detail</div>
-    <input class="bk-input" name="detail" placeholder="Detail" value="{{ old('detail') }}">
+    <input class="bk-input" id="detail" name="detail" placeholder="Detail" value="{{ old('detail') }}" onblur="checkdetail()">
   </div>
 
 
@@ -184,25 +249,33 @@
 
       <div class="bk-table">
         <div class="bk-head">
-          @foreach($times as $t)
-            <div>{{ $t }}</div>
+          @foreach($timeLabels  as $t)
+            <div>{{ $fmt($t) }}</div>
           @endforeach
         </div>
 
         <div class="bk-status">
-          @foreach($times as $t)
-            <label class="bk-cell bg-free" title="เลือกช่วงเวลา {{ $t }}">
-              <span class="bk-chip">ว่าง</span>
-              <input type="checkbox" class="bk-check" name="slots[]" value="{{ $t }}"
-                     {{ in_array($t, (array)old('slots', [])) ? 'checked' : '' }}>
-            </label>
-          @endforeach
-        </div>
+   @foreach($timeLabels as $t)
+     @php
+      $s = $slotStatus[$t] ?? ['status'=>'free','label'=>'ว่าง','class'=>'bg-free'];
+    @endphp
+
+    <label class="bk-cell {{ $s['class'] }}" title="{{ $s['label'] }}">
+      <span class="bk-chip">{{ $s['label'] }}</span>
+
+      @if($s['status'] === 'free')
+        {{-- ว่าง: ให้เลือกได้ ส่งค่าเป็น "เวลา" เช่น 08:00 --}}
+        <input type="checkbox" class="bk-check" name="slots[]" value="{{ $t }}"
+               {{ in_array($t, (array)old('slots', [])) ? 'checked' : '' }}>
+      @endif
+    </label>
+  @endforeach
+</div>
       </div>
         <br><br>
       <div class="flex justify-end mt-3">
         <button type="submit" class="btn-cancel" >ยกเลิก</button>
-        <button type="submit" class="btn-book " >จอง</button>
+        <button type="submit" class="btn-book " onclick="validate()">จอง</button>
       </div>
     </form>
   </div>
