@@ -7,6 +7,8 @@ use App\Http\Controllers\Floor4Controller;
 use App\Http\Controllers\Floor5Controller;
 
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\historyadmin;
+
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\ProfileController;
@@ -40,9 +42,9 @@ Route::middleware([
 
 
 
-   Route::get('/floor1', [Floor1Controller::class,'index'])->name('floor1');
-   Route::get('/floor2', [Floor2Controller::class,'index'])->name('floor2');
-   Route::get('/floor4', [Floor4Controller::class,'index'])->name('floor4');
+    Route::get('/floor1', [Floor1Controller::class,'index'])->name('floor1');
+    Route::get('/floor2', [Floor2Controller::class,'index'])->name('floor2');
+    Route::get('/floor4', [Floor4Controller::class,'index'])->name('floor4');
     Route::get('/floor5', [Floor5Controller::class,'index'])->name('floor5');
     Route::get('/booking/{room}', [BookingContrller::class, 'index'])->name('booking.index');
     Route::get('/booking/{roomId?}/{date?}', [BookingContrller::class, 'show'])->name('booking.show');
@@ -50,6 +52,14 @@ Route::middleware([
     Route::get('/history', [HistoryController::class, 'index'])->name('HistoryBooking');
     Route::post('/history/booking/{id}', [HistoryController::class, 'update'])->name('booking.update');
     Route::delete('/history/booking/{id}', [HistoryController::class, 'destroy'])->name('booking.destroy');
+    
+    Route::get('/historyadmin', [historyadmin::class, 'index'])->name('historyadmin');
+    Route::post('/historyadmin/{id}/approve', [historyadmin::class, 'approve'])->name('historyadmin.approve');
+    Route::post('/historyadmin/{id}/reject',  [historyadmin::class, 'reject'])->name('historyadmin.reject');
+    Route::post('/historyadmin/{id}/update',  [historyadmin::class, 'update'])->name('historyadmin.update');
+    Route::delete('/historyadmin/{id}', [historyadmin::class, 'destroy'])
+        ->name('historyadmin.destroy');
+
 
     Route::get('/profile', function () {
         return view('profile');
