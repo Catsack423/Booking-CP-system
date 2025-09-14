@@ -1,10 +1,19 @@
 @extends('layouts.app')
 
 @section('title', 'Profile')
-
+<link rel="stylesheet" href="{{ asset('css/history.css') }}">
+<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+
+
+
+<div class="container mx-auto px-4 py-6">
+  <div class="wraplogin">
+  <div class="actions">
+    <a href="{{ route('profile') }}" class="btn">แก้ไขข้อมูลส่วนตัว</a>
+    <a href="{{ route('HistoryBooking') }}" class="btn btn-primary">ดูประวัติการจอง</a>
+  </div>
 <div class="profile-content">
     <!-- Card 1: ข้อมูลส่วนตัว -->
     <div class="card">

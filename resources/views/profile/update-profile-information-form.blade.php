@@ -1,4 +1,7 @@
 <x-form-section submit="updateProfileInformation">
+
+
+
     <x-slot name="title">
         {{ __('') }}
     </x-slot>
@@ -58,6 +61,7 @@
             </div>
             <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" required
                 autocomplete="name" />
+
             <x-input-error for="name" class="mt-2" />
         </div>
 
@@ -94,7 +98,7 @@
             {{ __('Saved.') }}
         </x-action-message>
 
-        <x-button id='saveBtn' wire:loading.attr="disabled" wire:target="photo">
+        <x-button id='saveBtn' wire:loading.attr="disabled" wire:target="photo" >
             {{ __('บันทีก') }}
         </x-button>
         {{-- <script>

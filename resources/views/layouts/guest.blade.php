@@ -10,7 +10,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{ asset('css/BGlogin.css') }}">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -18,38 +18,7 @@
     <!-- Styles -->
     @livewireStyles
 
-    <style>
-        /* BG เต็มจอ + เบลอ */
-        body {
-            min-height: 20vh;
-            margin: 0;
-        }
-        .bg-full {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .bg-full img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(4px);
-            transform: scale(1.0);
-        }
-        .bg-overlay {
-            position: absolute;
-        }
-        main {
-            position: relative;
-            z-index: 10;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-        }
-    </style>
+    
 </head>
 <body class="font-sans antialiased">
 

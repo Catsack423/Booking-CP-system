@@ -27,7 +27,7 @@
                         </p>
                     </div>
                 </span>
-                <a href="../profile">
+                <a href="/profile">
                     <div class="cardProfile-img">
                         <img src="{{ Auth::user()->profile_photo_url }}" alt="avatar" class="user-avatar"
                             style="border-radius: 50px;">

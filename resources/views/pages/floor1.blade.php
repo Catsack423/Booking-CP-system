@@ -106,10 +106,6 @@
                 @endforeach
 
             </div>
-            @forelse ($requests as $data )
-                <p>{{$data}}</p>
-            @empty
-                <p>Empty</p>
-            @endforelse
+            
     </body>
 @endsection
