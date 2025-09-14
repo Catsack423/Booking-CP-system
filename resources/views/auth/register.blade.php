@@ -1,5 +1,7 @@
 <x-guest-layout>
+
 <link rel="stylesheet" href="css/register.css">
+
     <script>
         function validateForm() {
             let cBox = document.getElementById("cBox");

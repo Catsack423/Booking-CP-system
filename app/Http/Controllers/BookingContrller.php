@@ -12,6 +12,21 @@ use Illuminate\Support\Carbon;
 
 class BookingContrller extends Controller
 {
+    public function index(Request $request, $roomId)
+{
+    $date = $request->query('date', now()->toDateString());
+
+    $room = Room::findOrFail($roomId);
+    $rooms = Room::all();
+
+    return view('pages.Booking', [
+        'room' => $room,
+        'rooms' => $rooms,
+        'date' => $date,   // ส่ง date เข้า view
+    ]);
+}
+
+
     public function show($room, $day = null){
     $rooms = Room::where("id",'=',$room)->get();
         if (!$rooms->isEmpty()) {
@@ -22,24 +37,28 @@ class BookingContrller extends Controller
             redirect()->route("floor1");
         }
     }
+    
 
 
     public function store(Request $request)
     {
          // mapping เวลา → คอลัมน์ในตาราง
         $slotMap = [
-            '08:00' => '8_9_slot',
-            '09:00' => '9_10_slot',
-            '10:00' => '10_11_slot',
-            '11:00' => '11_12_slot',
-            '12:00' => '12_13_slot',
-            '13:00' => '13_14_slot',
-            '14:00' => '14_15_slot',
-            '15:00' => '15_16_slot',
-            '16:00' => '16_17_slot',
-            '17:00' => '17_18_slot',
-            '18:00' => '18_19_slot',
+        '08:00-09:00' => '8_9_slot',
+        '09:00-10:00' => '9_10_slot',
+        '10:00-11:00' => '10_11_slot',
+        '11:00-12:00' => '11_12_slot',
+        '12:00-13:00' => '12_13_slot',
+        '13:00-14:00' => '13_14_slot',
+        '14:00-15:00' => '14_15_slot',
+        '15:00-16:00' => '15_16_slot',
+        '16:00-17:00' => '16_17_slot',
+        '17:00-18:00' => '17_18_slot',
+        '18:00-19:00' => '18_19_slot',
         ];
+
+        
+
         $data = $request->validate([
             'room_id'    => ['required', Rule::exists('room', 'id')],   // ตารางชื่อ room, คอลัมน์ id
             'day'        => ['required', 'date'],
@@ -102,7 +121,6 @@ class BookingContrller extends Controller
         }
 
         BookingRequest::create($payload);
-        
         return redirect()
             ->route('booking.show', [$data['room_id'], $data['day']])
             ->with('status', 'ส่งคำขอจองเรียบร้อยแล้ว');

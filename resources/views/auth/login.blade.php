@@ -1,5 +1,7 @@
 <x-guest-layout>
+
 <link rel="stylesheet" href="css/login.css">
+
     <script>
         function checkEmail() {
             let cpass = document.getElementById("password").value

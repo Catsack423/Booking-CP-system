@@ -1,5 +1,7 @@
 <x-guest-layout>
+
 <link rel="stylesheet" href="css/forgot-password.css">
+
     <div class="rb-center">
         <div id="login-card">
             <img src="{{ asset('images/logo-room-booking.png') }}" alt="logo" class="rb-logo"
