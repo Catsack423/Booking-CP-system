@@ -3,6 +3,7 @@
 @section('title', 'floor2')
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 
+
 <style>
     
     body {
@@ -113,3 +114,4 @@
     </div>
 </body>
 @endsection
+

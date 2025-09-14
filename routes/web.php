@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\BookingContrller;
 use App\Http\Controllers\Floor1Controller;
 use App\Http\Controllers\Floor2Controller;
@@ -41,15 +42,13 @@ Route::middleware([
    Route::get('/floor2', [Floor2Controller::class,'index'])->name('floor2');
    Route::get('/floor4', [Floor4Controller::class,'index'])->name('floor4');
     Route::get('/floor5', [Floor5Controller::class,'index'])->name('floor5');
-    Route::get('/floor5', [Floor5Controller::class,'index'])->name('floor5');
-
     Route::get('/booking/{room}', [BookingContrller::class, 'index'])->name('booking.index');
     Route::get('/booking/{roomId?}/{date?}', [BookingContrller::class, 'show'])->name('booking.show');
     Route::post('/booking', [BookingContrller::class, 'store'])->name('booking.store');
-
     Route::get('/history', [HistoryController::class, 'index'])->name('HistoryBooking');
     Route::post('/history/booking/{id}', [HistoryController::class, 'update'])->name('booking.update');
     Route::delete('/history/booking/{id}', [HistoryController::class, 'destroy'])->name('booking.destroy');
+
 
     Route::get('/profile', function () {
     return view('profile');

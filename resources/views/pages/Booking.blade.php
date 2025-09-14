@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
   @if (session('status'))
     <div class="p-3 bg-green-100 text-green-800 rounded mb-3">
       {{ session('status') }}
@@ -15,6 +16,7 @@
       </ul>
     </div>
   @endif
+
 
 @php
 use Illuminate\Support\Carbon;
@@ -110,6 +112,7 @@ use Illuminate\Support\Carbon;
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 
 @section('content')
+
  <div class="bk-wrap">
     {{-- ฟอร์มข้อมูล --}}
      <form id="bookingForm" method="POST" action="{{ route('booking.store') }}">
@@ -192,5 +195,7 @@ use Illuminate\Support\Carbon;
       </div>
     </form>
   </div>
+
   <a href="/dashboard"><button  class="btn-cancel" >ยกเลิก</button></a>
 @endsection
+

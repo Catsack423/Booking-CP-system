@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'floor2')
+@section('title', 'ชั้น 4')
+<link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png">
+
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
