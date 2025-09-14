@@ -1,5 +1,6 @@
 <x-guest-layout>
-    <link rel="stylesheet" href="{{ asset('css/Forgot.css') }}">
+
+<link rel="stylesheet" href="css/forgot-password.css">
 
     <div class="rb-center">
         <div id="login-card">
@@ -8,7 +9,7 @@
             <div class="rb-title">Forgot Password ?</div>
 
             <div class="mb-4 text-sm text-gray-600">
-                {{ __('ลืมรหัสผ่านใช่ไหม? ไม่มีปัญหา เพียงแจ้งที่อยู่อีเมลของคุณ แล้วเราจะส่งลิงก์รีเซ็ตรหัสผ่านให้คุณทางอีเมล ซึ่งคุณสามารถใช้เลือกรหัสผ่านใหม่ได้') }}
+                {{ __('ลืมรหัสผ่านใช่ไหม? เพียงแจ้งที่อยู่อีเมลของคุณ') }}
             </div>
 
             @if (session('status'))
@@ -29,7 +30,7 @@
                 </div>
 
                 <div class="rb-btn.primary">
-                    <button type="submit" class="rb-btn primary">RESET LINK TO EMAIL YOU</button> <br>
+                    <button type="submit" class="rb-btn primary">Reset</button> <br>
                 </div>
             </form>
 

@@ -1,5 +1,6 @@
 <x-guest-layout>
-    <link rel="stylesheet" href="{{ asset('css/Register.css') }}">
+
+<link rel="stylesheet" href="css/register.css">
 
     <script>
         function validateForm() {
@@ -73,9 +74,10 @@
 
 
                 <button type="submit" class="rb-btn primary" onclick="return validateForm()">Register</button> <br>
-                <label for="">มีรหัสแล้วอยู่หรือป่าว?</label> <a href="{{ route('login') }} "
-                    class="clicktologin">ถ้ามีคลิ๊กที่นี่</a>
-
+                <div class="rb-group">
+                    <label for="">มีรหัสแล้วอยู่หรือป่าว?</label> <a href="{{ route('login') }} "
+                        class="clicktologin">ถ้ามีคลิ๊กที่นี่</a>
+                </div>
             </form>
         </div>
     </div>

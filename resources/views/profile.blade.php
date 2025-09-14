@@ -8,6 +8,7 @@
 
 
 
+
 <div class="container mx-auto px-4 py-6">
   <div class="wraplogin">
   <div class="actions">
@@ -22,12 +23,22 @@
         </div>
         <h2>แก้ไขข้อมูลส่วนตัว</h2>
         @livewire('profile.update-profile-information-form')
-    </div>
 
-    <!-- Card 2: เปลี่ยนรหัสผ่าน -->
-    <div class="card">
-        <h2>เปลี่ยนรหัสผ่าน</h2>
-        @livewire('profile.update-password-form')
     </div>
-</div>
+    <div class="profile-content">
+        <!-- Card 1: ข้อมูลส่วนตัว -->
+        <div class="card">
+            <div class="cardProfile-img">
+                <img src="{{ Auth::user()->profile_photo_url }}" alt="avatar" class="user-avatar">
+            </div>
+            <h2>แก้ไขข้อมูลส่วนตัว</h2>
+            @livewire('profile.update-profile-information-form')
+        </div>
+
+        <!-- Card 2: เปลี่ยนรหัสผ่าน -->
+        <div class="card">
+            <h2>เปลี่ยนรหัสผ่าน</h2>
+            @livewire('profile.update-password-form')
+        </div>
+    </div>
 @endsection

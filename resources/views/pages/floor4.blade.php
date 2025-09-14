@@ -2,77 +2,10 @@
 
 @section('title', 'ชั้น 4')
 <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png">
-
+<link rel="stylesheet" href="css/room.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background: rgba(148, 138, 138, 0.562);
-        font-family: 'Noto Sans Thai', sans-serif;
-    }
-
-    .floor-plan {
-        background-color: rgb(245, 238, 238);
-        padding: 2%;
-        position: relative;
-        width: 60vw;
-        max-width: 1000px;
-        border-radius: 5%;
-        margin: auto;
-    }
-
-    .map-wrapper {
-    position: relative;
-    width: 100%;
-    }
-
-    .map-wrapper img {
-    width: 100%;
-    height: auto;
-    display: block;
-    }
-
-    .floor-plan img {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    .room-btn {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        width: 10%;
-        aspect-ratio: 1 / 1;
-        border-radius: 50%;
-        border: 3px solid black;
-        cursor: pointer;
-        background: rgba(5, 255, 80, 0.719);
-        transition: transform 0.2s;
-    }
-
-    .room-btn:hover {
-        transform: translate(-50%, -50%) scale(1.1);
-        border: 2px solid black;
-    }
-
-   .room-btn-notavailable {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        width: 10%;
-        aspect-ratio: 1 / 1;
-        border-radius: 50%;
-        border: 3px solid black;
-        transition: transform 0.2s;
-        background: rgba(255, 0, 21, 0.719);
-        cursor: default;
-    }
-
 #CP9421 {
     top: 17.5%;
     left: 43%;
@@ -91,7 +24,6 @@
     <?php
         $now = date('Y-m-d');
         ?>
-    <br><br><br><br><br><br><br>
 
     <div class="floor-plan">
         <h1 style="margin-left: 60px; font-size: 30px; text-decoration: underline;">ชั้น 4</h1><br>

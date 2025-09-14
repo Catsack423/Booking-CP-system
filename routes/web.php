@@ -5,6 +5,7 @@ use App\Http\Controllers\Floor1Controller;
 use App\Http\Controllers\Floor2Controller;
 use App\Http\Controllers\Floor4Controller;
 use App\Http\Controllers\Floor5Controller;
+
 use App\Http\Controllers\HistoryController;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,7 @@ Route::middleware([
     })->name('guide');
 
 
+
    Route::get('/floor1', [Floor1Controller::class,'index'])->name('floor1');
    Route::get('/floor2', [Floor2Controller::class,'index'])->name('floor2');
    Route::get('/floor4', [Floor4Controller::class,'index'])->name('floor4');
@@ -49,12 +51,9 @@ Route::middleware([
     Route::post('/history/booking/{id}', [HistoryController::class, 'update'])->name('booking.update');
     Route::delete('/history/booking/{id}', [HistoryController::class, 'destroy'])->name('booking.destroy');
 
-
     Route::get('/profile', function () {
-    return view('profile');
+        return view('profile');
     })->name('profile');
-
-
 });
 
 Route::middleware([
@@ -68,6 +67,7 @@ Route::middleware([
     });
 });
 
+
 Route::get('/mail-test', function () {
     try {
         Mail::raw('ทดสอบส่งเมลผ่าน Gmail SMTP', function ($m) {
@@ -78,3 +78,4 @@ Route::get('/mail-test', function () {
         return '❌ Error: ' . $e->getMessage();
     }
 });
+

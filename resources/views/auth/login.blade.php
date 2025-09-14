@@ -1,5 +1,6 @@
 <x-guest-layout>
-    <link rel="stylesheet" href="{{ asset('css/Login.css') }}">
+
+<link rel="stylesheet" href="css/login.css">
 
     <script>
         function checkEmail() {
