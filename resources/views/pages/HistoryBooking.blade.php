@@ -17,9 +17,12 @@
     </style>
 <div class="wrap">
   <div class="actions">
-    <a href="{{ route('profile') }}" class="btnn">แก้ไขข้อมูลส่วนตัว</a>
+    <a href="{{ route('profile') }}" class="btn-profile">แก้ไขข้อมูลส่วนตัว</a>
     <a href="{{ route('HistoryBooking') }}" class="btn btn-primary">ดูประวัติการจอง</a>
-    <a href="{{ route('HistoryBooking') }}" class="btn allhistory">การจองทั้งหมด</a>
+    @if (Auth::user()->admin ==true)
+      <a href="{{ route('historyadmin') }}" class="btn allhistory">การจองทั้งหมด</a>
+    @endif
+    
   </div>
 
   <div class="card">

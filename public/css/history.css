@@ -31,6 +31,7 @@
     margin-right: 300px;
     flex-wrap: wrap;
   }
+
   .actions {
     display: flex;
     gap: 14px;
@@ -53,7 +54,7 @@
     transition: transform .06s ease, background .2s ease, border-color .2s ease;
   }
 
-  .btnn {
+  .btn-profile {
     appearance: none;
     background: #ededed;
     padding: 10px 22px;
@@ -63,7 +64,17 @@
     text-decoration: none;
     display: inline-block;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    transition: transform .06s ease, filter .2s ease;
   }
+
+  .btn-profile:hover {
+    filter: brightness(.95);
+  }
+
+  .btn-profile:active {
+    transform: translateY(1px);
+  }
+
 
   .btn:hover {
     background: #f9fafb
@@ -82,6 +93,7 @@
   .btn-primary:hover {
     filter: brightness(.95)
   }
+
   .allhistory {
     background: #ededed;
     border-color: transparent;
@@ -89,7 +101,11 @@
   }
 
   .allhistory:hover {
-    filter: brightness(.95)
+    filter: brightness(.95);
+  }
+
+  .allhistory:active {
+    transform: translateY(1px);
   }
 
   /* การ์ด & ตาราง */

@@ -7,70 +7,81 @@
     --surface-2: #f9fafb;
     --radius: 8px;
   }
+
   .btn-primary {
-        background: #0B76BC;
-        border: none;
-        color: #fff;
-        font-weight: 700;
-        padding: 12px 30px;
-        border-radius: 999px;
-        cursor: pointer;
-        box-shadow: 0 3px 0 rgba(0, 0, 0, .25), 0 0 0 1px rgba(0, 0, 0, .12) inset; /* เพิ่มเงา */
-        transition: transform .06s ease, filter .2s ease;
-    }
+    background: #ffffff;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    padding: 12px 30px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, .25), 0 0 0 1px rgba(0, 0, 0, .12) inset;
+    /* เพิ่มเงา */
+    transition: transform .06s ease, filter .2s ease;
+  }
 
-    .btn-primary:hover {
-        filter: brightness(.95);
-    }
+  .btn-primary:hover {
+    filter: brightness(.95);
+  }
 
-    .btn-primary:active {
-        transform: translateY(1px);
-    }
+  .btn-primary:active {
+    transform: translateY(1px);
+  }
 
   .modal__footer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-        padding: 24px;
-    }
-    .field__textarea {
-        min-height: 42px;
-        resize: vertical
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 24px;
+  }
+
+  .field__textarea {
+    min-height: 42px;
+    resize: vertical
+  }
 
 
 
-    .modal.show {display:flex;}
+  .modal.show {
+    display: flex;
+  }
 
-    .btn-approve, .btn-reject {
-        display: inline-block;
-        width: 90px;             /* ความกว้างปุ่ม */
-        padding: 8px 0;
-        margin: 4px 0;
-        font-size: 16px;
-        font-weight: 600;
-        text-align: center;
-        border: none;
-        border-radius: 25px;     /* ทำให้ขอบโค้งเป็นวงรี */
-        cursor: pointer;
-        transition: transform 0.2s, opacity 0.2s;
-    }
+  .btn-approve,
+  .btn-reject {
+    display: inline-block;
+    width: 90px;
+    /* ความกว้างปุ่ม */
+    padding: 8px 0;
+    margin: 4px 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: 25px;
+    /* ทำให้ขอบโค้งเป็นวงรี */
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+  }
 
-    .btn-approve {
-        background-color: #90EE90;   /* สีเขียวอ่อน */
-        color: #000;
-    }
+  .btn-approve {
+    background-color: #90EE90;
+    /* สีเขียวอ่อน */
+    color: #000;
+  }
 
-    .btn-reject {
-        background-color: #F08080;   /* สีแดงอ่อน */
-        color: #000;
-    }
+  .btn-reject {
+    background-color: #F08080;
+    /* สีแดงอ่อน */
+    color: #000;
+  }
 
-    .btn-approve:hover, .btn-reject:hover {
-        transform: scale(1.05);
-        opacity: 0.9;
-    }
+  .btn-approve:hover,
+  .btn-reject:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
 
 
   /* โครงหน้าให้ตารางชิดกลางแนวนอน */
@@ -96,6 +107,7 @@
     margin-right: 300px;
     flex-wrap: wrap;
   }
+
   .actions {
     display: flex;
     gap: 14px;
@@ -118,7 +130,7 @@
     transition: transform .06s ease, background .2s ease, border-color .2s ease;
   }
 
-  .btnn {
+  .btn-profile {
     appearance: none;
     background: #ededed;
     padding: 10px 22px;
@@ -128,6 +140,15 @@
     text-decoration: none;
     display: inline-block;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    transition: transform .06s ease, filter .2s ease;
+  }
+
+  .btn-profile:hover {
+    filter: brightness(.95);
+  }
+
+  .btn-profile:active {
+    transform: translateY(1px);
   }
 
   .btn:hover {
@@ -138,23 +159,25 @@
     transform: translateY(1px)
   }
 
+
   .btn-primary {
-    background: var(--brand);
+    background: #ededed;
+    border-color: transparent;
+    color: #000000
+  }
+
+  .btn-primary:hover {
+    filter: brightness(.95);
+  }
+
+  .allhistory {
+    background: #0B76BC;
     border-color: transparent;
     color: #fff
   }
 
-  .btn-primary:hover {
-    filter: brightness(.95)
-  }
-  .allhistory {
-    background: #ededed;
-    border-color: transparent;
-    color: #111
-  }
-
   .allhistory:hover {
-    filter: brightness(.95)
+    filter: brightness(.95);
   }
 
   /* การ์ด & ตาราง */
@@ -383,7 +406,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 14px
   }
-  
+
   /* Responsive */
   @media (max-width: 720px) {
     .card {
@@ -421,4 +444,4 @@
     .grid-2 {
       grid-template-columns: 1fr
     }
-}
+  }

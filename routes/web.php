@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminBookingContrller;
 use App\Http\Controllers\BookingContrller;
 use App\Http\Controllers\Floor1Controller;
 use App\Http\Controllers\Floor2Controller;
@@ -53,12 +54,7 @@ Route::middleware([
     Route::post('/history/booking/{id}', [HistoryController::class, 'update'])->name('booking.update');
     Route::delete('/history/booking/{id}', [HistoryController::class, 'destroy'])->name('booking.destroy');
     
-    Route::get('/historyadmin', [historyadmin::class, 'index'])->name('historyadmin');
-    Route::post('/historyadmin/{id}/approve', [historyadmin::class, 'approve'])->name('historyadmin.approve');
-    Route::post('/historyadmin/{id}/reject',  [historyadmin::class, 'reject'])->name('historyadmin.reject');
-    Route::post('/historyadmin/{id}/update',  [historyadmin::class, 'update'])->name('historyadmin.update');
-    Route::delete('/historyadmin/{id}', [historyadmin::class, 'destroy'])
-        ->name('historyadmin.destroy');
+ 
 
 
     Route::get('/profile', function () {
@@ -72,9 +68,12 @@ Route::middleware([
     'verified',
     'admin',
 ])->group(function () {
-    Route::get('/loginadmin', function () {
-        return view('auth.loginAdmin');
-    });
+       Route::get('/historyadmin', [AdminBookingContrller::class, 'index'])->name('historyadmin');
+    Route::post('/historyadmin/{id}/approve', [AdminBookingContrller::class, 'approve'])->name('historyadmin.approve');
+    Route::post('/historyadmin/{id}/reject',  [AdminBookingContrller::class, 'reject'])->name('historyadmin.reject');
+    Route::post('/historyadmin/{id}/update',  [AdminBookingContrller::class, 'update'])->name('historyadmin.update');
+    Route::delete('/historyadmin/{id}', [AdminBookingContrller::class, 'destroy'])
+        ->name('historyadmin.destroy');
 });
 
 

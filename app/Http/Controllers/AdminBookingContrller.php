@@ -1,5 +1,9 @@
 <?php
 declare(strict_types=1);
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
 
 namespace App\Http\Controllers;
 
@@ -8,7 +12,7 @@ use Carbon\Carbon;
 use App\Models\Request as BookingRequest;
 use Illuminate\Http\Request as HttpRequest;
 
-class historyadmin extends Controller
+class AdminBookingContrller extends Controller
 {
     protected function slotColumns(): array
     {
