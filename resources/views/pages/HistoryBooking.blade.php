@@ -6,11 +6,20 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/history.css') }}">
-
+<style>
+        html,
+        body {
+            margin: 4%;
+            padding: 0;
+            height: 100%;
+            font-family: "Noto Sans Thai UI", sans-serif;
+        }
+    </style>
 <div class="wrap">
   <div class="actions">
-    <a href="{{ route('profile') }}" class="btn">แก้ไขข้อมูลส่วนตัว</a>
+    <a href="{{ route('profile') }}" class="btnn">แก้ไขข้อมูลส่วนตัว</a>
     <a href="{{ route('HistoryBooking') }}" class="btn btn-primary">ดูประวัติการจอง</a>
+    <a href="{{ route('HistoryBooking') }}" class="btn allhistory">การจองทั้งหมด</a>
   </div>
 
   <div class="card">
