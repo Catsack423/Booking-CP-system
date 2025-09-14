@@ -4,7 +4,8 @@
       {{ session('status') }}
     </div>
   @endif
-
+ <link rel="stylesheet" href="{{ asset('css/Booking.css') }}">
+ 
   @if ($errors->any())
     <div class="p-3 bg-red-100 text-red-800 rounded mb-3">
       <ul class="list-disc list-inside">
@@ -14,100 +15,6 @@
       </ul>
     </div>
   @endif
-
-  
- <style>
-    :root{
-      --blue:#0B76BC;--green:#A6F0B5;--red:#F3A6A6;--yellow:#F8E18B;
-      --line:#C9CDD2; --card:#F2F4F5;
-    }
-    .bk-wrap{max-width:1150px;margin:3px auto 12px;padding:0 16px;}
-  .bk-card{background:var(--card);border:1px solid #BFC6C9;border-radius:12px;padding:14px}
-  .bk-grid{display:grid;grid-template-columns:170px 1fr 1fr 1fr;gap:12px} /* ระยะห่างช่องกรอก */
-  .bk-lbl{font-size:13px;margin-bottom:3px;color:#444;margin-top: 10px;}
-  .bk-input{width:100%;padding:10px 12px;border:1px solid #CDD5DA;border-radius:10px;background:#fff;box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
-  .bk-input[disabled]{background:#e9eef2;color:#6b7280}
-  .bk-topbar{display:flex;align-items:center;justify-content:space-between;margin:14px 0}
-  .bk-btn{display:inline-flex;align-items:center;gap:6px;border-radius:18px;border:#444 ;background:#dadddfff;padding:9px 18px;box-shadow: 0 4px 8px rgba(0,0,0,0.3);}
-  .bk-title{font-weight:700;display:flex;align-items:center;gap:6px;}
-
-  .btn-book {
-    margin-left: 120px;
-    background: #90EE90;      /* ปุ่มจอง */
-    color: #000;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 17px;
-    font-size: 25px;
-    font-weight: 200;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    transition: 0.2s ease;
-  }
-  .btn-book:hover {
-    background: #7bd97b;
-    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
-  }
-
-  .btn-cancel {
-    margin-left: 350px;
-    background: #f28c8c;      /* ปุ่มยกเลิก */
-    color: #000;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 17px;
-    font-size: 25px;  
-    font-weight: 200;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    transition: 0.2s ease;
-  }
-  .btn-cancel:hover {
-    background: #e57373;
-    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
-  }
-/* ตาราง */
-    /* ตารางเวลา */
-    .bk-table{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:16px;}
-    .bk-head{display:grid;grid-template-columns:repeat(11,1fr);}
-    .bk-head > div{background:#fff;border-right:1px solid var(--line);padding:8px;text-align:center;font-weight:600}
-    /* ตารางเวลา */
-
-    .bk-status{display:grid;grid-template-columns:repeat(11,1fr)}
-
-    /* คอลลัมตาราง */
-    .bk-cell{position:relative;border-right:1px solid var(--line);border-bottom:1px solid var(--line);height:70px;display:flex;align-items:center;justify-content:center;font-weight:600}
-    /* คอลลัมตาราง */
-
-    /* ตัวหนังสือในคอลลัมตาราง */
-    .bk-chip{position:absolute;top:6px;left:10px;font-size:12px}
-    /* ตัวหนังสือในคอลลัมตาราง */
-/* ตาราง */
-
-    /* ลบ */
-    .bk-del{position:absolute;top:26px;left:10px;background:#C91818;color:#fff;border:none;border-radius:6px;padding:2px 8px;font-size:12px}
-    /* ลบ */
-
-    /* ปุ่มเช็ค */
-    .bk-check{transform:scale(1.2)}
-    /* ปุ่มเช็ค */
-
-    /* ช่องที่บอกว่าจองแล้ว */
-    .bg-booked{background:var(--red)}
-    /* ช่องที่บอกว่าจองแล้ว */
-
-    /* ช่องที่จองได้สีเขียว */
-    .bg-free{background:var(--green)}
-    /* ช่องที่จองได้สีเขียว */
-
-    /* ช่องที่รออนุมัติสีเหลือง */
-    .bg-pending{background:var(--yellow)}
-    /* ช่องที่รออนุมัติสีเหลือง */
-
-    /* ช่องที่เต็มแล้วสีแดง */
-    .bg-full{background:#f4a4a4}
-    /* ช่องที่เต็มแล้วสีแดง */
-  </style>
 
 @php
 use Illuminate\Support\Carbon;
@@ -242,10 +149,16 @@ use Illuminate\Support\Carbon;
 
 
       <div class="bk-topbar">
-        <button class="bk-btn" type="button">< เมื่อวาน</button>
-        <div class="bk-title">📅 วันนี้ ({{ \Carbon\Carbon::parse($dayVal)->format('d/m/Y') }})</div>
-        <button class="bk-btn" type="button">วันนี้ ></button>
-      </div>
+  {{-- ปุ่มเมื่อวาน --}}
+  <a href="{{ route('booking.index', $roomId) }}?date={{ \Carbon\Carbon::parse($dayVal)->subDay()->toDateString() }}"
+     class="bk-btn">< เมื่อวาน</a>
+
+  <div class="bk-title">📅 {{ \Carbon\Carbon::parse($dayVal)->format('d/m/Y') }}</div>
+
+  {{-- ปุ่มวันถัดไป --}}
+  <a href="{{ route('booking.index', $roomId) }}?date={{ \Carbon\Carbon::parse($dayVal)->addDay()->toDateString() }}"
+     class="bk-btn">วันถัดไป ></a>
+</div>
 
       <div class="bk-table">
         <div class="bk-head">
@@ -274,9 +187,10 @@ use Illuminate\Support\Carbon;
       </div>
         <br><br>
       <div class="flex justify-end mt-3">
-        <button type="submit" class="btn-cancel" >ยกเลิก</button>
+        
         <button type="submit" class="btn-book " onclick="validate()">จอง</button>
       </div>
     </form>
   </div>
+  <a href="/dashboard"><button  class="btn-cancel" >ยกเลิก</button></a>
 @endsection

@@ -11,6 +11,21 @@ use Illuminate\Support\Carbon;
 
 class BookingContrller extends Controller
 {
+    public function index(Request $request, $roomId)
+{
+    $date = $request->query('date', now()->toDateString());
+
+    $room = Room::findOrFail($roomId);
+    $rooms = Room::all();
+
+    return view('pages.Booking', [
+        'room' => $room,
+        'rooms' => $rooms,
+        'date' => $date,   // ส่ง date เข้า view
+    ]);
+}
+
+
     public function show($room, $day = null){
     $rooms = Room::where("id",'=',$room)->get();
         if (!$rooms->isEmpty()) {
@@ -107,4 +122,5 @@ class BookingContrller extends Controller
             ->route('booking.show', [$data['room_id'], $data['day']])
             ->with('status', 'ส่งคำขอจองเรียบร้อยแล้ว');
     }
+
 }
