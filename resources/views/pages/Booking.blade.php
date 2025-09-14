@@ -17,15 +17,12 @@
     </div>
   @endif
 
-
 @php
 use Illuminate\Support\Carbon;
-  
-
     $room     = $room    ?? ($rooms->first() ?? null);
     $roomId   = $room->id       ?? ($rooms->first()->id ?? 1);
     $roomCode = $room->room_id  ?? ($rooms->first()->id ?? '');
-    $dayVal   = $date ?? now()->toDateString(); // แก้ตรงนี้ ใช้ $dayVal
+    $dayVal   = $date ?? now()->toDateString();
 
     $timeToCol = [
         '08:00-09:00' => '8_9_slot',
@@ -41,15 +38,10 @@ use Illuminate\Support\Carbon;
         '18:00-19:00' => '18_19_slot',
     ];
 
-    // ป้ายเวลาที่จะใช้แสดงหัวคอลัมน์
     $timeLabels = array_keys($timeToCol);
-
-    // ฟังก์ชันแปลง 08:00 => 08.00 (ตามรูปพี่)
     $fmt = fn($t) => str_replace(':', '.', $t);
     if (!isset($slotStatus)) {
         $slotStatus = [];
-
-        // ใช้ $roomId และ $dayVal จากหัวไฟล์ของพี่
         $requests = \App\Models\Request::where('room_id', $roomId)
             ->whereDate('day', Carbon::parse($dayVal)->toDateString())
             ->get([
@@ -57,7 +49,6 @@ use Illuminate\Support\Carbon;
                 '8_9_slot','9_10_slot','10_11_slot','11_12_slot','12_13_slot',
                 '13_14_slot','14_15_slot','15_16_slot','16_17_slot','17_18_slot','18_19_slot'
             ]);
-
         foreach ($timeToCol as $time => $col) {
             $state = 'free';
             foreach ($requests as $r) {
@@ -75,18 +66,16 @@ use Illuminate\Support\Carbon;
     }
   @endphp
 
-
   <script> 
-  function checkphone(){ /* เช็คเบอร์โทร ต้องมี 10 ตัว */
+  function checkphone(){
   let phone = document.getElementById("phone").value; 
   if (phone.length != 10) { 
     alert("กรุณากรอกเบอร์โทรให้ครบ 10 หลัก");
      e.preventDefault(); 
-     /* ยกเลิกการส่งฟอร์ม */ 
      return; } 
     } 
      
-    function checkslot(){ /* เช็คเวลาจอง */ 
+    function checkslot(){
      let slots = document.querySelectorAll("input[name='slots[]']:checked"); 
      if (slots.length === 0) { 
       alert("กรุณาเลือกช่วงเวลาอย่างน้อย 1 ช่อง"); 
@@ -97,11 +86,9 @@ use Illuminate\Support\Carbon;
     if (detail.length == 0) { 
     alert("กรุณากรอกรายละเอียด!");
      e.preventDefault(); 
-     /* ยกเลิกการส่งฟอร์ม */ 
      return; 
     } 
   }
-
 
       function validate(){ 
         checkphone() 
@@ -112,19 +99,16 @@ use Illuminate\Support\Carbon;
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 
 @section('content')
-
- <div class="bk-wrap">
-    {{-- ฟอร์มข้อมูล --}}
+  <div class="bk-wrap">
      <form id="bookingForm" method="POST" action="{{ route('booking.store') }}">
       @csrf
-    {{-- hidden ที่ต้องส่งจริง --}}
       <input type="hidden" name="room_id" value="{{ $roomId }}">   
       <input type="hidden" name="day"     value="{{ $dayVal }}">
+      <input type="hidden" name="floor"   value="{{ $floor }}">
           <div>
             <div class="bk-lbl">Room</div>
             <input class="bk-input" value="{{ $roomCode }}" disabled>
           </div>
-
           <div style="display:flex; gap:12px; margin-bottom:12px">
     <div style="flex:1">
       <div class="bk-lbl">Name</div>
@@ -150,18 +134,11 @@ use Illuminate\Support\Carbon;
     <input class="bk-input" id="detail" name="detail" placeholder="Detail" value="{{ old('detail') }}" onblur="checkdetail()">
   </div>
 
-
-      <div class="bk-topbar">
-  {{-- ปุ่มเมื่อวาน --}}
-  <a href="{{ route('booking.index', $roomId) }}?date={{ \Carbon\Carbon::parse($dayVal)->subDay()->toDateString() }}"
-     class="bk-btn">< เมื่อวาน</a>
-
+  <div class="bk-topbar">
+  <a href="{{ route('booking.index', ['floor' => $floor, 'room' => $room->id]) }}?date={{ \Carbon\Carbon::parse($dayVal)->subDay()->toDateString() }}" class="bk-btn">< เมื่อวาน</a>
   <div class="bk-title">📅 {{ \Carbon\Carbon::parse($dayVal)->format('d/m/Y') }}</div>
-
-  {{-- ปุ่มวันถัดไป --}}
-  <a href="{{ route('booking.index', $roomId) }}?date={{ \Carbon\Carbon::parse($dayVal)->addDay()->toDateString() }}"
-     class="bk-btn">วันถัดไป ></a>
-</div>
+  <a href="{{ route('booking.index', ['floor' => $floor, 'room' => $room->id]) }}?date={{ \Carbon\Carbon::parse($dayVal)->addDay()->toDateString() }}" class="bk-btn">วันถัดไป ></a>
+  </div>
 
       <div class="bk-table">
         <div class="bk-head">
@@ -180,7 +157,6 @@ use Illuminate\Support\Carbon;
       <span class="bk-chip">{{ $s['label'] }}</span>
 
       @if($s['status'] === 'free')
-        {{-- ว่าง: ให้เลือกได้ ส่งค่าเป็น "เวลา" เช่น 08:00 --}}
         <input type="checkbox" class="bk-check" name="slots[]" value="{{ $t }}"
                {{ in_array($t, (array)old('slots', [])) ? 'checked' : '' }}>
       @endif
@@ -189,13 +165,11 @@ use Illuminate\Support\Carbon;
 </div>
       </div>
         <br><br>
-      <div class="flex justify-end mt-3">
-        
+      <div class="flex-btns">
+        <button type="button" class="btn-cancel" onclick="window.location.href='{{ route('floor'.$floor) }}'">ยกเลิก</button>
         <button type="submit" class="btn-book " onclick="validate()">จอง</button>
       </div>
     </form>
   </div>
-
-  <a href="/dashboard"><button  class="btn-cancel" >ยกเลิก</button></a>
 @endsection
 

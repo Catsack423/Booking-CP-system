@@ -1,9 +1,9 @@
 
-    :root{
+   :root{
       --blue:#0B76BC;--green:#A6F0B5;--red:#F3A6A6;--yellow:#F8E18B;
       --line:#C9CDD2; --card:#F2F4F5;
     }
-    .bk-wrap{max-width:1150px;margin:3px auto 12px;padding:0 16px;}
+  .bk-wrap{max-width:1200px;margin:6% auto 12px;padding:0 16px;}
   .bk-card{background:var(--card);border:1px solid #BFC6C9;border-radius:12px;padding:14px}
   .bk-grid{display:grid;grid-template-columns:170px 1fr 1fr 1fr;gap:12px} /* ระยะห่างช่องกรอก */
   .bk-lbl{font-size:13px;margin-bottom:3px;color:#444;margin-top: 10px;}
@@ -14,28 +14,16 @@
   .bk-btn:hover{ filter: brightness(.95); }
   .bk-title{font-weight:700;display:flex;align-items:center;gap:6px;}
 
-  .btn-book {
-    margin-left: 630px;
-    background: #90EE90;      /* ปุ่มจอง */
-    color: #000;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 17px;
-    font-size: 25px;
-    font-weight: 200;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    transition: 0.2s ease;
-  }
-  .btn-book:hover {
-    background: #7bd97b;
-    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
-  }
+  .flex-btns {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    margin-top: 20px;
+}
 
-  .btn-cancel {
-    margin-left: 620px;
-    margin-top: -64px;
-    background: #f28c8c;      /* ปุ่มยกเลิก */
+.btn-cancel {
+    margin: 0;
+    background: #f28c8c;
     color: #000;
     padding: 10px 24px;
     border: none;
@@ -45,16 +33,41 @@
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0,0,0,0.15);
     transition: 0.2s ease;
-  }
-  .btn-cancel:hover {
+}
+.btn-cancel:hover {
     background: #e57373;
     box-shadow: 0 6px 10px rgba(0,0,0,0.2);
-  }
+}
+
+.btn-book {
+    margin: 0;
+    background: #90EE90;
+    color: #000;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 17px;
+    font-size: 25px;
+    font-weight: 200;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    transition: 0.2s ease;
+}
+.btn-book:hover {
+    background: #7bd97b;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+}
+
 /* ตาราง */
     /* ตารางเวลา */
     .bk-table{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:16px;}
     .bk-head{display:grid;grid-template-columns:repeat(11,1fr);}
-    .bk-head > div{background:#fff;border-right:1px solid var(--line);padding:8px;text-align:center;font-weight:600}
+    .bk-head > div{background:#fff;
+      border-right:1px solid var(--line);
+      padding:8px;
+      text-align:center;
+      font-weight:600
+      
+    }
     /* ตารางเวลา */
 
     .bk-status{display:grid;grid-template-columns:repeat(11 ,1fr)}
@@ -67,7 +80,6 @@
     .bk-chip{position:absolute;top:6px;left:10px;font-size:12px}
     /* ตัวหนังสือในคอลลัมตาราง */
 /* ตาราง */
-
     /* ลบ */
     .bk-del{position:absolute;top:26px;left:10px;background:#C91818;color:#fff;border:none;border-radius:6px;padding:2px 8px;font-size:12px}
     /* ลบ */

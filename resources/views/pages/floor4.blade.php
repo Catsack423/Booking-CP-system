@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'ชั้น 4')
+@section('title', 'Floor 4')
 <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png">
 <link rel="stylesheet" href="css/room.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
@@ -24,19 +24,17 @@
     <?php
         $now = date('Y-m-d');
         ?>
-
     <div class="floor-plan">
         <h1 style="margin-left: 60px; font-size: 30px; text-decoration: underline;">ชั้น 4</h1><br>
         <div class="map-wrapper">
         <img src="{{ asset('img/floor4map.png') }}" alt="Error">
         @foreach ($rooms as $room)
                     @if ($room->status == false)
-                        <a href="/booking/{{ $room->id }}/{{ $now }}"><button id="{{ $room->id }}" title="{{ $room->id }}" class="room-btn"></button></a>
+                        <a href="/booking/{{ $floor }}/{{ $room->id }}/{{ $now }}" class="{{ request()->routeIs('booking.*') ? 'active' : '' }}"><button id="{{ $room->id }}" title="{{ $room->id }}" class="room-btn"></button></a>
                     @else
                         <a href=""><button id="{{ $room->id }}" class="room-btn-notavailable" disabled></button></a>
                     @endif
         @endforeach
-        
     </div>
 </body>
 @endsection

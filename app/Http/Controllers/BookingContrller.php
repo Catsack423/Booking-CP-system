@@ -12,34 +12,32 @@ use Illuminate\Support\Carbon;
 
 class BookingContrller extends Controller
 {
-    public function index(Request $request, $roomId)
-{
+    public function index(Request $request, $floor, $roomId){
     $date = $request->query('date', now()->toDateString());
-
     $room = Room::findOrFail($roomId);
     $rooms = Room::all();
 
     return view('pages.Booking', [
+        'floor' => $floor,
         'room' => $room,
         'rooms' => $rooms,
-        'date' => $date,   // ส่ง date เข้า view
+        'date' => $date,
     ]);
 }
 
-
-    public function show($room, $day = null){
-    $rooms = Room::where("id",'=',$room)->get();
+    public function show($floor, $roomId = null, $date = null){
+    $rooms = Room::where('id', $roomId)->get();
         if (!$rooms->isEmpty()) {
-           return view('pages.Booking',compact('rooms','day'));
-
-        }
-        else{
-            redirect()->route("floor1");
-        }
+        return view('pages.Booking', [
+            'floor'  => $floor,
+            'roomId' => $roomId,
+            'rooms'  => $rooms,
+            'date'   => $date ?? now()->toDateString(),
+        ]);
+    } else {
+        return redirect()->route('floor'.$floor);
     }
-    
-
-
+    }
     public function store(Request $request)
     {
          // mapping เวลา → คอลัมน์ในตาราง
@@ -57,9 +55,8 @@ class BookingContrller extends Controller
         '18:00-19:00' => '18_19_slot',
         ];
 
-        
-
         $data = $request->validate([
+            'floor'      => 'required',
             'room_id'    => ['required', Rule::exists('room', 'id')],   // ตารางชื่อ room, คอลัมน์ id
             'day'        => ['required', 'date'],
             'first_name' => ['required', 'string', 'max:200'],
@@ -77,13 +74,11 @@ class BookingContrller extends Controller
 
         $userId = Auth::id();
 
-       
         $slotColumns = [];
         foreach ($data['slots'] as $val) {
             $slotColumns[] = $slotMap[$val] ?? $val; 
         }
 
-       
         $conflict = BookingRequest::where('room_id', $data['room_id'])
             ->whereDate('day', Carbon::parse($data['day'])->toDateString())
             ->where('reject_status', 0)            // ยังไม่ถูกปฏิเสธ
@@ -100,7 +95,6 @@ class BookingContrller extends Controller
                 ->withErrors(['slots' => 'ช่วงเวลาที่เลือกถูกจองแล้ว โปรดเลือกช่วงเวลาอื่น']);
         }
 
-       
         $payload = [
             'day'            => $data['day'],
             'room_id'        => $data['room_id'],
@@ -121,9 +115,11 @@ class BookingContrller extends Controller
         }
 
         BookingRequest::create($payload);
-        return redirect()
-            ->route('booking.show', [$data['room_id'], $data['day']])
-            ->with('status', 'ส่งคำขอจองเรียบร้อยแล้ว');
+        return redirect()->route('booking.show', [
+        'floor'  => $data['floor'],
+        'roomId' => $data['room_id'],
+        'date'   => $data['day'],
+    ])
+    ->with('status', 'ส่งคำขอจองเรียบร้อยแล้ว');
     }
-
 }
