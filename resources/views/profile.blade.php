@@ -7,7 +7,7 @@
     <style>
         html,
         body {
-            margin: 6.5%;
+            margin: 4%;
             padding: 0;
             height: 100%;
             font-family: "Noto Sans Thai UI", sans-serif;
@@ -18,7 +18,9 @@
             <div class="actionsedit">
                 <a href="{{ route('profile') }}" class="btn">แก้ไขข้อมูลส่วนตัว</a>
                 <a href="{{ route('HistoryBooking') }}" class="btn btn-primary">ดูประวัติการจอง</a>
-                <a href="{{ route('HistoryBooking') }}" class="btn btn-primary">การจองทั้งหมด</a>
+                @if (Auth::user()->admin == true)
+                    <a href="{{ route('historyadmin') }}" class="btn allhistory">การจองทั้งหมด</a>
+                @endif
             </div>
             <div class="profile-content">
                 <!-- Card 1: ข้อมูลส่วนตัว -->

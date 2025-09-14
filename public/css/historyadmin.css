@@ -8,6 +8,82 @@
     --radius: 8px;
   }
 
+  .btn-primary {
+    background: #ffffff;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    padding: 12px 30px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, .25), 0 0 0 1px rgba(0, 0, 0, .12) inset;
+    /* เพิ่มเงา */
+    transition: transform .06s ease, filter .2s ease;
+  }
+
+  .btn-primary:hover {
+    filter: brightness(.95);
+  }
+
+  .btn-primary:active {
+    transform: translateY(1px);
+  }
+
+  .modal__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 24px;
+  }
+
+  .field__textarea {
+    min-height: 42px;
+    resize: vertical
+  }
+
+
+
+  .modal.show {
+    display: flex;
+  }
+
+  .btn-approve,
+  .btn-reject {
+    display: inline-block;
+    width: 90px;
+    /* ความกว้างปุ่ม */
+    padding: 8px 0;
+    margin: 4px 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: 25px;
+    /* ทำให้ขอบโค้งเป็นวงรี */
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .btn-approve {
+    background-color: #90EE90;
+    /* สีเขียวอ่อน */
+    color: #000;
+  }
+
+  .btn-reject {
+    background-color: #F08080;
+    /* สีแดงอ่อน */
+    color: #000;
+  }
+
+  .btn-approve:hover,
+  .btn-reject:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+
+
   /* โครงหน้าให้ตารางชิดกลางแนวนอน */
   .wraplogin {
     max-width: 1080px;
@@ -75,7 +151,6 @@
     transform: translateY(1px);
   }
 
-
   .btn:hover {
     background: #f9fafb
   }
@@ -84,28 +159,25 @@
     transform: translateY(1px)
   }
 
+
   .btn-primary {
-    background: var(--brand);
+    background: #ededed;
+    border-color: transparent;
+    color: #000000
+  }
+
+  .btn-primary:hover {
+    filter: brightness(.95);
+  }
+
+  .allhistory {
+    background: #0B76BC;
     border-color: transparent;
     color: #fff
   }
 
-  .btn-primary:hover {
-    filter: brightness(.95)
-  }
-
-  .allhistory {
-    background: #ededed;
-    border-color: transparent;
-    color: #111
-  }
-
   .allhistory:hover {
     filter: brightness(.95);
-  }
-
-  .allhistory:active {
-    transform: translateY(1px);
   }
 
   /* การ์ด & ตาราง */

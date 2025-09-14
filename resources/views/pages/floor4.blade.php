@@ -33,7 +33,7 @@
                     @if ($room->status == false)
                         <a href="/booking/{{ $room->id }}/{{ $now }}"><button id="{{ $room->id }}" title="{{ $room->id }}" class="room-btn"></button></a>
                     @else
-                        <a href=""><button id="{{ $room->id }}" class="room-btn-notavailable" disabled></button></a>
+                        <a href="/booking/{{ $room->id }}/{{ $now }} "><button id="{{ $room->id }}" class="room-btn-notavailable" ></button></a>
                     @endif
         @endforeach
         
