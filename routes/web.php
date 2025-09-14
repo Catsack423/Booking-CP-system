@@ -5,7 +5,7 @@ use App\Http\Controllers\Floor1Controller;
 use App\Http\Controllers\Floor2Controller;
 use App\Http\Controllers\Floor4Controller;
 use App\Http\Controllers\Floor5Controller;
-
+use App\Http\Controllers\BookingHistoryController;
 
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\ProfileController;
@@ -36,22 +36,18 @@ Route::middleware([
     Route::get('/guide', function () {
         return view('pages.guide');
     })->name('guide');
-
-   Route::get('/floor1', [Floor1Controller::class,'index'])->name('floor1');
-   Route::get('/floor2', [Floor2Controller::class,'index'])->name('floor2');
-   Route::get('/floor4', [Floor4Controller::class,'index'])->name('floor4');
-    Route::get('/floor5', [Floor5Controller::class,'index'])->name('floor5');
-
+    Route::get('/history', [BookingHistoryController::class, 'index'])->name('booking-history');
+    Route::get('/floor1', [Floor1Controller::class, 'index'])->name('floor1');
+    Route::get('/floor2', [Floor2Controller::class, 'index'])->name('floor2');
+    Route::get('/floor4', [Floor4Controller::class, 'index'])->name('floor4');
+    Route::get('/floor5', [Floor5Controller::class, 'index'])->name('floor5');
     Route::get('/booking/{roomId?}/{date?}', [BookingContrller::class, 'show'])->name('booking.show');
     Route::post('/booking', [BookingContrller::class, 'store'])->name('booking.store');
 
 
-
     Route::get('/profile', function () {
-    return view('profile');
+        return view('profile');
     })->name('profile');
-
-
 });
 
 Route::middleware([
