@@ -34,6 +34,7 @@
           <th class="col-end">ถึง</th>
           <th class="col-date">ห้องที่จอง</th>
           <th class="col-appove">แก้ไข/ลบ</th>
+          <th>จองเมื่อ</th>
         </tr>
       </thead>
       <tbody>
@@ -63,6 +64,7 @@
                   <button type="submit" class="btn-delete">ลบ</button>
                 </form>
             </td>
+            <td>{{$r['created_at']}}</td>
           </tr>
         @empty
           <tr>

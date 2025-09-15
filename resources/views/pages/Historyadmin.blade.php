@@ -40,6 +40,7 @@
                     <th>วันที่จอง</th>
                     <th>จัดการ</th>
                     <th>คำร้องขอ</th>
+                    <th>จองเมื่อ</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,6 +60,7 @@
                                 แก้ไข
                             </button>
                         </td>
+                        
                         <td>
                             @if ($r['status'] === 'approved')
                                 <span class="status-approve">อนุมัติแล้ว</span>
@@ -77,6 +79,7 @@
                                 </form>
                             @endif
                         </td>
+                        <td>{{$r['created_at']}}</td>
                     </tr>
                 @empty
                     <tr>

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
@@ -34,7 +35,7 @@ class HistoryController extends Controller
             }
         }
         if ($firstStart === null || $lastEnd === null) return [null, null];
-        $fmt = fn (int $h) => sprintf('%02d.00', $h);
+        $fmt = fn(int $h) => sprintf('%02d.00', $h);
         return [$fmt($firstStart), $fmt($lastEnd)];
     }
 
@@ -48,57 +49,58 @@ class HistoryController extends Controller
             ->get();
 
         // app/Http/Controllers/HistoryController.php (เฉพาะส่วน map)
-$rows = $bookings->map(function (BookingRequest $b) {
-    [$start, $end] = $this->extractStartEnd($b);
+        $rows = $bookings->map(function (BookingRequest $b) {
+            [$start, $end] = $this->extractStartEnd($b);
 
-    return [
-        'id'         => $b->id,
-        'room'       => $b->room_id,            // ใช้เป็นรหัสห้องด้วย
-        'start'      => $start,                 // 18.00
-        'end'        => $end,                   // 20.00
-        'day'        => $b->day ? Carbon::parse($b->day)->format('d/m/Y') : '-',
-        'day_iso'    => $b->day ? Carbon::parse($b->day)->toDateString() : null, // 2023-06-01
-        // ใช้เติมฟอร์ม
-        'first_name' => $b->first_name,
-        'last_name'  => $b->last_name,
-        'phone'      => $b->phone,
-        'detail'     => $b->detail,
-    ];
-});
-return view('pages.HistoryBooking', ['rows' => $rows, 'bookings' => $bookings]);
-
+            return [
+                'id'         => $b->id,
+                'room'       => $b->room_id,            // ใช้เป็นรหัสห้องด้วย
+                'start'      => $start,                 // 18.00
+                'end'        => $end,                   // 20.00
+                'day'        => $b->day ? Carbon::parse($b->day)->format('d/m/Y') : '-',
+                'day_iso'    => $b->day ? Carbon::parse($b->day)->toDateString() : null, // 2023-06-01
+                // ใช้เติมฟอร์ม
+                'first_name' => $b->first_name,
+                'last_name'  => $b->last_name,
+                'phone'      => $b->phone,
+                'detail'     => $b->detail,
+                'created_at' => $b->created_at
+                    ? Carbon::parse($b->created_at)->timezone('Asia/Bangkok')->format('d/m/Y H:i')
+                    : null,
+            ];
+        });
+        return view('pages.HistoryBooking', ['rows' => $rows, 'bookings' => $bookings]);
     }
     public function update(HttpRequest $request, int $id)
-{
-    $booking = BookingRequest::where('user_id', Auth::id())->findOrFail($id);
+    {
+        $booking = BookingRequest::where('user_id', Auth::id())->findOrFail($id);
 
-    $data = $request->validate([
-        'first_name' => ['nullable','string','max:100'],
-        'last_name'  => ['nullable','string','max:100'],
-        'phone'      => ['nullable','string','max:20'],
-        // เปลี่ยนจาก nullable -> sometimes เพื่อไม่โดนแปลง "" เป็น null
-        'detail'     => ['sometimes','string','max:500'],
-    ]);
+        $data = $request->validate([
+            'first_name' => ['nullable', 'string', 'max:100'],
+            'last_name'  => ['nullable', 'string', 'max:100'],
+            'phone'      => ['nullable', 'string', 'max:20'],
+            // เปลี่ยนจาก nullable -> sometimes เพื่อไม่โดนแปลง "" เป็น null
+            'detail'     => ['sometimes', 'string', 'max:500'],
+        ]);
 
-    // กันทุกเคสให้ไม่เป็น null
-    $data = array_merge([
-        'detail' => $booking->detail ?? '',   // default เดิมใน DB ถ้าไม่ส่งมา
-    ], $data);
+        // กันทุกเคสให้ไม่เป็น null
+        $data = array_merge([
+            'detail' => $booking->detail ?? '',   // default เดิมใน DB ถ้าไม่ส่งมา
+        ], $data);
 
-    if ($data['detail'] === null) {
-        $data['detail'] = '';
+        if ($data['detail'] === null) {
+            $data['detail'] = '';
+        }
+
+        $booking->fill($data)->save();
+
+        return back()->with('success', 'อัปเดตข้อมูลเรียบร้อยแล้ว');
     }
+    public function destroy(int $id)
+    {
+        $booking = BookingRequest::where('user_id', Auth::id())->findOrFail($id);
+        $booking->delete();
 
-    $booking->fill($data)->save();
-
-    return back()->with('success', 'อัปเดตข้อมูลเรียบร้อยแล้ว');
+        return back()->with('success', 'ลบประวัติการจองเรียบร้อยแล้ว');
+    }
 }
-public function destroy(int $id)
-{
-    $booking = BookingRequest::where('user_id', Auth::id())->findOrFail($id);
-    $booking->delete();
-
-    return back()->with('success', 'ลบประวัติการจองเรียบร้อยแล้ว');
-}
-}
-

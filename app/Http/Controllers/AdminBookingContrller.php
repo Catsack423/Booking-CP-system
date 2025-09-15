@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -36,7 +38,7 @@ class AdminBookingContrller extends Controller
             }
         }
         if ($firstStart === null || $lastEnd === null) return [null, null];
-        $fmt = fn (int $h) => sprintf('%02d.00', $h);
+        $fmt = fn(int $h) => sprintf('%02d.00', $h);
         return [$fmt($firstStart), $fmt($lastEnd)];
     }
 
@@ -63,6 +65,9 @@ class AdminBookingContrller extends Controller
                 'phone'      => $b->phone,
                 'detail'     => $b->detail,
                 'status'     => $status,
+                'created_at' => $b->created_at
+                    ? Carbon::parse($b->created_at)->timezone('Asia/Bangkok')->format('d/m/Y H:i')
+                    : null,
             ];
         });
 
@@ -73,35 +78,34 @@ class AdminBookingContrller extends Controller
     {
         $booking = BookingRequest::findOrFail($id);
         $data = $request->validate([
-            'first_name' => ['nullable','string','max:100'],
-            'last_name'  => ['nullable','string','max:100'],
-            'phone'      => ['nullable','string','max:20'],
-            'detail'     => ['sometimes','string','max:500'],
+            'first_name' => ['nullable', 'string', 'max:100'],
+            'last_name'  => ['nullable', 'string', 'max:100'],
+            'phone'      => ['nullable', 'string', 'max:20'],
+            'detail'     => ['sometimes', 'string', 'max:500'],
         ]);
         $data = array_merge(['detail' => $booking->detail ?? ''], $data);
         $booking->fill($data)->save();
-        return back()->with('success','อัปเดตเรียบร้อย');
+        return back()->with('success', 'อัปเดตเรียบร้อย');
     }
 
     public function approve(int $id)
     {
         $booking = BookingRequest::findOrFail($id);
-        $booking->update(['wait_status'=>0,'approve_status'=>1,'reject_status'=>0]);
-        return back()->with('success','อนุมัติแล้ว');
+        $booking->update(['wait_status' => 0, 'approve_status' => 1, 'reject_status' => 0]);
+        return back()->with('success', 'อนุมัติแล้ว');
     }
 
     public function reject(int $id)
     {
         $booking = BookingRequest::findOrFail($id);
-        $booking->update(['wait_status'=>0,'approve_status'=>0,'reject_status'=>1]);
-        return back()->with('success','ปฏิเสธแล้ว');
+        $booking->update(['wait_status' => 0, 'approve_status' => 0, 'reject_status' => 1]);
+        return back()->with('success', 'ปฏิเสธแล้ว');
     }
-    
+
     public function destroy(int $id)
     {
         $booking = BookingRequest::findOrFail($id);
         $booking->delete();
         return back()->with('success', 'ลบการจองเรียบร้อยแล้ว');
     }
-
 }

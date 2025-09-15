@@ -33,6 +33,7 @@ class Request extends Model
         '16_17_slot',
         '17_18_slot',
         '18_19_slot',
+        'created_at'
     ];
 
     public function room()
