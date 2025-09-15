@@ -9,6 +9,7 @@ class Floor2Controller extends Controller
     function index()
     {
         $rooms = Room::where('id', 'like', 'CP92%')->get();
+        $floor = 2;
         if ($rooms) {
             $now = date("Y-m-d");
              foreach ($rooms as $room) {
@@ -32,6 +33,6 @@ class Floor2Controller extends Controller
             }
         }
 
-        return view('pages.floor2', compact('rooms'));
+        return view('pages.floor2', compact('rooms', 'floor'));
     }
 }
