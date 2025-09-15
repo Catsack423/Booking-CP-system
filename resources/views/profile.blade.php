@@ -7,7 +7,7 @@
     <style>
         html,
         body {
-            margin: 4%;
+            margin: 6.5%;
             padding: 0;
             height: 100%;
             font-family: "Noto Sans Thai UI", sans-serif;

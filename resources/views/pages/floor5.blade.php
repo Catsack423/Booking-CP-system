@@ -22,12 +22,11 @@
             <h1 style="margin-left: 60px; font-size: 30px; text-decoration: underline;">ชั้น 5</h1><br>
             <div class="map-wrapper">
                 <img src="{{ asset('img/floor5map.png') }}" alt="Error">
-                {{--  คือยังว่าง true คือโดนจอง --}}
                 @foreach ($rooms as $room)
                     @if ($room->status == false)
                         <a href="/booking/{{ $floor }}/{{ $room->id }}/{{ $now }}" class="{{ request()->routeIs('booking.*') ? 'active' : '' }}"><button id="{{ $room->id }}" title="{{ $room->id }}" class="room-btn"></button></a>
                     @else
-                        <a href="/booking/{{ $room->id }}/{{ $now }} "><button id="{{ $room->id }}" class="room-btn-notavailable" ></button></a>
+                        <a href="/booking/{{ $floor }}/{{ $room->id }}/{{ $now }}" class="{{ request()->routeIs('booking.*') ? 'active' : '' }}"><button id="{{ $room->id }}" title="{{ $room->id }}" class="room-btn-notavailable"></button></a>
                     @endif
                 @endforeach
             </div>
