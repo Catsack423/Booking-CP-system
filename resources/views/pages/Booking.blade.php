@@ -131,7 +131,7 @@ use Illuminate\Support\Carbon;
 
   <div>
     <div class="bk-lbl">Detail</div>
-    <input class="bk-input" id="detail" name="detail" placeholder="Detail" value="{{ old('detail') }}" onblur="checkdetail()">
+    <textarea name="detail" id="detail" cols="30" rows="10" placeholder="Detail" value="{{ old('detail') }}" onblur="checkdetail()"></textarea>
   </div>
 
   <div class="bk-topbar">

@@ -32,7 +32,7 @@
                     @if ($room->status == false)
                         <a href="/booking/{{ $floor }}/{{ $room->id }}/{{ $now }}" class="{{ request()->routeIs('booking.*') ? 'active' : '' }}"><button id="{{ $room->id }}" title="{{ $room->id }}" class="room-btn"></button></a>
                     @else
-                        <a href="/booking/{{ $room->id }}/{{ $now }} "><button id="{{ $room->id }}" class="room-btn-notavailable" ></button></a>
+                        <a href="/booking/{{ $floor }}/{{ $room->id }}/{{ $now }}" class="{{ request()->routeIs('booking.*') ? 'active' : '' }}"><button id="{{ $room->id }}" title="{{ $room->id }}" class="room-btn-notavailable"></button></a>
                     @endif
         @endforeach
     </div>
