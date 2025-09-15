@@ -13,7 +13,7 @@ use Laravel\Jetstream\Http\Controllers\ProfileController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route("floor1");
 });
 
 // Route::get('/', function () {

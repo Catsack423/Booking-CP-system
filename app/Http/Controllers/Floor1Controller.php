@@ -35,6 +35,6 @@ class Floor1Controller extends Controller
             }
         }
 
-        return view('pages.floor1', compact('rooms', 'requests', 'floor'));
+        return view('pages.floor1', compact('rooms', 'floor'));
     }
 }

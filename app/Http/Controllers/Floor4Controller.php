@@ -34,6 +34,6 @@ class Floor4Controller extends Controller
             }
         }
 
-        return view('pages.floor4', compact('rooms', 'requests', 'floor'));
+        return view('pages.floor4', compact('rooms', 'floor'));
     }
 }
