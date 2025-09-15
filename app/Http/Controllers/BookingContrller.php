@@ -12,47 +12,49 @@ use Illuminate\Support\Carbon;
 
 class BookingContrller extends Controller
 {
-    public function index(Request $request, $floor, $roomId){
-    $date = $request->query('date', now()->toDateString());
-    $room = Room::findOrFail($roomId);
-    $rooms = Room::all();
+    public function index(Request $request, $floor, $roomId)
+    {
+        $date = $request->query('date', now()->toDateString());
+        $room = Room::findOrFail($roomId);
+        $rooms = Room::all();
 
-    return view('pages.Booking', [
-        'floor' => $floor,
-        'room' => $room,
-        'rooms' => $rooms,
-        'date' => $date,
-    ]);
-}
-
-    public function show($floor, $roomId = null, $date = null){
-    $rooms = Room::where('id', $roomId)->get();
-        if (!$rooms->isEmpty()) {
         return view('pages.Booking', [
-            'floor'  => $floor,
-            'roomId' => $roomId,
-            'rooms'  => $rooms,
-            'date'   => $date ?? now()->toDateString(),
+            'floor' => $floor,
+            'room' => $room,
+            'rooms' => $rooms,
+            'date' => $date,
         ]);
-    } else {
-        return redirect()->route('floor'.$floor);
     }
+
+    public function show($floor, $roomId = null, $date = null)
+    {
+        $rooms = Room::where('id', $roomId)->get();
+        if (!$rooms->isEmpty()) {
+            return view('pages.Booking', [
+                'floor'  => $floor,
+                'roomId' => $roomId,
+                'rooms'  => $rooms,
+                'date'   => $date ?? now()->toDateString(),
+            ]);
+        } else {
+            return redirect()->route('floor' . $floor);
+        }
     }
     public function store(Request $request)
     {
-         // mapping เวลา → คอลัมน์ในตาราง
+        // mapping เวลา → คอลัมน์ในตาราง
         $slotMap = [
-        '08:00-09:00' => '8_9_slot',
-        '09:00-10:00' => '9_10_slot',
-        '10:00-11:00' => '10_11_slot',
-        '11:00-12:00' => '11_12_slot',
-        '12:00-13:00' => '12_13_slot',
-        '13:00-14:00' => '13_14_slot',
-        '14:00-15:00' => '14_15_slot',
-        '15:00-16:00' => '15_16_slot',
-        '16:00-17:00' => '16_17_slot',
-        '17:00-18:00' => '17_18_slot',
-        '18:00-19:00' => '18_19_slot',
+            '08:00-09:00' => '8_9_slot',
+            '09:00-10:00' => '9_10_slot',
+            '10:00-11:00' => '10_11_slot',
+            '11:00-12:00' => '11_12_slot',
+            '12:00-13:00' => '12_13_slot',
+            '13:00-14:00' => '13_14_slot',
+            '14:00-15:00' => '14_15_slot',
+            '15:00-16:00' => '15_16_slot',
+            '16:00-17:00' => '16_17_slot',
+            '17:00-18:00' => '17_18_slot',
+            '18:00-19:00' => '18_19_slot',
         ];
 
         $data = $request->validate([
@@ -76,7 +78,7 @@ class BookingContrller extends Controller
 
         $slotColumns = [];
         foreach ($data['slots'] as $val) {
-            $slotColumns[] = $slotMap[$val] ?? $val; 
+            $slotColumns[] = $slotMap[$val] ?? $val;
         }
 
         $conflict = BookingRequest::where('room_id', $data['room_id'])
@@ -103,7 +105,7 @@ class BookingContrller extends Controller
             'last_name'      => $data['last_name'],
             'phone'          => $data['phone'],
             'detail'         => $data['detail'] ?? null,
-            
+
             'wait_status'    => 1,
             'approve_status' => 0,
             'reject_status'  => 0,
@@ -116,10 +118,10 @@ class BookingContrller extends Controller
 
         BookingRequest::create($payload);
         return redirect()->route('booking.show', [
-        'floor'  => $data['floor'],
-        'roomId' => $data['room_id'],
-        'date'   => $data['day'],
-    ])
-    ->with('status', 'ส่งคำขอจองเรียบร้อยแล้ว');
+            'floor'  => $data['floor'],
+            'roomId' => $data['room_id'],
+            'date'   => $data['day'],
+        ])
+            ->with('status', 'ส่งคำขอจองเรียบร้อยแล้ว');
     }
 }

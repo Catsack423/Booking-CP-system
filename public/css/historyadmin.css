@@ -445,3 +445,32 @@
       grid-template-columns: 1fr
     }
   }
+
+  .status-reject,
+  .status-approve {
+    display: inline-block;
+    width: 90px;
+    /* ความกว้างปุ่ม */
+    padding: 8px 0;
+    margin: 4px 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: 25px;
+    /* ทำให้ขอบโค้งเป็นวงรี */
+    
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .status-approve {
+    background-color: #90EE90;
+    /* สีเขียวอ่อน */
+    color: #000;
+  }
+
+  .status-reject {
+    background-color: #F08080;
+    /* สีแดงอ่อน */
+    color: #000;
+  }
