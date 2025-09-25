@@ -54,6 +54,10 @@
     resize: none;
 }
 
+.danger{
+    visibility: hidden;
+    color: red;
+}
 .bk-input[disabled] {
     background: #e9eef2;
     color: #6b7280
@@ -159,7 +163,8 @@
 
 .bk-status {
     display: grid;
-    grid-template-columns: repeat(11, 1fr)
+    grid-template-columns: repeat(11, 1fr);
+    
 }
 
 /* คอลลัมตาราง */

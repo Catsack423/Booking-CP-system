@@ -54,6 +54,7 @@ class AdminBookingContrller extends Controller
             elseif ($b->reject_status) $status = 'rejected';
 
             return [
+                'user' =>$b->user->name,
                 'id'         => $b->id,
                 'room'       => $b->room_id,
                 'start'      => $start,

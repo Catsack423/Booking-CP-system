@@ -34,6 +34,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>ชื่อคนจอง</th>
                     <th>ห้อง</th>
                     <th>เริ่ม</th>
                     <th>ถึง</th>
@@ -46,6 +47,7 @@
             <tbody>
                 @forelse($rows as $r)
                     <tr>
+                        <td>{{ $r['user']}}</td>
                         <td>{{ $r['room'] }}</td>
                         <td>{{ $r['start'] ?? '-' }}</td>
                         <td>{{ $r['end'] ?? '-' }}</td>
