@@ -131,6 +131,13 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     transition: 0.2s ease;
 }
+.btn-edit{
+    background: #ededed;
+    padding: 5px 4px;
+    border-radius: 333px;
+    color: #111;
+    display: block;
+}
 
 .btn-book:hover {
     background: #7bd97b;
