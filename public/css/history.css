@@ -11,7 +11,6 @@
   /* โครงหน้าให้ตารางชิดกลางแนวนอน */
   .wraplogin {
     max-width: 1080px;
-
     margin-bottom: 280px;
     padding: 24px 16px;
     color: var(--ink);
@@ -49,7 +48,7 @@
     font-weight: 600;
     color: #fff;
     text-decoration: none;
-    display: inline-block;
+    display: flex;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     transition: transform .06s ease, background .2s ease, border-color .2s ease;
   }
@@ -109,16 +108,7 @@
   }
 
   /* การ์ด & ตาราง */
-  .card {
-    margin: 0 auto;
-    width: 81%;
-    max-width: 1000px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: 0 12px 14px 6px rgba(121, 119, 119, 0.08);
-    overflow: hidden;
-  }
+  
 
   table {
     width: 100%;
@@ -161,9 +151,8 @@
     width: 28%
   }
 
-  .col-start,
-  .col-end {
-    width: 18%
+  .col-booking{
+    width: 20%;
   }
 
   .col-date {
@@ -372,4 +361,24 @@
     .grid-2 {
       grid-template-columns: 1fr
     }
+  }
+
+
+  
+
+  .status-approve {
+    background-color: #90EE90;
+    /* สีเขียวอ่อน */
+    color: #000;
+  }
+
+  .status-reject {
+    background-color: #F08080;
+    /* สีแดงอ่อน */
+    color: #000;
+  }
+
+  .status-wait{
+    background-color: rgb(240, 175, 97);
+    color: #000;
   }
