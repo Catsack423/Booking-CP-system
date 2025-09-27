@@ -5,7 +5,13 @@
 @endphp
 
 @section('content')
+    {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/history.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/toast.css') }}"> {{-- ✅ Toast --}}
+
+    {{-- ไอคอน --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
     <style>
         html,
         body {
@@ -15,6 +21,10 @@
             font-family: "Noto Sans Thai UI", sans-serif;
         }
     </style>
+
+    {{-- ✅ Toast container --}}
+    <ul class="notifications"></ul>
+
     <div class="wrap">
         <div class="actions">
             <a href="{{ route('profile') }}" class="btn-profile">แก้ไขข้อมูลส่วนตัว</a>
@@ -22,8 +32,8 @@
             @if (Auth::user()->admin == true)
                 <a href="{{ route('historyadmin') }}" class="btn allhistory">การจองทั้งหมด</a>
             @endif
-
         </div>
+
         <table>
             <thead>
                 <tr>
@@ -40,9 +50,9 @@
                     <tr>
                         <td data-th="ห้อง">{{ $r['room'] }}</td>
                         <td>
-                          @foreach ($r['slots'] as $slot )
-                             <p>{{$slot}} </p>
-                          @endforeach
+                            @foreach ($r['slots'] as $slot)
+                                <p>{{ $slot }} </p>
+                            @endforeach
                         </td>
                         <td data-th="ห้องที่จอง">{{ $r['day'] }}</td>
                         <td data-th="แก้ไข/ลบ">
@@ -61,26 +71,22 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn-delete">ลบ</button>
                             </form>
-                        
+
                         <td>{{ $r['created_at'] }}</td>
-                        
+
                         @if ($r['wait'])
                             <td class="status-wait">รอการอนุมัติ</td>
-                            
                         @endif
                         @if ($r['approve'])
                             <td class="status-approve">อนุมัติแล้ว</td>
                         @endif
                         @if ($r['reject'])
                             <td class="status-reject">ไม่อนุมัติ</td>
-                            
                         @endif
-                        
-                        
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" style="text-align:center;color:#6b7280;padding:28px 20px ">
+                        <td colspan="6" style="text-align:center;color:#6b7280;padding:28px 20px ">
                             ยังไม่มีประวัติการจอง
                         </td>
                     </tr>
@@ -96,7 +102,6 @@
                 <div id="editTitle" class="modal__title">แก้ไข</div>
                 <button type="button" class="modal__close" aria-label="ปิด" onclick="closeEditModal()">×</button>
             </div>
-
 
             <form id="editForm" method="POST" class="modal__body">
                 @csrf
@@ -135,6 +140,7 @@
                     <button type="submit" class="btn-primary">บันทึก</button>
                 </div>
             </form>
+
         </div>
     </div>
 
@@ -144,12 +150,9 @@
 
         function openEditModal(btn) {
             const d = btn.dataset;
-
-            // ตั้ง action ให้ฟอร์ม → /history/booking/{id}
             const form = document.getElementById('editForm');
             form.action = updateUrlTemplate.replace('__ID__', d.id);
 
-            // เติมค่า
             document.getElementById('m_id').value = d.id || '';
             document.getElementById('m_room_id').value = d.roomId || '';
             document.getElementById('m_room_code').value = d.roomCode || '';
@@ -166,7 +169,6 @@
             document.getElementById('editModal').classList.remove('show');
         }
 
-        // ปิดเมื่อคลิกพื้นหลัง/กด Esc (ถ้ายังไม่ได้ใส่)
         document.addEventListener('click', e => {
             const m = document.getElementById('editModal');
             if (e.target === m) closeEditModal();
@@ -174,5 +176,49 @@
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') closeEditModal();
         });
+
+        // ✅ Toast ฟังก์ชัน
+        const notifications = document.querySelector(".notifications");
+        const toastDetails = {
+            success: {
+                icon: 'fa-circle-check',
+                defaultText: 'บันทึกสำเร็จ'
+            },
+            error: {
+                icon: 'fa-circle-xmark',
+                defaultText: 'เกิดข้อผิดพลาด'
+            },
+        };
+
+        const removeToast = (toast) => {
+            toast.classList.add("hide");
+            if (toast.timeoutId) clearTimeout(toast.timeoutId);
+            setTimeout(() => toast.remove(), 500);
+        };
+
+        const createToast = (id, text = null, duration = 4000) => {
+            const conf = toastDetails[id] || toastDetails.error;
+            const toast = document.createElement("li");
+            toast.className = `toast ${id}`;
+            toast.style.setProperty('--timer', duration + 'ms');
+            toast.innerHTML = `
+              <div class="column">
+                <i class="fa-solid ${conf.icon}"></i>
+                <span>${text ?? conf.defaultText}</span>
+              </div>
+              <i class="fa-solid fa-xmark" aria-label="Close"></i>
+            `;
+            notifications.appendChild(toast);
+            toast.querySelector(".fa-xmark").addEventListener("click", () => removeToast(toast));
+            toast.timeoutId = setTimeout(() => removeToast(toast), duration);
+        };
+
+        // ✅ เช็ค flash message จาก Laravel
+        @if (session('success'))
+            createToast('success', @json(session('success')));
+        @endif
+        @if (session('error'))
+            createToast('error', @json(session('error')));
+        @endif
     </script>
 @endsection

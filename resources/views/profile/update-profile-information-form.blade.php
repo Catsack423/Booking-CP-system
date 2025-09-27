@@ -1,7 +1,4 @@
 <x-form-section submit="updateProfileInformation">
-
-
-
     <x-slot name="title">
         {{ __('') }}
     </x-slot>
@@ -17,26 +14,24 @@
                 <!-- Profile Photo File Input -->
                 <input type="file" id="photo" class="hidden" wire:model.live="photo" x-ref="photo"
                     x-on:change="
-                                    photoName = $refs.photo.files[0].name;
-                                    const reader = new FileReader();
-                                    reader.onload = (e) => {
-                                        photoPreview = e.target.result;
-                                    };
-                                    reader.readAsDataURL($refs.photo.files[0]);
-                            " />
+                        photoName = $refs.photo.files[0].name;
+                        const reader = new FileReader();
+                        reader.onload = (e) => { photoPreview = e.target.result; };
+                        reader.readAsDataURL($refs.photo.files[0]);
+                    " />
 
                 <x-label for="photo" value="{{ __('Photo') }}" />
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
                     <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}"
-                        class="rounded-full h-20 w-20 object-cover">
+                         class="rounded-full h-20 w-20 object-cover">
                 </div>
 
                 <!-- New Profile Photo Preview -->
                 <div class="mt-2" x-show="photoPreview" style="display: none;">
                     <span class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
-                        x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
+                          x-bind:style="'background-image: url(' + photoPreview + ');'">
                     </span>
                 </div>
 
@@ -57,11 +52,9 @@
         <!-- Name -->
         <div class="col-span-6 sm:col-span-4">
             <div class="tag-label">
-                <x-label for="name" value="{{ __('ชื่อผู้ใช้') }}" />
+                <x-label for="name" value="{{ __('ชื่อผู้ใช้') }}" />
             </div>
-            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" required
-                autocomplete="name" />
-
+            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" required autocomplete="name" />
             <x-input-error for="name" class="mt-2" />
         </div>
 
@@ -72,44 +65,35 @@
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-input id="email" type="email" class="mt-1 block w-full" wire:model="state.email" readonly />
-            </div @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) &&
-                    !$this->user->hasVerifiedEmail())
-            <p class="text-sm mt-2">
-                {{ __('Your email address is unverified.') }}
+            </div>
 
-                <button type="button"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    wire:click.prevent="sendEmailVerification">
-                    {{ __('Click here to re-send the verification email.') }}
-                </button>
-            </p>
-
-            @if ($this->verificationLinkSent)
-                <p class="mt-2 font-medium text-sm text-green-600">
-                    {{ __('A new verification link has been sent to your email address.') }}
+            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) && !$this->user->hasVerifiedEmail())
+                <p class="text-sm mt-2">
+                    {{ __('Your email address is unverified.') }}
+                    <button type="button"
+                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        wire:click.prevent="sendEmailVerification">
+                        {{ __('Click here to re-send the verification email.') }}
+                    </button>
                 </p>
-            @endif
+
+                @if ($this->verificationLinkSent)
+                    <p class="mt-2 font-medium text-sm text-green-600">
+                        {{ __('A new verification link has been sent to your email address.') }}
+                    </p>
+                @endif
             @endif
         </div>
     </x-slot>
 
     <x-slot name="actions">
         <x-action-message class="me-3" on="saved">
-            {{ __('Saved.') }}
+            {{ __('บันทึกแล้ว') }}
         </x-action-message>
 
-        <x-button id='saveBtn' wire:loading.attr="disabled" wire:target="photo" >
-            {{ __('บันทีก') }}
+        <x-button id="saveBtn" wire:loading.attr="disabled" wire:target="photo,updateProfileInformation">
+            <span wire:loading.remove wire:target="photo,updateProfileInformation">{{ __('บันทึก') }}</span>
+            <span wire:loading wire:target="photo,updateProfileInformation">{{ __('กำลังบันทึก...') }}</span>
         </x-button>
-        {{-- <script>
-            function alertsaveuser(){
-            }
-            const btn = document.querySelector('#saveBtn')
-            
-            btn.addEventListener('click',() => {
-                alert("เปลี่ยนชื่อผู้ใช้แล้ว");
-
-            })
-        </script> --}}
     </x-slot>
 </x-form-section>

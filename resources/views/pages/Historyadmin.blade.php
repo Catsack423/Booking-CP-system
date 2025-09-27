@@ -5,7 +5,13 @@
 @endphp
 
 @section('content')
+    {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/historyadmin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/toast.css') }}"> 
+
+    {{-- Icons --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
     <style>
         html,
         body {
@@ -19,33 +25,33 @@
             display: flex;
         }
 
-        /* ต้องมีเพื่อให้เห็น modal เมื่อ add class show */
     </style>
+
+    <ul class="notifications"></ul>
 
     <div class="wrap">
         <div class="actions">
             <a href="{{ route('profile') }}" class="btn-profile">แก้ไขข้อมูลส่วนตัว</a>
-            <a href="{{ route('HistoryBooking') }}" class="btn btn-primary">ดูประวัติการจอง</a>
+            <a href="{{ route('HistoryBooking') }}" class="btn-profile">ดูประวัติการจอง</a>
             @if (Auth::user()->admin == true)
                 <a href="{{ route('historyadmin') }}" class="btn allhistory">การจองทั้งหมด</a>
             @endif
         </div>
+
         <div>
             <input type="text" id="searchbar" class="searchbar" placeholder="ค้นหาข้อมูล">
-            <input type="date" name="" id="datebar" class="datebar">
+            <input type="date" id="datebar" class="datebar">
+
             <div>
                 <table id="searchtable">
                     <thead>
-
                         <th>ชื่อคนจอง</th>
                         <th>ห้อง</th>
                         <th>ช่วงเวลาที่จอง</th>
-
                         <th>วันที่จอง</th>
                         <th>จัดการ</th>
                         <th>คำร้องขอ</th>
                         <th>จองเมื่อ</th>
-
                     </thead>
                     <tbody>
                         @forelse($rows as $r)
@@ -54,10 +60,11 @@
                                 <td>{{ $r['room'] }}</td>
                                 <td>
                                     @foreach ($r['slots'] as $slot)
-                                        <p>{{ $slot }} </p>
+                                        <p>{{ $slot }}</p>
                                     @endforeach
                                 </td>
                                 <td>{{ $r['day'] }}</td>
+
                                 <td>
                                     <button type="button" class="btn-open" onclick="openEditModal(this)"
                                         data-id="{{ $r['id'] }}" data-room-id="{{ $r['room'] }}"
@@ -72,7 +79,7 @@
                                 <td>
                                     @if ($r['status'] === 'approved')
                                         <span class="status-approve">อนุมัติแล้ว</span>
-                                    @elseif($r['status'] === 'rejected')
+                                    @elseif ($r['status'] === 'rejected')
                                         <span class="status-reject">ปฏิเสธแล้ว</span>
                                     @else
                                         <form action="{{ route('historyadmin.approve', $r['id']) }}" method="POST"
@@ -87,11 +94,12 @@
                                         </form>
                                     @endif
                                 </td>
+
                                 <td>{{ $r['created_at'] }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" style="text-align:center;">ยังไม่มีรายการจอง</td>
+                                <td colspan="7" style="text-align:center;">ยังไม่มีรายการจอง</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -101,14 +109,12 @@
             </div>
         </div>
 
-        {{-- Modal --}}
         <div id="editModal" class="modal" aria-hidden="true">
             <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="editTitle">
                 <div class="modal__head">
                     <div id="editTitle" class="modal__title">แก้ไข</div>
                     <button type="button" class="modal__close" aria-label="ปิด" onclick="closeEditModal()">×</button>
                 </div>
-
 
                 <form id="editForm" method="POST" class="modal__body">
                     @csrf
@@ -174,14 +180,17 @@
                 document.getElementById('m_phone').value = d.phone || '';
                 document.getElementById('m_detail').value = d.detail || '';
 
-                document.getElementById('editModal').style.display = 'flex';
-                document.getElementById('editModal').classList.add('show');
+                const modal = document.getElementById('editModal');
+                modal.style.display = 'flex';
+                modal.classList.add('show');
             }
 
             function closeEditModal() {
-                document.getElementById('editModal').style.display = 'none';
-                document.getElementById('editModal').classList.remove('show');
+                const modal = document.getElementById('editModal');
+                modal.style.display = 'none';
+                modal.classList.remove('show');
             }
+
             document.addEventListener('click', e => {
                 const m = document.getElementById('editModal');
                 if (e.target === m) closeEditModal();
@@ -189,6 +198,54 @@
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape') closeEditModal();
             });
+
+            const notifications = document.querySelector(".notifications");
+            const toastDetails = {
+                success: {
+                    icon: 'fa-circle-check',
+                    defaultText: 'ดำเนินการสำเร็จ'
+                },
+                error: {
+                    icon: 'fa-circle-xmark',
+                    defaultText: 'เกิดข้อผิดพลาด'
+                },
+            };
+
+            const removeToast = (toast) => {
+                toast.classList.add("hide");
+                if (toast.timeoutId) clearTimeout(toast.timeoutId);
+                setTimeout(() => toast.remove(), 500);
+            };
+
+            const createToast = (id, text = null, duration = 4500) => {
+                const conf = toastDetails[id] || toastDetails.error;
+                const html = (text ?? conf.defaultText).toString().replace(/\n/g, '<br>');
+                const toast = document.createElement("li");
+                toast.className = `toast ${id}`;
+                toast.style.setProperty('--timer', duration + 'ms');
+                toast.innerHTML = `
+                  <div class="column">
+                    <i class="fa-solid ${conf.icon}"></i>
+                    <span>${html}</span>
+                  </div>
+                  <i class="fa-solid fa-xmark" aria-label="Close"></i>
+                `;
+                notifications.appendChild(toast);
+                toast.querySelector(".fa-xmark").addEventListener("click", () => removeToast(toast));
+                toast.timeoutId = setTimeout(() => removeToast(toast), duration);
+            };
+
+            @if (session('success'))
+                createToast('success', @json(session('success')), 4000);
+            @endif
+            @if (session('error'))
+                createToast('error', @json(session('error')), 6000);
+            @endif
+
+            @if ($errors->any())
+                createToast('error', {!! json_encode(implode("\n", $errors->all())) !!}, 7000);
+            @endif
         </script>
+
         <script src="{{ asset('javascript/tableserach.js') }}"></script>
     @endsection
