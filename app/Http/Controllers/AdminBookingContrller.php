@@ -16,7 +16,7 @@ use Illuminate\Http\Request as HttpRequest;
 
 class AdminBookingContrller extends Controller
 {
-    protected function slotColumns(): array
+   protected function slotColumns(): array
     {
         $cols = [];
         for ($h = 8; $h <= 19; $h++) {
@@ -25,21 +25,55 @@ class AdminBookingContrller extends Controller
         return $cols;
     }
 
-    protected function extractStartEnd(BookingRequest $booking): array
+    /**
+     * คืนค่าเป็น array ของช่วงเวลา เช่น ['18.00 - 19.00', '20.00 - 21.00']
+     *
+     * @param BookingRequest $booking
+     * @return array
+     */
+    protected function extractSlotRanges(BookingRequest $booking): array
     {
-        $firstStart = null;
-        $lastEnd = null;
+        $ranges = [];
+        $currentStart = null;
+        $currentEnd = null;
+
         foreach ($this->slotColumns() as $col) {
+            
             if (!array_key_exists($col, $booking->getAttributes())) continue;
-            if ((int)$booking->{$col} === 1) {
+
+           
+            if ((int) $booking->{$col} === 1) {
                 [$s, $e] = array_map('intval', explode('_', Str::beforeLast($col, '_slot')));
-                $firstStart ??= $s;
-                $lastEnd = $e;
+
+                if ($currentStart === null) {
+                    
+                    $currentStart = $s;
+                    $currentEnd = $e;
+                } elseif ($s === $currentEnd) {
+                    
+                    $currentEnd = $e;
+                } else {
+                    
+                    $ranges[] = sprintf('%02d.00 - %02d.00', $currentStart, $currentEnd);
+                    $currentStart = $s;
+                    $currentEnd = $e;
+                }
+            } else {
+                
+                if ($currentStart !== null) {
+                    $ranges[] = sprintf('%02d.00 - %02d.00', $currentStart, $currentEnd);
+                    $currentStart = null;
+                    $currentEnd = null;
+                }
             }
         }
-        if ($firstStart === null || $lastEnd === null) return [null, null];
-        $fmt = fn(int $h) => sprintf('%02d.00', $h);
-        return [$fmt($firstStart), $fmt($lastEnd)];
+
+        
+        if ($currentStart !== null) {
+            $ranges[] = sprintf('%02d.00 - %02d.00', $currentStart, $currentEnd);
+        }
+
+        return $ranges;
     }
 
     public function index()
@@ -47,7 +81,7 @@ class AdminBookingContrller extends Controller
         $bookings = BookingRequest::orderByDesc('day')->orderByDesc('id')->get();
 
         $rows = $bookings->map(function (BookingRequest $b) {
-            [$start, $end] = $this->extractStartEnd($b);
+            $slots = $this->extractSlotRanges($b);
 
             $status = 'wait';
             if ($b->approve_status) $status = 'approved';
@@ -57,8 +91,7 @@ class AdminBookingContrller extends Controller
                 'user' =>$b->user->name,
                 'id'         => $b->id,
                 'room'       => $b->room_id,
-                'start'      => $start,
-                'end'        => $end,
+                'slots'      => $slots, 
                 'day'        => $b->day ? Carbon::parse($b->day)->format('d/m/Y') : '-',
                 'day_iso'    => $b->day ? Carbon::parse($b->day)->toDateString() : null,
                 'first_name' => $b->first_name,

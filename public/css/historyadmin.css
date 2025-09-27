@@ -474,3 +474,38 @@
     /* สีแดงอ่อน */
     color: #000;
   }
+
+
+  .searchbar{
+    margin: 2% 0%;
+    height: 4vh;
+    width: 60%;
+    padding: 10px 12px;
+    border: 1px solid #CDD5DA;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    
+  }
+
+  #notfoundtext{
+    margin-top: 1%;
+    font-size: 2rem;
+    color: red;
+    text-align: center;
+    display: none;
+  }
+
+  .datebar {
+  margin: 2% 0%;
+  height: 4vh;
+  
+  padding: 10px 12px;
+  border: 1px solid #CDD5DA;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-family: inherit;
+  font-size: 1rem;
+  color: #333;
+}

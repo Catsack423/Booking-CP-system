@@ -186,7 +186,7 @@
                 <div style="flex:1">
                     <div class="bk-lbl">Phone <b id="phone-danger" class="danger">***กรุณากรอกเบอร์โทรให้ครบ 10 หลัก</b></div>
                     <input class="bk-input" name="phone" id="phone" placeholder="Phone" value="{{ old('phone') }}"
-                        inputmode="numeric" onblur="checkphone()" maxlength="10" required>
+                        inputmode="numeric" onblur="checkphone()" maxlength="10" required type="number">
                 </div>
             </div>
 

@@ -21,22 +21,55 @@ class HistoryController extends Controller
         return $cols;
     }
 
-    protected function extractStartEnd(BookingRequest $booking): array
+    /**
+     * คืนค่าเป็น array ของช่วงเวลา เช่น ['18.00 - 19.00', '20.00 - 21.00']
+     *
+     * @param BookingRequest $booking
+     * @return array
+     */
+    protected function extractSlotRanges(BookingRequest $booking): array
     {
-        $firstStart = null;
-        $lastEnd = null;
+        $ranges = [];
+        $currentStart = null;
+        $currentEnd = null;
 
         foreach ($this->slotColumns() as $col) {
+            // ข้ามถ้า column ไม่มีใน attributes
             if (!array_key_exists($col, $booking->getAttributes())) continue;
+
+            // ถ้า slot ถูกจอง
             if ((int) $booking->{$col} === 1) {
                 [$s, $e] = array_map('intval', explode('_', Str::beforeLast($col, '_slot')));
-                $firstStart ??= $s;
-                $lastEnd = $e;
+
+                if ($currentStart === null) {
+                    // เริ่ม range ใหม่
+                    $currentStart = $s;
+                    $currentEnd = $e;
+                } elseif ($s === $currentEnd) {
+                    // ติดต่อกัน → ขยายช่วง
+                    $currentEnd = $e;
+                } else {
+                    // ไม่ติดต่อ → ปิดช่วงเก่า แล้วเริ่มช่วงใหม่
+                    $ranges[] = sprintf('%02d.00 - %02d.00', $currentStart, $currentEnd);
+                    $currentStart = $s;
+                    $currentEnd = $e;
+                }
+            } else {
+                // ถ้าช่องนี้ไม่ถูกจอง แต่มีช่วงเปิดอยู่ให้ปิดมัน
+                if ($currentStart !== null) {
+                    $ranges[] = sprintf('%02d.00 - %02d.00', $currentStart, $currentEnd);
+                    $currentStart = null;
+                    $currentEnd = null;
+                }
             }
         }
-        if ($firstStart === null || $lastEnd === null) return [null, null];
-        $fmt = fn(int $h) => sprintf('%02d.00', $h);
-        return [$fmt($firstStart), $fmt($lastEnd)];
+
+        // ปิดช่วงสุดท้ายถ้ายังไม่ปิด
+        if ($currentStart !== null) {
+            $ranges[] = sprintf('%02d.00 - %02d.00', $currentStart, $currentEnd);
+        }
+
+        return $ranges;
     }
 
     public function index()
@@ -50,16 +83,14 @@ class HistoryController extends Controller
 
         // app/Http/Controllers/HistoryController.php (เฉพาะส่วน map)
         $rows = $bookings->map(function (BookingRequest $b) {
-            [$start, $end] = $this->extractStartEnd($b);
+            $slots = $this->extractSlotRanges($b); // array ของช่วงเวลา
 
             return [
                 'id'         => $b->id,
-                'room'       => $b->room_id,            // ใช้เป็นรหัสห้องด้วย
-                'start'      => $start,                 // 18.00
-                'end'        => $end,                   // 20.00
+                'room'       => $b->room_id,
+                'slots'      => $slots, // <-- ใหม่: ['18.00 - 19.00', '20.00 - 21.00']
                 'day'        => $b->day ? Carbon::parse($b->day)->format('d/m/Y') : '-',
-                'day_iso'    => $b->day ? Carbon::parse($b->day)->toDateString() : null, // 2023-06-01
-                // ใช้เติมฟอร์ม
+                'day_iso'    => $b->day ? Carbon::parse($b->day)->toDateString() : null,
                 'first_name' => $b->first_name,
                 'last_name'  => $b->last_name,
                 'phone'      => $b->phone,
@@ -67,6 +98,9 @@ class HistoryController extends Controller
                 'created_at' => $b->created_at
                     ? Carbon::parse($b->created_at)->timezone('Asia/Bangkok')->format('d/m/Y H:i')
                     : null,
+                'wait' =>$b->wait_status,
+                'approve' =>$b->approve_status,
+                'reject' => $b->reject_status,
             ];
         });
         return view('pages.HistoryBooking', ['rows' => $rows, 'bookings' => $bookings]);
