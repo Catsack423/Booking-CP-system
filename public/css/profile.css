@@ -64,7 +64,7 @@ body {
 .profile-content button {
   width: fit-content;
   padding: 10px 25px;
-  border-radius: 8px;
+  border-radius: 50px;
   border: none;
   background-color: #0B76BC;
   color: #fff;

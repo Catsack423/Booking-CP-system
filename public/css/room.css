@@ -1,71 +1,90 @@
+/* ===== Base layout ===== */
+:root {
+  --card-max: 960px;
+  --pad: clamp(12px, 2vw, 24px);
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: rgba(148, 138, 138, 0.562);
-    font-family: 'Noto Sans Thai', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: rgba(148, 138, 138, 0.562);
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-size: clamp(14px, 2.1vw, 16px);
 }
 
 .floor-plan {
-    background-color: #fff;
-    padding: 2%;
-    position: relative;
-    width: 60vw;
-    max-width: 800px;
-    border-radius: 2%;
-    margin: auto;
+  background-color: #fff;
+  padding: var(--pad);
+  position: relative;
+  width: min(95vw, var(--card-max));
+  border-radius: 16px;
+  margin: auto;
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
 }
 
-.map-wrapper {
-    position: relative;
-    width: 100%;
-}
+.map-wrapper { position: relative; width: 100%; }
+.map-wrapper img,
+.floor-plan img { width: 100%; height: auto; display: block; }
 
-.map-wrapper img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.floor-plan img {
-    width: 100%;
-    height: auto;
-    display: block;
+/* ===== Room pins ===== */
+.room-btn,
+.room-btn-notavailable {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  /* แตะง่ายบนมือถือ แต่ไม่ใหญ่เกินบนจอใหญ่ */
+  width: clamp(36px, 8.5%, 64px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,.12);
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 
 .room-btn {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    width: 10%;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    border: 3px solid black;
-    cursor: pointer;
-    background: rgba(5, 255, 80, 0.719);
-    transition: transform 0.2s;
+  cursor: pointer;
+  background: rgba(5, 255, 80, 0.72);
 }
-
 .room-btn:hover {
-    transform: translate(-50%, -50%) scale(1.1);
-    border: 2px solid black;
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 3px 12px rgba(0,0,0,.16);
 }
 
 .room-btn-notavailable {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    width: 10%;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    border: 3px solid black;
-    transition: transform 0.2s;
-    background: rgba(255, 0, 21, 0.719);
-    cursor: hand;
+  background: rgba(255, 0, 21, 0.72);
+  cursor: not-allowed; /* เดิมใช้ hand (ไม่ถูกต้อง) */
+}
+.room-btn-notavailable:hover {
+  transform: translate(-50%, -50%) scale(1.04);
 }
 
-.room-btn-notavailable:hover {
-    transform: translate(-50%, -50%) scale(1.1);
-    border: 2px solid black;
+/* ปิด hover บนอุปกรณ์ทัช */
+@media (hover: none) {
+  .room-btn:hover,
+  .room-btn-notavailable:hover {
+    transform: translate(-50%, -50%);
+  }
 }
+
+/* ===== Breakpoints ===== */
+@media (max-width: 1024px) {
+  .floor-plan { width: 92vw; }
+}
+
+@media (max-width: 768px) {
+  .floor-plan { width: 96vw; border-radius: 12px; }
+}
+
+@media (max-width: 480px) {
+  .floor-plan { padding: 12px; }
+  .room-btn, .room-btn-notavailable { width: clamp(40px, 12%, 56px); }
+}
+
+/* ผู้ใช้ที่ไม่ต้องการ motion */
+@media (prefers-reduced-motion: reduce) {
+  .room-btn, .room-btn-notavailable { transition: none; }
+}
+
