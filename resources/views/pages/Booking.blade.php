@@ -330,7 +330,7 @@
                     <div class="bk-lbl">Name <b id="firstname-danger" class="danger">***กรุณากรอกข้อมูล</b></div>
 
                     <input class="bk-input" name="first_name" id="fname" placeholder="Name"
-                        value="{{ old('first_name') }}" onblur="checkname()" required >
+                        value="{{ old('first_name') }}"  >
                 </div>
                 <div class="bk-field">
                     <div class="bk-lbl">Last Name <b id="lastname-danger" class="danger">***กรุณากรอกข้อมูล</b></div>
@@ -350,7 +350,7 @@
 
                 <div class="bk-lbl">Detail <b id="textarea-danger" class="danger"> ***กรุณากรอกข้อมูล </b></div>
                 <textarea name="detail" id="detail" cols="30" rows="8" placeholder="Detail" value="{{ old('detail') }}"
-                    onblur="checkdetail()"></textarea>
+                    ></textarea>
 
 
             </div>
