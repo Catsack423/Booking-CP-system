@@ -1,0 +1,38 @@
+
+    .page-content {
+        margin-top: 5%; 
+        padding: 30px;
+        line-height: 1.8;
+    }
+    .about-section {
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .about-section h1 {
+        font-size: 32px;
+        text-decoration: underline;
+        margin-bottom: 20px;
+    }
+    .about-section h2 {
+        margin-top: 25px;
+        font-size: 22px;
+        color: #333;
+    }
+    .about-section p {
+        font-size: 18px;
+        color: #444;
+        text-align: justify;
+    }
+    .highlight {
+        font-weight: bold;
+        color: #007bff;
+    }
+    .logo-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .logo-container img {
+        max-width: 150px;
+    }
