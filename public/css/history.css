@@ -108,7 +108,7 @@
   }
 
   /* การ์ด & ตาราง */
-  
+
 
   table {
     width: 100%;
@@ -152,7 +152,7 @@
     width: 28%
   }
 
-  .col-booking{
+  .col-booking {
     width: 20%;
   }
 
@@ -193,7 +193,7 @@
     cursor: pointer;
     padding: 8px 25px;
     border-radius: 999px;
-    font-weight: 700;
+    font-weight: 400;
     color: #111;
     background: #FF9193;
     /* แดง */
@@ -365,7 +365,7 @@
   }
 
 
-  
+
 
   /* .status-approve {
     background-color: #90EE90;
@@ -378,7 +378,21 @@
     color: #000;
   }
 
-  .status-wait{
+  .status-wait {
     background-color: #FFE99B;
     color: #000;
+  }
+
+  .btn-primaryy {
+    background: #ededed;
+    border-color: transparent;
+    color: #111;
+    appearance: none;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    transition: transform .06s ease, background .2s ease, border-color .2s ease;
   }

@@ -8,7 +8,7 @@
 body {
     font-family: 'Noto Sans Thai', sans-serif;
     background: #f5f5f5;
-    margin-top: 3.5%;
+    margin-top: 15%;
 }
 
 /* ===================== Navbar ===================== */
@@ -268,4 +268,84 @@ body {
         grid-row: auto;
         padding: 0;
     }
+}
+
+/* ----- Layout: sticky footer ----- */
+.layout-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.layout-main {
+  flex: 1;
+  padding: 20px; /* ย้ายจาก inline */
+}
+
+/* ----- Footer styles ----- */
+.site-footer {
+  background: #111;
+  color: #fff;
+  margin-top: 40px;
+}
+.footer-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 20px;
+  display: flex;
+  gap: 32px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.fcol {
+  flex: 1 1 260px; /* กว้างขั้นต่ำ 260px แล้วค่อยยืด */
+}
+.f-logo {
+  width: 84px;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+}
+.f-desc {
+  color: #cfcfcf;
+  margin: 0;
+}
+.f-title {
+  font-size: 18px;
+  margin: 0 0 12px 0;
+  display: inline-block;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #00bcd4; /* accent */
+}
+.f-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.f-list li {
+  margin: 8px 0;
+  color: #ddd;
+}
+.f-list a {
+  color: #bbb;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.f-list a:hover,
+.f-list a:focus {
+  color: #00bcd4;
+}
+
+.footer-bottom {
+  border-top: 1px solid #2a2a2a;
+  text-align: center;
+  padding: 14px 16px 18px;
+  font-size: 14px;
+  color: #9a9a9a;
+}
+
+/* ----- Responsive tweaks ----- */
+@media (max-width: 640px) {
+  .footer-wrap { padding: 28px 16px 10px; }
+  .f-title { font-size: 16px; }
+  .f-list li { font-size: 14px; }
 }

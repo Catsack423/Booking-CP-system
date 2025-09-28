@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Profile')
+@section('hideFooter', true)
 <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 <link rel="stylesheet" href="{{ asset('css/toast.css') }}">
 

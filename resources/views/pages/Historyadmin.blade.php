@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'HistoryAdmin')
+@section('hideFooter', true)   {{-- ✅ ซ่อน footer หน้านี้ --}}
+
 @php
     $dayVal = $date ?? now()->toDateString();
 @endphp
@@ -13,18 +16,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
-        html,
-        body {
+        html, body {
             margin: 4%;
             padding: 0;
             height: 100%;
             font-family: "Noto Sans Thai UI", sans-serif;
         }
-
-        .modal.show {
-            display: flex;
-        }
-
+        .modal.show { display: flex; }
     </style>
 
     <ul class="notifications"></ul>
@@ -82,13 +80,11 @@
                                     @elseif ($r['status'] === 'rejected')
                                         <span class="status-reject">ปฏิเสธแล้ว</span>
                                     @else
-                                        <form action="{{ route('historyadmin.approve', $r['id']) }}" method="POST"
-                                            style="display:inline;">
+                                        <form action="{{ route('historyadmin.approve', $r['id']) }}" method="POST" style="display:inline;">
                                             @csrf
                                             <button type="submit" class="btn-approve">อนุมัติ</button>
                                         </form>
-                                        <form action="{{ route('historyadmin.reject', $r['id']) }}" method="POST"
-                                            style="display:inline;">
+                                        <form action="{{ route('historyadmin.reject', $r['id']) }}" method="POST" style="display:inline;">
                                             @csrf
                                             <button type="submit" class="btn-reject">ปฏิเสธ</button>
                                         </form>
@@ -140,8 +136,7 @@
 
                     <label class="field">
                         <span class="field__label">Phone</span>
-                        <input id="m_phone" name="phone" class="field__input" placeholder="Phone" inputmode="numeric"
-                            maxlength="10">
+                        <input id="m_phone" name="phone" class="field__input" placeholder="Phone" inputmode="numeric" maxlength="10">
                     </label>
 
                     <label class="field">
@@ -151,8 +146,7 @@
                 </form>
 
                 <div class="modal__footer">
-                    <form id="deleteForm" method="POST" onsubmit="return confirm('คุณต้องการลบการจองนี้หรือไม่?');"
-                        style="margin:0;">
+                    <form id="deleteForm" method="POST" onsubmit="return confirm('คุณต้องการลบการจองนี้หรือไม่?');" style="margin:0;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn-delete">ลบการจอง</button>
@@ -201,14 +195,8 @@
 
             const notifications = document.querySelector(".notifications");
             const toastDetails = {
-                success: {
-                    icon: 'fa-circle-check',
-                    defaultText: 'ดำเนินการสำเร็จ'
-                },
-                error: {
-                    icon: 'fa-circle-xmark',
-                    defaultText: 'เกิดข้อผิดพลาด'
-                },
+                success: { icon: 'fa-circle-check', defaultText: 'ดำเนินการสำเร็จ' },
+                error:   { icon: 'fa-circle-xmark', defaultText: 'เกิดข้อผิดพลาด' },
             };
 
             const removeToast = (toast) => {

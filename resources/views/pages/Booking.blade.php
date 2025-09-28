@@ -103,6 +103,15 @@
 
     <style>
         /* === Layout ฟอร์ม 3→2→1 คอลัมน์ === */
+        html,
+        body {
+            margin-top: -15%;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: "Noto Sans Thai UI", sans-serif;
+        }
+
         .bk-wrap {
             max-width: 980px;
             margin-inline: auto;
@@ -330,7 +339,7 @@
                     <div class="bk-lbl">Name <b id="firstname-danger" class="danger">***กรุณากรอกข้อมูล</b></div>
 
                     <input class="bk-input" name="first_name" id="fname" placeholder="Name"
-                        value="{{ old('first_name') }}"  >
+                        value="{{ old('first_name') }}">
                 </div>
                 <div class="bk-field">
                     <div class="bk-lbl">Last Name <b id="lastname-danger" class="danger">***กรุณากรอกข้อมูล</b></div>
@@ -349,8 +358,7 @@
             <div>
 
                 <div class="bk-lbl">Detail <b id="textarea-danger" class="danger"> ***กรุณากรอกข้อมูล </b></div>
-                <textarea name="detail" id="detail" cols="30" rows="8" placeholder="Detail" value="{{ old('detail') }}"
-                    ></textarea>
+                <textarea name="detail" id="detail" cols="30" rows="8" placeholder="Detail" value="{{ old('detail') }}"></textarea>
 
 
             </div>
@@ -393,13 +401,11 @@
                                 <button type="button" class="btn-edit" onclick="openEditModal(this)"
                                     data-id="{{ $r->id }}" data-room-id="{{ $r->room_id ?? $roomId }}"
                                     data-first-name="{{ $r['first_name'] ?? '' }}"
-                                    data-last-name="{{ $r['last_name'] ?? '' }}"
-                                    data-phone="{{ $r['phone'] ?? '' }}"
-                                    data-day="{{ $r['day_iso'] }}"
-                                    data-detail="{{ $r['detail'] ?? '' }}"
-                                    data-room-code="{{ $r->room_code ?? '' }}" >
-                                    
-                                    แก้ไข 
+                                    data-last-name="{{ $r['last_name'] ?? '' }}" data-phone="{{ $r['phone'] ?? '' }}"
+                                    data-day="{{ $r['day_iso'] }}" data-detail="{{ $r['detail'] ?? '' }}"
+                                    data-room-code="{{ $r->room_code ?? '' }}">
+
+                                    แก้ไข
                                 </button>
                             @endif
                         </label>
@@ -506,7 +512,7 @@
             if (e.key === 'Escape') closeEditModal();
         });
 
-  
+
         // ---------- Toast helpers ----------
         const notifications = document.querySelector(".notifications");
         const toastDetails = {
@@ -593,51 +599,52 @@
             if (selectedSlots === 0) errs.push('กรุณาเลือกช่วงเวลาอย่างน้อย 1 ช่อง');
             return errs;
         };
-        
+
         function checkname() {
-        let fname = document.getElementById("fname");
-        let fnamedanger = document.getElementById("firstname-danger");
-        let lname = document.getElementById("lname");
-        let lnamedanger = document.getElementById("lastname-danger");
+            let fname = document.getElementById("fname");
+            let fnamedanger = document.getElementById("firstname-danger");
+            let lname = document.getElementById("lname");
+            let lnamedanger = document.getElementById("lastname-danger");
 
-        if (fname.value.trim().length <= 0) {
-            fnamedanger.style.visibility = "visible"
-            fname.style.borderColor = "red";
-            fname.style.borderWidth = "1px";
+            if (fname.value.trim().length <= 0) {
+                fnamedanger.style.visibility = "visible"
+                fname.style.borderColor = "red";
+                fname.style.borderWidth = "1px";
 
-        } else {
-            fnamedanger.style.visibility = "hidden"
-            fname.style.borderColor = "";
-            fname.style.borderWidth = "0px";
-        }
-
-        if (lname.value.trim().length <= 0) {
-            lnamedanger.style.visibility = "visible"
-            lname.style.borderColor = "red";
-            lname.style.borderWidth = "1px";
-
-        } else {
-            lnamedanger.style.visibility = "hidden"
-            lname.style.borderColor = "";
-            lname.style.borderWidth = "0px";
-        }
-    }
-        function checkdetail() {
-        let detail = document.getElementById("detail");
-        let areadanger = document.getElementById("textarea-danger");
-        if (detail.value.length == 0) {
-            areadanger.style.visibility = "visible"
-            detail.style.borderColor = "red";
-            detail.style.borderWidth = "1px";
-            e.preventDefault();
-            return;
-        } else {
-            areadanger.style.visibility = "hidden"
-            detail.style.borderColor = "";
-            detail.style.borderWidth = "0px";
+            } else {
+                fnamedanger.style.visibility = "hidden"
+                fname.style.borderColor = "";
+                fname.style.borderWidth = "0px";
             }
-            
-           }
+
+            if (lname.value.trim().length <= 0) {
+                lnamedanger.style.visibility = "visible"
+                lname.style.borderColor = "red";
+                lname.style.borderWidth = "1px";
+
+            } else {
+                lnamedanger.style.visibility = "hidden"
+                lname.style.borderColor = "";
+                lname.style.borderWidth = "0px";
+            }
+        }
+
+        function checkdetail() {
+            let detail = document.getElementById("detail");
+            let areadanger = document.getElementById("textarea-danger");
+            if (detail.value.length == 0) {
+                areadanger.style.visibility = "visible"
+                detail.style.borderColor = "red";
+                detail.style.borderWidth = "1px";
+                e.preventDefault();
+                return;
+            } else {
+                areadanger.style.visibility = "hidden"
+                detail.style.borderColor = "";
+                detail.style.borderWidth = "0px";
+            }
+
+        }
 
         form.addEventListener('submit', (e) => {
             const errs = validateClient();
@@ -653,6 +660,5 @@
         @if ($errors->any())
             createToastOnce('error', {!! json_encode(implode("\n", $errors->all())) !!}, 7000);
         @endif
-
     </script>
 @endsection

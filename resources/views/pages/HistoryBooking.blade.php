@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'HistoryBooking')
+@section('hideFooter', true)   {{-- ✅ ซ่อน footer หน้านี้ --}}
+
 @php
     $dayVal = $date ?? now()->toDateString();
 @endphp
@@ -13,8 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
-        html,
-        body {
+        html, body {
             margin: 4%;
             padding: 0;
             height: 100%;
@@ -64,7 +66,6 @@
                                 data-detail="{{ $r['detail'] ?? '' }}">
                                 แก้ไข
                             </button>
-                            {{-- ปุ่มลบ --}}
                             <form action="{{ route('booking.destroy', $r['id']) }}" method="POST"
                                 onsubmit="return confirm('คุณต้องการลบรายการนี้หรือไม่?');">
                                 @csrf
