@@ -12,11 +12,11 @@
     background: #ffffff;
     border: none;
     color: #fff;
-    font-weight: 700;
-    padding: 12px 30px;
+    font-weight: 400;
+    padding: 8px 30px;
     border-radius: 999px;
     cursor: pointer;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, .25), 0 0 0 1px rgba(0, 0, 0, .12) inset;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     /* เพิ่มเงา */
     transition: transform .06s ease, filter .2s ease;
   }
@@ -56,7 +56,7 @@
     padding: 8px 0;
     margin: 4px 0;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     text-align: center;
     border: none;
     border-radius: 25px;
@@ -135,7 +135,7 @@
     background: #ededed;
     padding: 10px 22px;
     border-radius: 999px;
-    font-weight: 600;
+    font-weight: 400;
     color: #111;
     text-decoration: none;
     display: inline-block;
@@ -161,9 +161,9 @@
 
 
   .btn-primary {
-    background: #ededed;
+    background: var(--brand);
     border-color: transparent;
-    color: #000000
+    color: #fff
   }
 
   .btn-primary:hover {
@@ -197,7 +197,7 @@
   }
 
   thead th {
-    background: var(--surface-2);
+    background: #ffffff;
     color: #4b5563;
     text-align: center;
     font-weight: 700;
@@ -216,6 +216,7 @@
   }
 
   tbody td {
+    background: #ffffff;
     padding: 16px 20px;
     border-bottom: 1px solid var(--line);
     vertical-align: middle;
@@ -253,10 +254,10 @@
     cursor: pointer;
     padding: 8px 18px;
     border-radius: 999px;
-    font-weight: 700;
+    font-weight: 400;
     color: #fff;
     background: #6b7280;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, .25), 0 0 0 1px rgba(0, 0, 0, .12) inset;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     transition: transform .06s ease, filter .2s ease;
   }
 
@@ -275,11 +276,11 @@
     cursor: pointer;
     padding: 8px 18px;
     border-radius: 999px;
-    font-weight: 700;
-    color: #fff;
-    background: #dc2626;
+    font-weight: 400;
+    color: #000;
+    background: #FF9193;
     /* แดง */
-    box-shadow: 0 3px 0 rgba(0, 0, 0, .25), 0 0 0 1px rgba(0, 0, 0, .12) inset;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     transition: transform .06s ease, filter .2s ease;
   }
 
@@ -454,20 +455,19 @@
     padding: 8px 0;
     margin: 4px 0;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     text-align: center;
     border: none;
     border-radius: 25px;
     /* ทำให้ขอบโค้งเป็นวงรี */
-    
+    /* box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); */
     transition: transform 0.2s, opacity 0.2s;
   }
 
-  .status-approve {
+  /* .status-approve {
     background-color: #90EE90;
-    /* สีเขียวอ่อน */
     color: #000;
-  }
+  } */
 
   .status-reject {
     background-color: #F08080;
