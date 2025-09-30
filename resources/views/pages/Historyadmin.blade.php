@@ -191,7 +191,7 @@
                     @method('DELETE')
                     <button type="submit" class="btn-delete">ลบการจอง</button>
                 </form>
-                <button type="submit" form="editForm" class="btn-primary">บันทึก</button>
+                <button type="submit" form="editForm" class="btn-save">บันทึก</button>
             </div>
         </div>
     </div>

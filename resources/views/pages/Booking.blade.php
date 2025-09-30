@@ -116,7 +116,9 @@
             max-width: 980px;
             margin-inline: auto;
             padding: clamp(12px, 2vw, 24px);
-
+            background: #FFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
 

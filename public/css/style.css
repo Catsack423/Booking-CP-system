@@ -78,15 +78,26 @@ body {
     font-size: 16px;
     color: #000;
     text-decoration: none;
-    transition: all 0.3s;
+    display: inline-block;
+    text-align: center;
+    transition: all .3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .1);
     white-space: nowrap;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
-.navbar-menu a.active {
-    background: #8b8b8b;
-    color: #fff;
+
+/* ใส่ต่อท้ายบล็อก .navbar-menu a เดิม */
+.navbar-menu a:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .12);
 }
+
+.navbar-menu a:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .10);
+}
+
 
 .logout-btn {
     background: transparent;

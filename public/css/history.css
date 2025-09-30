@@ -138,7 +138,7 @@ tbody tr:hover {
   cursor: pointer;
   padding: 8px 18px;
   border-radius: 999px;
-  font-weight: 700;
+  font-weight: 400;
   color: #fff;
   background: #6b7280;
   box-shadow: 0 4px 4px rgba(0, 0, 0, .1);
@@ -159,7 +159,7 @@ tbody tr:hover {
   cursor: pointer;
   padding: 10px 27px;
   border-radius: 999px;
-  font-weight: 500;
+  font-weight: 400;
   color: #111;
   background: #FF9193;
   box-shadow: 0 4px 4px rgba(0, 0, 0, .1);
@@ -178,10 +178,10 @@ tbody tr:hover {
   appearance: none;
   border: 0;
   cursor: pointer;
-  padding: 10px 27px;
+  padding: 10px 40px;
   border-radius: 999px;
-  font-weight: 500;
-  color: #111;
+  font-weight: 400;
+  color: #fff;
   background: #0B76BC;
   box-shadow: 0 4px 4px rgba(0, 0, 0, .1);
 }
@@ -418,7 +418,7 @@ tbody tr:hover {
     padding: 10px 0;
     text-align: center;
     border-radius: 999px;
-    font-weight: 600;
+    font-weight: 400;
     flex: 0 0 auto !important;
   }
 }

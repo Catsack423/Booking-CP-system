@@ -137,7 +137,7 @@ tbody tr:hover {
   min-width: 120px;
   text-align: center;
   border-radius: 999px;
-  font-weight: 600;
+  font-weight: 400;
   color: #fff;
   background: #6b7280;
   box-shadow: 0 4px 4px rgba(0, 0, 0, .1);
@@ -152,7 +152,7 @@ tbody tr:hover {
   min-width: 120px;
   text-align: center;
   border-radius: 999px;
-  font-weight: 600;
+  font-weight: 400;
   color: #111;
   background: #FF9193;
   box-shadow: 0 4px 4px rgba(0, 0, 0, .1);
@@ -199,7 +199,7 @@ tbody tr:hover {
   padding: 10px 0;
   border-radius: 999px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .status-approve {
