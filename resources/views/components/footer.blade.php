@@ -7,12 +7,10 @@
         box-shadow: 0 -8px 24px rgba(0, 0, 0, .06);
     }
 
-    /* คอนเทนต์ด้านใน align เหมือน navbar */
     .site-footer .footer-inner {
         max-width: 1200px;
         margin: 0 auto;
         padding: 40px 60px;
-        /* ✅ ซ้าย–ขวาเท่ากับ navbar */
         display: grid;
         grid-template-columns: 1.2fr 1fr 1fr;
         gap: 32px;
@@ -76,7 +74,6 @@
         font-size: .95rem;
     }
 
-    /* Responsive */
     @media (max-width: 992px) {
         .site-footer .footer-inner {
             grid-template-columns: 1fr 1fr;
@@ -98,7 +95,6 @@
         }
     }
 
-    /* ซ่อน footer เมื่อจอกว้าง <= 768px (เช่นมือถือ/แท็บเล็ตแนวตั้ง) */
     @media (max-width: 768px) {
         .site-footer {
             display: none;

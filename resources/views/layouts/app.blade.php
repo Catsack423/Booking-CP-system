@@ -19,7 +19,6 @@
     @yield('content')
   </main>
 
-  {{-- ✅ Footer จะแสดงก็ต่อเมื่อไม่มีการสั่งซ่อน --}}
   @hasSection('hideFooter')
   @else
     @include('components.footer')
