@@ -11,16 +11,28 @@
     {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/history.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toast.css') }}"> {{-- ✅ Toast --}}
-
-    {{-- ไอคอน --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
+        /* ✅ ใช้ padding-top กันชน navbar fixed (แทน margin 4%) */
         html, body {
-            margin: 4%;
+            margin: 0;                 /* ยกเลิก margin 4% เดิมที่ทำให้เพี้ยน */
             padding: 0;
             height: 100%;
             font-family: "Noto Sans Thai UI", sans-serif;
+            background: #f5f5f5;
+        }
+        body { padding-top: 90px; }     /* desktop */
+        @media (max-width: 832px){
+          body { padding-top: 64px; }   /* mobile navbar */
+        }
+
+        /* ✅ Toast ให้ต่ำกว่า navbar */
+        ul.notifications {
+          position: fixed; top: 80px; right: 16px; z-index: 2300;
+        }
+        @media (max-width: 640px){
+          ul.notifications { left: 12px; right: 12px; top: 70px; }
         }
     </style>
 
@@ -36,64 +48,67 @@
             @endif
         </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th class="col-room">ห้อง</th>
-                    <th class="col-booking">เวลาที่จอง</th>
-                    <th class="col-date">ห้องที่จอง</th>
-                    <th class="col-appove">แก้ไข/ลบ</th>
-                    <th>จองเมื่อ</th>
-                    <th class="col-status">สถานะ</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($rows as $r)
+        <div class="table-wrap">
+            <table>
+                <thead>
                     <tr>
-                        <td data-th="ห้อง">{{ $r['room'] }}</td>
-                        <td>
-                            @foreach ($r['slots'] as $slot)
-                                <p>{{ $slot }} </p>
-                            @endforeach
-                        </td>
-                        <td data-th="ห้องที่จอง">{{ $r['day'] }}</td>
-                        <td data-th="แก้ไข/ลบ">
-                            <button type="button" class="btn-open" onclick="openEditModal(this)"
-                                data-id="{{ $r['id'] }}" data-room-id="{{ $r['room'] }}"
-                                data-room-code="{{ $r['room'] }}" data-day="{{ $r['day_iso'] }}"
-                                data-first-name="{{ $r['first_name'] ?? '' }}"
-                                data-last-name="{{ $r['last_name'] ?? '' }}" data-phone="{{ $r['phone'] ?? '' }}"
-                                data-detail="{{ $r['detail'] ?? '' }}">
-                                แก้ไข
-                            </button>
-                            <form action="{{ route('booking.destroy', $r['id']) }}" method="POST"
-                                onsubmit="return confirm('คุณต้องการลบรายการนี้หรือไม่?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn-delete">ลบ</button>
-                            </form>
-
-                        <td>{{ $r['created_at'] }}</td>
-
-                        @if ($r['wait'])
-                            <td class="status-wait">รอการอนุมัติ</td>
-                        @endif
-                        @if ($r['approve'])
-                            <td class="status-approve">อนุมัติแล้ว</td>
-                        @endif
-                        @if ($r['reject'])
-                            <td class="status-reject">ไม่อนุมัติ</td>
-                        @endif
+                        <th class="col-room">ห้อง</th>
+                        <th class="col-booking">เวลาที่จอง</th>
+                        <th class="col-date">ห้องที่จอง</th>
+                        <th class="col-appove">แก้ไข/ลบ</th>
+                        <th>จองเมื่อ</th>
+                        <th class="col-status">สถานะ</th>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" style="text-align:center;color:#6b7280;padding:28px 20px ">
-                            ยังไม่มีประวัติการจอง
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @forelse($rows as $r)
+                        <tr>
+                            <td data-th="ห้อง">{{ $r['room'] }}</td>
+                            <td data-th="เวลาที่จอง">
+                                @foreach ($r['slots'] as $slot)
+                                    <p>{{ $slot }}</p>
+                                @endforeach
+                            </td>
+                            <td data-th="ห้องที่จอง">{{ $r['day'] }}</td>
+                            <td data-th="แก้ไข/ลบ">
+                                <button type="button" class="btn-open" onclick="openEditModal(this)"
+                                    data-id="{{ $r['id'] }}" data-room-id="{{ $r['room'] }}"
+                                    data-room-code="{{ $r['room'] }}" data-day="{{ $r['day_iso'] }}"
+                                    data-first-name="{{ $r['first_name'] ?? '' }}"
+                                    data-last-name="{{ $r['last_name'] ?? '' }}"
+                                    data-phone="{{ $r['phone'] ?? '' }}"
+                                    data-detail="{{ $r['detail'] ?? '' }}">
+                                    แก้ไข
+                                </button>
+                                <form action="{{ route('booking.destroy', $r['id']) }}" method="POST"
+                                      onsubmit="return confirm('คุณต้องการลบรายการนี้หรือไม่?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-delete">ลบ</button>
+                                </form>
+                            </td>
+                            <td data-th="จองเมื่อ">{{ $r['created_at'] }}</td>
+
+                            @if ($r['wait'])
+                                <td data-th="สถานะ" class="status-wait">รอการอนุมัติ</td>
+                            @endif
+                            @if ($r['approve'])
+                                <td data-th="สถานะ" class="status-approve">อนุมัติแล้ว</td>
+                            @endif
+                            @if ($r['reject'])
+                                <td data-th="สถานะ" class="status-reject">ไม่อนุมัติ</td>
+                            @endif
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" style="text-align:center;color:#6b7280;padding:28px 20px">
+                                ยังไม่มีประวัติการจอง
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 
     {{-- Modal --}}
@@ -128,8 +143,7 @@
 
                 <label class="field">
                     <span class="field__label">Phone</span>
-                    <input id="m_phone" name="phone" class="field__input" placeholder="Phone" inputmode="numeric"
-                        maxlength="10">
+                    <input id="m_phone" name="phone" class="field__input" placeholder="Phone" inputmode="numeric" maxlength="10">
                 </label>
 
                 <label class="field">
@@ -141,7 +155,6 @@
                     <button type="submit" class="btn-primary">บันทึก</button>
                 </div>
             </form>
-
         </div>
     </div>
 
@@ -166,37 +179,25 @@
             document.getElementById('editModal').classList.add('show');
         }
 
-        function closeEditModal() {
-            document.getElementById('editModal').classList.remove('show');
-        }
+        function closeEditModal() { document.getElementById('editModal').classList.remove('show'); }
 
         document.addEventListener('click', e => {
             const m = document.getElementById('editModal');
             if (e.target === m) closeEditModal();
         });
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeEditModal();
-        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEditModal(); });
 
-        // ✅ Toast ฟังก์ชัน
+        // ✅ Toast
         const notifications = document.querySelector(".notifications");
         const toastDetails = {
-            success: {
-                icon: 'fa-circle-check',
-                defaultText: 'บันทึกสำเร็จ'
-            },
-            error: {
-                icon: 'fa-circle-xmark',
-                defaultText: 'เกิดข้อผิดพลาด'
-            },
+            success: { icon: 'fa-circle-check', defaultText: 'บันทึกสำเร็จ' },
+            error:   { icon: 'fa-circle-xmark', defaultText: 'เกิดข้อผิดพลาด' },
         };
-
         const removeToast = (toast) => {
             toast.classList.add("hide");
             if (toast.timeoutId) clearTimeout(toast.timeoutId);
             setTimeout(() => toast.remove(), 500);
         };
-
         const createToast = (id, text = null, duration = 4000) => {
             const conf = toastDetails[id] || toastDetails.error;
             const toast = document.createElement("li");
@@ -214,12 +215,7 @@
             toast.timeoutId = setTimeout(() => removeToast(toast), duration);
         };
 
-        // ✅ เช็ค flash message จาก Laravel
-        @if (session('success'))
-            createToast('success', @json(session('success')));
-        @endif
-        @if (session('error'))
-            createToast('error', @json(session('error')));
-        @endif
+        @if (session('success')) createToast('success', @json(session('success'))); @endif
+        @if (session('error'))   createToast('error',   @json(session('error')));   @endif
     </script>
 @endsection

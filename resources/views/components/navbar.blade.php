@@ -69,7 +69,8 @@
             <a href="../profile">
                 <img src="{{ Auth::user()->profile_photo_url }}" alt="avatar">
             </a>
-            <p class="sidebar-email">{{ $state['email'] ?? Auth::user()->email }}</p>
+            
+            <p href="../profile" class="sidebar-email">{{ $state['email'] ?? Auth::user()->email }}</p>
         </div>
 
         <!-- Menu -->

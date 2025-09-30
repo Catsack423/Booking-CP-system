@@ -11,10 +11,12 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 40px 60px;
-        display: grid;
-        grid-template-columns: 1.2fr 1fr 1fr;
-        gap: 32px;
+        display: flex;
+        /* ใช้ flex */
+        justify-content: space-between;
+        /* ดันซ้าย-ขวา */
         align-items: flex-start;
+        gap: 32px;
     }
 
     .footer-brand img {
@@ -28,6 +30,23 @@
         color: #6b7280;
         line-height: 1.6;
     }
+
+    .footer-brand {
+        flex: 1;
+        /* กินพื้นที่ 1 ส่วน */
+        max-width: 600px;
+        /* กำหนดความกว้างสูงสุด */
+    }
+
+    .footer-right {
+        flex: 2;
+        /* กินพื้นที่ 2 ส่วน (กว้างกว่า logo) */
+        display: flex;
+        justify-content: flex-end;
+        /* เน้นชิดขวา */
+        gap: 50px;
+    }
+
 
     .site-footer h4 {
         font-size: 1.05rem;
@@ -74,30 +93,22 @@
         font-size: .95rem;
     }
 
-    @media (max-width: 992px) {
+    /* Responsive */
+    @media (max-width: 768px) {
         .site-footer .footer-inner {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .footer-brand {
-            grid-column: 1 / -1;
-        }
-    }
-
-    @media (max-width: 640px) {
-        .site-footer .footer-inner {
-            grid-template-columns: 1fr;
+            flex-direction: column;
+            /* เรียงลง */
             padding: 28px 16px;
+        }
+
+        .footer-right {
+            flex-direction: column;
+            /* ติดต่อเรา/เมนู เรียงแนวตั้ง */
+            gap: 24px;
         }
 
         .footer-bottom {
             padding: 14px 16px 18px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .site-footer {
-            display: none;
         }
     }
 </style>
@@ -109,23 +120,25 @@
             <p class="tagline">ระบบจองห้องออนไลน์สำหรับนักศึกษาและบุคลากร</p>
         </div>
 
-        <div class="footer-col">
-            <h4>ติดต่อเรา</h4>
-            <ul>
-                <li>วิทยาลัยการคอมพิวเตอร์ มข.</li>
-                <li>123 ถ.มิตรภาพ ต.ในเมือง อ.เมือง จ.ขอนแก่น 40002</li>
-                <li>โทร: <a href="tel:043009700">043-009700</a></li>
-                <li>Email: <a href="mailto:computing.kkumail@kku.ac.th">computing.kkumail@kku.ac.th</a></li>
-            </ul>
-        </div>
+        <div class="footer-right">
+            <div class="footer-col">
+                <h4>ติดต่อเรา</h4>
+                <ul>
+                    <li>วิทยาลัยการคอมพิวเตอร์ มข.</li>
+                    <li>123 ถ.มิตรภาพ ต.ในเมือง อ.เมือง จ.ขอนแก่น 40002</li>
+                    <li>โทร: <a href="tel:043009700">043-009700</a></li>
+                    <li>Email: <a href="mailto:computing.kkumail@kku.ac.th">computing.kkumail@kku.ac.th</a></li>
+                </ul>
+            </div>
 
-        <div class="footer-col">
-            <h4>เมนู</h4>
-            <ul>
-                <li><a href="/about">เกี่ยวกับเรา</a></li>
-                <li><a href="/guide">คู่มือการใช้งาน</a></li>
-                <li><a href="/privacy">นโยบายความเป็นส่วนตัว</a></li>
-            </ul>
+            <div class="footer-col">
+                <h4>เมนู</h4>
+                <ul>
+                    <li><a href="/about">เกี่ยวกับเรา</a></li>
+                    <li><a href="/guide">วิธีใช้งาน</a></li>
+                    {{-- <li><a href="/privacy">นโยบายความเป็นส่วนตัว</a></li> --}}
+                </ul>
+            </div>
         </div>
     </div>
 
