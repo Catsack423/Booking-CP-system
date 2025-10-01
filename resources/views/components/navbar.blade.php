@@ -12,7 +12,7 @@
     <div class="navbar">
         <!-- Logo -->
         <div class="navbar-logo">
-            <a href="../../floor1">
+            <a href="{{route('floor1')}}">
                 <img src="{{ asset('img/logo.png') }}" alt="logo">
             </a>
         </div>

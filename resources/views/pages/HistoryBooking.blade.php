@@ -54,7 +54,7 @@
                     <tr>
                         <th class="col-room">ห้อง</th>
                         <th class="col-booking">เวลาที่จอง</th>
-                        <th class="col-date">ห้องที่จอง</th>
+                        <th class="col-date">วันที่จอง</th>
                         <th class="col-appove">แก้ไข/ลบ</th>
                         <th>จองเมื่อ</th>
                         <th class="col-status">สถานะ</th>
