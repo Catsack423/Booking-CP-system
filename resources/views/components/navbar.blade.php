@@ -12,7 +12,7 @@
     <div class="navbar">
         <!-- Logo -->
         <div class="navbar-logo">
-            <a href="../../floor1">
+            <a href="{{route('floor1')}}">
                 <img src="{{ asset('img/logo.png') }}" alt="logo">
             </a>
         </div>
@@ -69,7 +69,8 @@
             <a href="../profile">
                 <img src="{{ Auth::user()->profile_photo_url }}" alt="avatar">
             </a>
-            <p class="sidebar-email">{{ $state['email'] ?? Auth::user()->email }}</p>
+            
+            <p href="../profile" class="sidebar-email">{{ $state['email'] ?? Auth::user()->email }}</p>
         </div>
 
         <!-- Menu -->

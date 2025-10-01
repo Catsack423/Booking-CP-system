@@ -10,13 +10,18 @@
   <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="min-height:100vh;display:flex;flex-direction:column;">
   <!-- Navbar -->
   @include('components.navbar')
 
   <!-- Content -->
-  <main style="padding:20px;">
+  <main style="padding:20px;flex:1;">
     @yield('content')
   </main>
+
+  @hasSection('hideFooter')
+  @else
+    @include('components.footer')
+  @endif
 </body>
 </html>

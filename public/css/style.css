@@ -8,7 +8,7 @@
 body {
     font-family: 'Noto Sans Thai', sans-serif;
     background: #f5f5f5;
-    margin-top: 3.5%;
+    margin-top: 15%;
 }
 
 /* ===================== Navbar ===================== */
@@ -78,15 +78,26 @@ body {
     font-size: 16px;
     color: #000;
     text-decoration: none;
-    transition: all 0.3s;
+    display: inline-block;
+    text-align: center;
+    transition: all .3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .1);
     white-space: nowrap;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
-.navbar-menu a.active {
-    background: #8b8b8b;
-    color: #fff;
+
+/* ใส่ต่อท้ายบล็อก .navbar-menu a เดิม */
+.navbar-menu a:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .12);
 }
+
+.navbar-menu a:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .10);
+}
+
 
 .logout-btn {
     background: transparent;
@@ -135,7 +146,8 @@ body {
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* profile top, menu middle, logout bottom */
+    justify-content: space-between;
+    /* profile top, menu middle, logout bottom */
     padding: 20px;
 }
 
@@ -150,7 +162,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s;
@@ -239,7 +251,7 @@ body {
     border-radius: 20px;
     cursor: pointer;
     transition: background 0.3s;
-    
+
 }
 
 .sidebar-logout button.logout-btn:hover {
@@ -251,6 +263,7 @@ body {
     .desktop-only {
         display: none !important;
     }
+
     .hamburger {
         display: block;
     }
@@ -264,8 +277,434 @@ body {
         grid-template-rows: none;
         padding: 10px 15px;
     }
+
     .navbar-logo {
         grid-row: auto;
         padding: 0;
+    }
+}
+
+/* ----- Layout: sticky footer ----- */
+.layout-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-main {
+    flex: 1;
+    padding: 20px;
+    /* ย้ายจาก inline */
+}
+
+/* ----- Footer styles ----- */
+.site-footer {
+    background: #111;
+    color: #fff;
+    margin-top: 40px;
+}
+
+.footer-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px 20px;
+    display: flex;
+    gap: 32px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.fcol {
+    flex: 1 1 260px;
+    /* กว้างขั้นต่ำ 260px แล้วค่อยยืด */
+}
+
+.f-logo {
+    width: 84px;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.f-desc {
+    color: #cfcfcf;
+    margin: 0;
+}
+
+.f-title {
+    font-size: 18px;
+    margin: 0 0 12px 0;
+    display: inline-block;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #00bcd4;
+    /* accent */
+}
+
+.f-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.f-list li {
+    margin: 8px 0;
+    color: #ddd;
+}
+
+.f-list a {
+    color: #bbb;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.f-list a:hover,
+.f-list a:focus {
+    color: #00bcd4;
+}
+
+.footer-bottom {
+    border-top: 1px solid #2a2a2a;
+    text-align: center;
+    padding: 14px 16px 18px;
+    font-size: 14px;
+    color: #9a9a9a;
+}
+
+/* ----- Responsive tweaks ----- */
+@media (max-width: 640px) {
+    .footer-wrap {
+        padding: 28px 16px 10px;
+    }
+
+    .f-title {
+        font-size: 16px;
+    }
+
+    .f-list li {
+        font-size: 14px;
+    }
+}
+
+/* Navbar base */
+.navbar {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: auto auto;
+    align-items: center;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, .1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000 !important;
+}
+
+.navbar-logo {
+    grid-row: 1/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.navbar-logo img {
+    height: 50px;
+    width: auto;
+}
+
+.navbar-top {
+    grid-column: 2/3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+
+.navbar-bottom {
+    grid-column: 2/3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    padding: 8px 10px;
+}
+
+.navbar-menu {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-menu a {
+    padding: 9px 20px;
+    border-radius: 50px;
+    background: #ededed;
+    font-size: 16px;
+    color: #000;
+    text-decoration: none;
+    transition: all .3s;
+    white-space: nowrap;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, .1);
+}
+
+.navbar-menu a.active {
+    background: #8b8b8b;
+    color: #fff;
+}
+
+.logout-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.logout-btn img {
+    height: 30px;
+    width: 30px;
+}
+
+.user-avatar {
+    height: 30px;
+    width: 30px;
+    transition: transform .2s;
+}
+
+.user-avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, .1);
+}
+
+/* Hamburger */
+.hamburger {
+    display: none;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    color: #111;
+}
+
+/* Sidebar + Overlay */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    width: 260px;
+    height: 100%;
+    background: #fff;
+    transition: .4s ease-in-out;
+    z-index: 2100;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .4s;
+    z-index: 2050;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 26px;
+    background: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+}
+
+.sidebar-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-logo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sidebar-email {
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    word-break: break-all;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+    margin-block: 10px;
+}
+
+.sidebar-menu a {
+    color: #111;
+    text-decoration: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 4px;
+    text-align: center;
+    transition: background .3s;
+}
+
+.sidebar-menu a:hover {
+    background: #c0c0c0;
+    border-radius: 50px;
+}
+
+.sidebar-logout {
+    margin-top: auto;
+}
+
+.sidebar-logout button.logout-btn {
+    width: 100%;
+    padding: 12px;
+    background: #0B76BC;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* ===== Mobile ===== */
+@media (max-width:832px) {
+
+    .desktop-only,
+    .navbar-top,
+    .navbar-bottom {
+        display: none !important;
+    }
+
+    .hamburger {
+        display: block !important;
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        z-index: 2200;
+        padding: 6px 10px;
+        border-radius: 8px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .navbar {
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 10px 16px;
+        height: 56px;
+    }
+
+    .navbar-logo {
+        padding: 0;
+        margin-right: auto;
+    }
+
+    .navbar-logo img {
+        height: 40px;
+    }
+
+    /* ถ้าใช้ Jetstream nav ซ้อน: ซ่อนบนมือถือกันทับ */
+    nav.bg-white.border-b.border-gray-100 {
+        display: none !important;
+    }
+}
+
+/* ===== MOBILE FIXES (วางท้ายไฟล์) ===== */
+@media screen and (max-width: 900px) {
+
+    /* 1) ยกเลิกการจัดกึ่งกลางทั้งหน้า เพื่อให้เลย์เอาต์ไหลตามธรรมชาติ */
+    body {
+        margin: 0 !important;
+        padding: 20px 15px !important;
+        min-height: auto;
+        display: block !important;
+        /* แทน flex-center */
+        justify-content: initial !important;
+        align-items: initial !important;
+    }
+
+    /* 2) ให้คอนเทนต์ย่อเต็มจอได้ */
+    .profile-content {
+        flex-direction: column;
+        /* การ์ดซ้อนกัน */
+        gap: 16px;
+        width: 100% !important;
+        max-width: 100% !important;
+        /* ไม่ล็อก 800/1000 แล้ว */
+    }
+
+    .profile-content .card {
+        max-width: 100% !important;
+        padding: 16px;
+        border-radius: 12px;
+        text-align: left;
+        /* อ่านง่ายขึ้น; ถ้าอยากกลางคงไว้ได้ */
+    }
+
+    /* 3) อวาตาร์เล็กลง */
+    .profile-content .user-avatar {
+        width: 96px;
+        height: 96px;
+    }
+
+    /* 4) แถวปุ่มด้านบนให้จัดระเบียบ: บนมือถือใช้กริด 2 คอลัมน์ (หรือ 1 คอลัมน์เมื่อจอแคบมาก) */
+    .actionsedit {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin: 10px 0 16px;
+    }
+
+    .actionsedit .btn,
+    .actionsedit .btn-primary,
+    .actionsedit .allhistory {
+        width: 100%;
+        text-align: center;
+        padding: 12px 14px;
+        border-radius: 14px;
+        /* ลดจาก 50px กันเป็นทรงกลมเมื่อขึ้นบรรทัดใหม่ */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, .08);
+    }
+
+    /* 5) ปุ่มในฟอร์ม: เต็มแถว แตะง่าย */
+    .profile-content button {
+        width: 100%;
+        text-align: center;
+        padding: 12px 16px;
+    }
+}
+
+/* จอเล็กมาก: ให้ปุ่มเรียงหนึ่งคอลัมน์ */
+@media screen and (max-width: 420px) {
+    .actionsedit {
+        grid-template-columns: 1fr !important;
     }
 }

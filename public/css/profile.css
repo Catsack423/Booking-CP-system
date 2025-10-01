@@ -8,7 +8,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 45px;
+  margin-top: 10%;
 }
 
 .profile-content {
@@ -33,7 +33,6 @@ body {
   text-align: center;
 }
 
-
 .profile-content .card h2 {
   font-size: 20px;
   font-weight: 600;
@@ -46,7 +45,6 @@ body {
   font-size: 15px;
   margin-top: 10px;
   margin-bottom: 2px;
-
 }
 
 .profile-content input {
@@ -90,47 +88,39 @@ body {
 .cardProfile-img {
   display: flex;
   justify-content: center;
-
-
 }
 
+/* ===== Responsive (ย่อจอ) ===== */
 @media screen and (max-width: 900px) {
-  .profile-content {
-    flex-direction: column;
-    gap: 20px;
-  }
-
+  /* ยกเลิกการจัดกึ่งกลางของ body ตอนจอเล็ก เพื่อให้เนื้อหาซ้อนเป็นคอลัมน์ได้จริง */
   body {
-    margin-left: 0;
-    padding: 20px 15px;
+    margin: 0;                 /* เคย margin:10% → เอาออก */
+    padding: 20px 15px;        /* ระยะขอบพอดีมือ */
+    min-height: auto;
+    display: block;            /* ยกเลิก flex-center */
+    justify-content: initial;
+    align-items: initial;
+  }
+
+  .profile-content {
+    flex-direction: column;    /* ซ้อนการ์ดแนวตั้ง */
+    gap: 20px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .profile-content .card {
+    max-width: 100%;           /* การ์ดเต็มความกว้าง */
+  }
+
+  .profile-content .user-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  /* ปุ่มกดให้เต็มแถวบนมือถือ (แตะง่าย) — ถ้าไม่ต้องการ ลบบรรทัดนี้ได้ */
+  .profile-content button {
+    width: 100%;
+    text-align: center;
   }
 }
-
-/* .bt{
-  margin-block: 5% ;
-}
-.bt a {
-  padding: 9px 20px;
-  border-radius: 50px;
-  background: #ededed;
-  font-size: 16px;
-  color: #000;
-  text-decoration: none;
-  transition: all 0.3s;
-  white-space: nowrap;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-  margin: 0 5px;
-}
-
-.bt a.here{
-  padding: 9px 20px;
-  border-radius: 50px;
-  background: #0B76BC;
-  font-size: 16px;
-  color: #fff;
-  text-decoration: none;
-  transition: all 0.3s;
-  white-space: nowrap;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-  margin: 0 5px;
-} */

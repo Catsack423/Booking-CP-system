@@ -305,3 +305,15 @@
         margin-left: 20px
     }
 }
+
+@media (max-width: 640px) {
+    .notifications {
+        left: 12px;
+        right: 12px;
+        top: 70px;
+    }
+
+    .notifications .toast {
+        width: 100%;
+    }
+}

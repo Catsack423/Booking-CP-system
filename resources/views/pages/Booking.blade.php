@@ -53,11 +53,10 @@
 
         foreach ($timeToCol as $time => $col) {
             $state = 'free';
-            $relatedRequests = collect();
-
+            $related = collect();
             foreach ($requests as $r) {
                 if ((int) $r->{$col} === 1 && (int) $r->reject_status === 0) {
-                    $relatedRequests->push($r);
+                    $related->push($r);
                     if ((int) $r->approve_status === 1) {
                         $state = 'approved';
                         break;
@@ -66,50 +65,51 @@
                     }
                 }
             }
-
             $slotStatus[$time] = match ($state) {
                 'approved' => [
                     'status' => 'approved',
                     'label' => 'เต็มแล้ว',
                     'class' => 'bg-full',
-                    'requests' => $relatedRequests,
+                    'requests' => $related,
                 ],
                 'pending' => [
                     'status' => 'pending',
                     'label' => 'รออนุมัติ',
                     'class' => 'bg-pending',
-                    'requests' => $relatedRequests,
+                    'requests' => $related,
                 ],
-                default => [
-                    'status' => 'free',
-                    'label' => 'ว่าง',
-                    'class' => 'bg-free',
-                    'requests' => collect(),
-                ],
+                default => ['status' => 'free', 'label' => 'ว่าง', 'class' => 'bg-free', 'requests' => collect()],
             };
         }
     }
 @endphp
 
-
 @section('title', 'Booking')
 
 @section('content')
-    {{-- CSS --}}
+    {{-- styles --}}
     <link rel="stylesheet" href="{{ asset('css/Booking.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toast.css') }}">
-    {{-- Icons สำหรับ toast --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
-        /* === Layout ฟอร์ม 3→2→1 คอลัมน์ === */
+        html,
+        body {
+            margin-top: -15%;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: "Noto Sans Thai UI", sans-serif;
+        }
+
         .bk-wrap {
             max-width: 980px;
             margin-inline: auto;
             padding: clamp(12px, 2vw, 24px);
-
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
         }
-
 
         .bk-row {
             display: grid;
@@ -118,19 +118,16 @@
             margin-bottom: 12px;
         }
 
-
         .bk-field {
             display: flex;
             flex-direction: column;
         }
-
 
         .bk-lbl {
             font-size: 14px;
             color: #374151;
             margin-bottom: 6px;
             line-height: 1.2;
-
         }
 
         .bk-input {
@@ -155,7 +152,6 @@
             border-color: #e24d4c !important;
         }
 
-        /* === แถบหัววันที่ === */
         .bk-topbar {
             display: flex;
             align-items: center;
@@ -168,7 +164,6 @@
             padding: 8px 14px;
         }
 
-        /* === ตารางเวลา === */
         .bk-table {
             border: 1px solid #e5e7eb;
             border-radius: 10px;
@@ -206,6 +201,9 @@
             border-top: 1px solid #e5e7eb;
             border-right: 1px solid #e5e7eb;
             box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .bk-status>.bk-cell:last-child {
@@ -213,16 +211,33 @@
         }
 
         .bk-chip {
-            font-size: 0.9rem;
+            font-size: .9rem;
         }
 
-        /* === เวลาในช่อง: ซ่อนไว้บนจอใหญ่ (ใช้หัวตาราง) === */
         .bk-time {
             display: none;
         }
 
-        /* แท็บเล็ต */
-        @media (max-width: 900px) {
+        .bk-cell .btn-edit {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            appearance: none;
+            border: 0;
+            border-radius: 8px;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: 400;
+            color: #111;
+            cursor: pointer;
+        }
+
+        .bk-cell .btn-edit:hover {
+            filter: brightness(1.05);
+        }
+
+        /* Tablet */
+        @media (max-width:900px) {
             .bk-row {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
@@ -236,7 +251,6 @@
                 grid-template-columns: repeat(6, minmax(0, 1fr));
             }
 
-            /* โชว์เวลาที่มุมบนซ้ายของแต่ละช่องแทนหัวตาราง */
             .bk-status .bk-cell {
                 padding-top: 32px;
             }
@@ -257,12 +271,12 @@
             }
 
             .bk-chip {
-                font-size: 0.85rem;
+                display: none !important;
             }
+
         }
 
-        /* มือถือแนวตั้ง */
-        @media (max-width: 560px) {
+        @media (max-width:560px) {
             .bk-row {
                 grid-template-columns: 1fr;
             }
@@ -270,11 +284,9 @@
             .bk-input {
                 height: 46px;
             }
-
-            /* แตะง่ายขึ้น */
         }
 
-        @media (max-width: 480px) {
+        @media (max-width:480px) {
             .bk-topbar .bk-title {
                 width: 100%;
                 text-align: center;
@@ -305,8 +317,6 @@
             textarea {
                 font-size: 16px;
             }
-
-            /* กัน iOS ซูม */
         }
     </style>
 
@@ -328,9 +338,8 @@
             <div class="bk-row">
                 <div class="bk-field">
                     <div class="bk-lbl">Name <b id="firstname-danger" class="danger">***กรุณากรอกข้อมูล</b></div>
-
                     <input class="bk-input" name="first_name" id="fname" placeholder="Name"
-                        value="{{ old('first_name') }}"  >
+                        value="{{ old('first_name') }}">
                 </div>
                 <div class="bk-field">
                     <div class="bk-lbl">Last Name <b id="lastname-danger" class="danger">***กรุณากรอกข้อมูล</b></div>
@@ -338,7 +347,6 @@
                         value="{{ old('last_name') }}">
                 </div>
                 <div class="bk-field">
-
                     <div class="bk-lbl">Phone <b id="phone-danger" class="danger">***กรุณากรอกเบอร์โทรให้ครบ 10 หลัก</b>
                     </div>
                     <input class="bk-input" name="phone" id="phone" placeholder="Phone" value="{{ old('phone') }}"
@@ -347,12 +355,8 @@
             </div>
 
             <div>
-
-                <div class="bk-lbl">Detail <b id="textarea-danger" class="danger"> ***กรุณากรอกข้อมูล </b></div>
-                <textarea name="detail" id="detail" cols="30" rows="8" placeholder="Detail" value="{{ old('detail') }}"
-                    ></textarea>
-
-
+                <div class="bk-lbl">Detail <b id="textarea-danger" class="danger">***กรุณากรอกข้อมูล</b></div>
+                <textarea name="detail" id="detail" cols="30" rows="8" placeholder="Detail">{{ old('detail') }}</textarea>
             </div>
 
             <div class="bk-topbar">
@@ -365,42 +369,34 @@
             </div>
 
             <div class="bk-table">
-                {{-- แสดงเวลา --}}
                 <div class="bk-head">
                     @foreach ($timeLabels as $t)
                         <div>{{ $fmt($t) }}</div>
                     @endforeach
                 </div>
 
-                {{-- แสดงเขียวเหลืองแดง --}}
                 <div class="bk-status">
                     @foreach ($timeLabels as $t)
-                        @php $s = $slotStatus[$t] ?? ['status'=>'free','label'=>'ว่าง','class'=>'bg-free']; @endphp
+                        @php $s = $slotStatus[$t] ?? ['status'=>'free','label'=>'ว่าง','class'=>'bg-free','requests'=>collect()]; @endphp
                         <label class="bk-cell {{ $s['class'] }}" title="{{ $s['label'] }}">
                             <span class="bk-time">{{ $fmt($t) }}</span>
-
                             <span class="bk-chip">{{ $s['label'] }}</span>
+
                             @if ($s['status'] === 'free')
                                 <input type="checkbox" class="bk-check" name="slots[]" value="{{ $t }}"
                                     {{ in_array($t, (array) old('slots', [])) ? 'checked' : '' }}>
-                            @endif
-                            @php
-                                /** @var \App\Models\Request|null $r */
-                                $r = $s['requests']->first(); // ✅ ใช้ first() ปลอดภัยกว่า
-                            @endphp
-
-                            @if ($s['status'] === 'approved' && $r)
-                                <button type="button" class="btn-edit" onclick="openEditModal(this)"
-                                    data-id="{{ $r->id }}" data-room-id="{{ $r->room_id ?? $roomId }}"
-                                    data-first-name="{{ $r['first_name'] ?? '' }}"
-                                    data-last-name="{{ $r['last_name'] ?? '' }}"
-                                    data-phone="{{ $r['phone'] ?? '' }}"
-                                    data-day="{{ $r['day_iso'] }}"
-                                    data-detail="{{ $r['detail'] ?? '' }}"
-                                    data-room-code="{{ $r->room_code ?? '' }}" >
-                                    
-                                    แก้ไข 
-                                </button>
+                            @else
+                                @php $r = $s['requests']->first(); @endphp
+                                @if ($s['status'] === 'approved' && $r)
+                                    <button type="button" class="btn-edit" onclick="openEditModal(this)"
+                                        data-id="{{ $r->id }}" data-room-id="{{ $r->room_id ?? $roomId }}"
+                                        data-room-code="{{ $r->room_code ?? $roomCode }}" data-day="{{ $r->day }}"
+                                        data-first-name="{{ $r->first_name ?? '' }}"
+                                        data-last-name="{{ $r->last_name ?? '' }}" data-phone="{{ $r->phone ?? '' }}"
+                                        data-detail="{{ $r->detail ?? '' }}">
+                                        แก้ไข
+                                    </button>
+                                @endif
                             @endif
                         </label>
                     @endforeach
@@ -416,15 +412,13 @@
         </form>
     </div>
 
-
-
+    {{-- Modal แก้ไข --}}
     <div id="editModal" class="modal" aria-hidden="true">
         <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="editTitle">
             <div class="modal__head">
                 <div id="editTitle" class="modal__title">แก้ไข</div>
                 <button type="button" class="modal__close" aria-label="ปิด" onclick="closeEditModal()">×</button>
             </div>
-
 
             <form id="editForm" method="POST" class="modal__body">
                 @csrf
@@ -463,15 +457,16 @@
             <div class="modal__footer">
                 <form id="deleteForm" method="POST" onsubmit="return confirm('คุณต้องการลบการจองนี้หรือไม่?');"
                     style="margin:0;">
-                    @csrf
-                    @method('DELETE')
+                    @csrf @method('DELETE')
                     <button type="submit" class="btn-delete">ลบการจอง</button>
                 </form>
-                <button type="submit" form="editForm" class="btn-primary">บันทึก</button>
+                <button type="submit" form="editForm" class="btn-save">บันทึก</button>
             </div>
         </div>
     </div>
+
     <script>
+        /* ===== Modal ===== */
         const updateUrlTemplate = "{{ url('/historyadmin') }}/__ID__/update";
         const deleteUrlTemplate = "{{ url('/historyadmin') }}/__ID__";
 
@@ -482,7 +477,7 @@
 
             document.getElementById('m_id').value = d.id || '';
             document.getElementById('m_room_id').value = d.roomId || '';
-            document.getElementById('m_room_code').value = d.roomCode || d.roomId || ''; // ✅ fallback
+            document.getElementById('m_room_code').value = d.roomCode || d.roomId || '';
             document.getElementById('m_day').value = d.day || '';
             document.getElementById('m_first_name').value = d.firstName || '';
             document.getElementById('m_last_name').value = d.lastName || '';
@@ -493,21 +488,18 @@
             document.getElementById('editModal').classList.add('show');
         }
 
-
         function closeEditModal() {
             document.getElementById('editModal').style.display = 'none';
             document.getElementById('editModal').classList.remove('show');
         }
         document.addEventListener('click', e => {
-            const m = document.getElementById('editModal');
-            if (e.target === m) closeEditModal();
+            if (e.target === document.getElementById('editModal')) closeEditModal();
         });
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') closeEditModal();
         });
 
-  
-        // ---------- Toast helpers ----------
+        /* ===== Toast helpers (ใช้คู่กับ public/css/toast.css ของคุณ) ===== */
         const notifications = document.querySelector(".notifications");
         const toastDetails = {
             success: {
@@ -532,21 +524,26 @@
             if (toast.timeoutId) clearTimeout(toast.timeoutId);
             setTimeout(() => toast.remove(), 500);
         };
-        const createToast = (id, text = null, duration = 5000) => {
+
+        function createToast(id, text = null, duration = 5000) {
             const conf = toastDetails[id] || toastDetails.info;
             const toast = document.createElement("li");
             toast.className = `toast ${id}`;
-            toast.style.setProperty('--timer', duration + 'ms');
+            toast.style.setProperty('--timer', duration + 'ms'); // ใช้ progress bar ใน CSS ที่ตั้งไว้
             toast.innerHTML = `
-          <div class="column"><i class="fa-solid ${conf.icon}"></i><span>${(text ?? conf.defaultText).toString().replace(/\n/g,'<br>')}</span></div>
+          <div class="column">
+            <i class="fa-solid ${conf.icon}"></i>
+            <span>${(text ?? conf.defaultText).toString().replace(/\n/g,'<br>')}</span>
+          </div>
           <i class="fa-solid fa-xmark" aria-label="Close"></i>`;
             notifications.appendChild(toast);
             toast.querySelector(".fa-xmark").addEventListener("click", () => removeToast(toast));
             toast.timeoutId = setTimeout(() => removeToast(toast), duration);
-        };
+        }
         let lastToastKey = null,
             dedupeTimer = null;
-        const createToastOnce = (id, text = null, duration = 5000) => {
+
+        function createToastOnce(id, text = null, duration = 5000) {
             const key = `${id}|${text ?? ''}`;
             if (lastToastKey === key) return;
             lastToastKey = key;
@@ -555,9 +552,9 @@
                 lastToastKey = null;
             }, 800);
             createToast(id, text, duration);
-        };
+        }
 
-        // ---------- Validate ฝั่ง client ----------
+        /* ===== Validate ฝั่ง client ===== */
         const form = document.getElementById('bookingForm');
         const fname = document.getElementById('fname');
         const lname = document.getElementById('lname');
@@ -589,70 +586,39 @@
             const dok = (detail.value ?? '').trim().length > 0;
             mark(detail, dok, 'textarea-danger');
             if (!dok) errs.push('กรุณากรอกรายละเอียด');
-            const selectedSlots = document.querySelectorAll("input[name='slots[]']:checked").length;
-            if (selectedSlots === 0) errs.push('กรุณาเลือกช่วงเวลาอย่างน้อย 1 ช่อง');
+            const selected = document.querySelectorAll("input[name='slots[]']:checked").length;
+            if (selected === 0) errs.push('กรุณาเลือกช่วงเวลาอย่างน้อย 1 ช่อง');
             return errs;
         };
-        
-        function checkname() {
-        let fname = document.getElementById("fname");
-        let fnamedanger = document.getElementById("firstname-danger");
-        let lname = document.getElementById("lname");
-        let lnamedanger = document.getElementById("lastname-danger");
-
-        if (fname.value.trim().length <= 0) {
-            fnamedanger.style.visibility = "visible"
-            fname.style.borderColor = "red";
-            fname.style.borderWidth = "1px";
-
-        } else {
-            fnamedanger.style.visibility = "hidden"
-            fname.style.borderColor = "";
-            fname.style.borderWidth = "0px";
-        }
-
-        if (lname.value.trim().length <= 0) {
-            lnamedanger.style.visibility = "visible"
-            lname.style.borderColor = "red";
-            lname.style.borderWidth = "1px";
-
-        } else {
-            lnamedanger.style.visibility = "hidden"
-            lname.style.borderColor = "";
-            lname.style.borderWidth = "0px";
-        }
-    }
-        function checkdetail() {
-        let detail = document.getElementById("detail");
-        let areadanger = document.getElementById("textarea-danger");
-        if (detail.value.length == 0) {
-            areadanger.style.visibility = "visible"
-            detail.style.borderColor = "red";
-            detail.style.borderWidth = "1px";
-            e.preventDefault();
-            return;
-        } else {
-            areadanger.style.visibility = "hidden"
-            detail.style.borderColor = "";
-            detail.style.borderWidth = "0px";
-            }
-            
-           }
 
         form.addEventListener('submit', (e) => {
             const errs = validateClient();
             if (errs.length > 0) {
                 e.preventDefault();
                 createToastOnce('error', errs.join('\n'), 7000);
+            } else {
+                createToastOnce('info', 'กำลังส่งคำขอจอง...');
             }
         });
 
+        /* ===== Flash from Laravel ===== */
         @if (session('status'))
             createToastOnce('success', @json(session('status')), 4000);
+        @endif
+        @if (session('success'))
+            createToastOnce('success', @json(session('success')), 4000);
+        @endif
+        @if (session('error'))
+            createToastOnce('error', @json(session('error')), 6000);
+        @endif
+        @if (session('warning'))
+            createToastOnce('warning', @json(session('warning')), 6000);
+        @endif
+        @if (session('info'))
+            createToastOnce('info', @json(session('info')), 5000);
         @endif
         @if ($errors->any())
             createToastOnce('error', {!! json_encode(implode("\n", $errors->all())) !!}, 7000);
         @endif
-
     </script>
 @endsection

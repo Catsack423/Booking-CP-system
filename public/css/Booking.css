@@ -101,49 +101,133 @@
 }
 
 .btn-cancel {
-    margin: 0;
-    background: #f28c8c;
-    color: #000;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 17px;
-    font-size: 25px;
-    font-weight: 200;
+    margin-top: 16px;
+    background: #FA5151;
+    padding: 10px 25px;
+    border-radius: 30px;
+    color: #ffff;
+    font-weight: 500;
+    border: 1px solid #111;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-    transition: 0.2s ease;
 }
 
 .btn-cancel:hover {
-    background: #e57373;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+.btn-cancel:active{
+    transform: scale(0.97);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .btn-book {
-    margin: 0;
+    margin-top: 16px;
     background: #90EE90;
-    color: #000;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 17px;
-    font-size: 25px;
-    font-weight: 200;
+    padding: 4px 30px;
+    border-radius: 30px;
+    color: #ffff;
+    font-weight: 500;
+    border: 1px solid #111;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-    transition: 0.2s ease;
 }
-.btn-edit{
-    background: #ededed;
-    padding: 5px 4px;
-    border-radius: 333px;
-    color: #111;
-    display: block;
+.btn-book:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-.btn-book:hover {
-    background: #7bd97b;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+.btn-book:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
+
+.btn-edit {
+    /* margin-top: 16px; */
+    background: #FA5151;
+    padding: 3px 12px;
+    border-radius: 30px;
+    color: #ffff;
+    font-weight: 500;
+    border: 1px solid #111;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+button.btn-cancel,
+input[type="button"].btn-cancel,
+input[type="submit"].btn-cancel {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  border: none;        
+  outline: none;      
+
+  margin-top: 16px;
+  background: #FF9B9B;
+  padding: 10px 25px;
+  border-radius: 30px;
+  color: #111;         
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  transition: all .3s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,.1);
+  cursor: pointer;
+}
+
+.btn-cancel:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(250,81,81,.35);
+}
+
+button.btn-book,
+input[type="button"].btn-book,
+input[type="submit"].btn-book {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  border: none;        
+  outline: none;      
+
+  margin-top: 16px;
+  background: #90EE90;
+  padding: 10px 30px;
+  border-radius: 30px;
+  color: #111;         
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  transition: all .3s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,.1);
+  cursor: pointer;
+}
+
+.btn-book:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(250,81,81,.35);
+}
+
+.btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.btn-edit:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
 
 /* ตาราง */
 /* ตารางเวลา */
