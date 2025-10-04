@@ -385,10 +385,10 @@
                         @endphp
                         <label class="bk-cell {{ $s['class'] }}" title="{{ $s['label'] }}">
                             <span class="bk-time">{{ $fmt($t) }}</span>
-                            @if ($r->user_id == Auth::user()->id)
-                                <span class="bk-chip">{{ $s['label'] }}</span>
+                            @if ($r && $r->user_id != Auth::user()->id && $s['status']=="pending")
+                                <span class="bk-chip">ผู้ใช้อื่นกำลังรออนุมัติ</span>  
                             @else
-                                <span class="bk-chip">ผู้ใช้อื่นกำลังรออนุมัติ</span>
+                                <span class="bk-chip">{{ $s['label'] }}</span>
                             @endif
                             
 
