@@ -51,14 +51,8 @@
         <img src="{{ asset('images/guide-pic/history.png') }}" alt="หน้าประวัติการจอง">
     </div>
 
-    <div class="manual-step">
-        <h2>6. สถานะการจอง</h2>
-        <p>ผู้ใช้สามารถดูสถานะการอนุมัติหรือปฏิเสธการจองได้จากหน้านี้</p>
-        <img src="{{ asset('images/guide-pic/status.png') }}" alt="หน้าสถานะการจอง">
-    </div>
+    
 
-    <footer class="manual-footer">
-        © 2025 ระบบจองห้องเรียน - คู่มือการใช้งาน
-    </footer>
+    
 </div>
 @endsection
