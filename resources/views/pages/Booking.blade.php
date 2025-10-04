@@ -29,6 +29,7 @@
             ->whereDate('day', Carbon::parse($dayVal)->toDateString())
             ->get([
                 'id',
+                'user_id',
                 'room_id',
                 'day',
                 'first_name',
@@ -377,17 +378,26 @@
 
                 <div class="bk-status">
                     @foreach ($timeLabels as $t)
-                        @php $s = $slotStatus[$t] ?? ['status'=>'free','label'=>'ว่าง','class'=>'bg-free','requests'=>collect()]; @endphp
+                       
+                        @php 
+                            $s = $slotStatus[$t] ?? ['status'=>'free','label'=>'ว่าง','class'=>'bg-free','requests'=>collect()]; 
+                            $r = $s['requests']->first(); 
+                        @endphp
                         <label class="bk-cell {{ $s['class'] }}" title="{{ $s['label'] }}">
                             <span class="bk-time">{{ $fmt($t) }}</span>
-                            <span class="bk-chip">{{ $s['label'] }}</span>
+                            @if ($r && $r->user_id != Auth::user()->id && $s['status']=="pending")
+                                <span class="bk-chip">ผู้ใช้อื่นกำลังรออนุมัติ</span>  
+                            @else
+                                <span class="bk-chip">{{ $s['label'] }}</span>
+                            @endif
+                            
 
                             @if ($s['status'] === 'free')
                                 <input type="checkbox" class="bk-check" name="slots[]" value="{{ $t }}"
                                     {{ in_array($t, (array) old('slots', [])) ? 'checked' : '' }}>
                             @else
-                                @php $r = $s['requests']->first(); @endphp
-                                @if ($s['status'] === 'approved' && $r)
+                                
+                                @if ($s['status'] === 'approved' && $r && $r->user_id == Auth::user()->id)
                                     <button type="button" class="btn-edit" onclick="openEditModal(this)"
                                         data-id="{{ $r->id }}" data-room-id="{{ $r->room_id ?? $roomId }}"
                                         data-room-code="{{ $r->room_code ?? $roomCode }}" data-day="{{ $r->day }}"
