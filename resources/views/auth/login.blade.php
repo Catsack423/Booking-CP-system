@@ -6,7 +6,7 @@
   <div class="rb-center">
     <div id="login-card">
       <img src="{{ asset('images/logo-room-booking.png') }}" alt="logo" class="rb-logo">
-      <div class="rb-title">sign in</div>
+      <div class="rb-title">Sign in</div>
 
       <ul class="notifications" style="position:fixed;top:30px;right:20px;z-index:9999;"></ul>
 

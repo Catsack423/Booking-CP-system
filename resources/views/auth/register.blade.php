@@ -37,9 +37,9 @@
         </div>
 
         <div class="rb-group">
-          <label for="password_confirmation" class="rb-label">Repeat Password</label>
+          <label for="password_confirmation" class="rb-label">Confirm Password</label>
           <input id="password_confirmation" name="password_confirmation" type="password" class="rb-input"
-                 required autocomplete="new-password" placeholder="Repeat Password" minlength="8">
+                 required autocomplete="new-password" placeholder="Confirm Password" minlength="8">
         </div>
 
         {{-- ✅ ใช้ checkbox เดียว ชื่อ "terms" ให้ตรงกับ Jetstream --}}
@@ -61,8 +61,8 @@
 
         <button type="submit" class="rb-btn primary">Register</button> <br>
         <div class="rb-group">
-          <label>มีรหัสแล้วอยู่หรือป่าว?</label>
-          <a href="{{ route('login') }}" class="clicktologin">ถ้ามีคลิ๊กที่นี่</a>
+          <label>มีรหัสแล้วอยู่แล้ว?</label>
+          <a href="{{ route('login') }}" class="clicktologin">คลิ๊กที่นี่</a>
         </div>
       </form>
     </div>
