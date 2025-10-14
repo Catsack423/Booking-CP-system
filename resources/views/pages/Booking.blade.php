@@ -477,9 +477,8 @@
 
     <script>
         /* ===== Modal ===== */
-        const updateUrlTemplate = "{{ url('/historyadmin') }}/__ID__/update";
-        const deleteUrlTemplate = "{{ url('/historyadmin') }}/__ID__";
-
+        const updateUrlTemplate = "{{ route('booking.update', ['id' => '__ID__']) }}";
+        const deleteUrlTemplate = "{{ route('booking.destroy', ['id' => '__ID__']) }}"
         function openEditModal(btn) {
             const d = btn.dataset;
             document.getElementById('editForm').action = updateUrlTemplate.replace('__ID__', d.id);

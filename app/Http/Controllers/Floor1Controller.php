@@ -13,7 +13,7 @@ class Floor1Controller extends Controller
         $rooms = Room::where('id', 'like', 'CP91%')->get();
         $floor = 1;
         if ($rooms) {
-            $now = date("Y-m-d");
+            $now = date("Y-m-d"); 
             foreach ($rooms as $room) {
                 
                 // อัปเดตวันที่
