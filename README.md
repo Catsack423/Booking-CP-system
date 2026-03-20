@@ -9,45 +9,45 @@
 ### 1. หน้าเข้าสู่ระบบและสมัครสมาชิก (Login / Register)
 หน้าสำหรับการเข้าสู่ระบบของสมาชิกและผู้ดูแลระบบ รวมถึงการสมัครสมาชิกใหม่ (รองรับระบบ 인증 ผ่าน Laravel Jetstream)
 <br>
-<img src="![alt text](public/img-demo/login.png)" alt="Login Page" width="800">
+<img src="public/img-demo/login.png" alt="Login Page" width="800">
 <br>
-<img src="![alt text](public/img-demo/register.png)" alt="Register Page" width="800">
+<img src="public/img-demo/register.png" alt="Register Page" width="800">
 
 ### 2. หน้าหลัก / แผนผังแต่ละชั้น (Floor 1, 2, 4, 5)
 แสดงรายละเอียดและแผนผังของห้องแต่ละชั้น สถานะปัจจุบันของห้อง และปุ่มให้ผู้ใช้กดเลือกห้องที่ต้องการจอง
 <br>
-<img src="![alt text](public/img-demo/Home1.png)" alt="Floor View Page" width="800">
+<img src="public/img-demo/Home1.png" alt="Floor View Page" width="800">
 <br>
-<img src="![alt text](public/img-demo/Home2.png)" alt="Floor View Page" width="800">
+<img src="public/img-demo/Home2.png" alt="Floor View Page" width="800">
 <br>
-<img src="![alt text](public/img-demo/Home4.png)" alt="Floor View Page" width="800">
+<img src="public/img-demo/Home4.png" alt="Floor View Page" width="800">
 <br>
-<img src="![alt text](public/img-demo/Home5.png)" alt="Floor View Page" width="800">
+<img src="public/img-demo/Home5.png" alt="Floor View Page" width="800">
 
 ### 3. หน้าจองห้อง (Booking Page)
 แบบฟอร์มให้ผู้ใช้ทำการจองห้องที่เลือก โดยแสดงข้อมูลห้องนั้นๆ และให้กรอกรายละเอียด วัน เวลาเริ่มต้น-สิ้นสุด และจุดประสงค์ในการใช้งาน
 <br>
-<img src="![alt text](public/img-demo/Bookingpage.png)" alt="Booking Room Page" width="800">
+<img src="public/img-demo/Bookingpage.png" alt="Booking Room Page" width="800">
 
 ### 4. หน้าประวัติการจอง (Booking History)
 แสดงรายการคำขอจองห้องของผู้ใช้งาน พร้อมระบุสถานะ (เช่น รออนุมัติ, อนุมัติแล้ว, ถูกปฏิเสธ) รวมไปถึงปุ่มสำหรับแก้ไข/ยกเลิกคำขอในกรณีที่ยังไม่ได้รับการอนุมัติ
 <br>
-<img src="![alt text](public/img-demo/UserhistoryEdit.png)" alt="User History Page" width="800">
+<img src="public/img-demo/UserhistoryEdit.png" alt="User History Page" width="800">
 
 ### 5. หน้าจัดการคำขอจองสำหรับผู้ดูแลระบบ (Admin Dashboard)
 เฉพาะผู้ใช้ระดับผู้ดูแลระบบ (Admin) เท่านั้นที่จะเข้าถึงได้ ใช้ตรวจสอบ อนุมัติ (Approve) ปฏิเสธ (Reject) ดัดแปลง (Update) หรือลบประวัติการจองห้องจากผู้ใช้งานในระบบ
 <br>
-<img src="![alt text](public/img-demo/AdminPage.png)" alt="Admin History Page" width="800">
+<img src="public/img-demo/AdminPage.png" alt="Admin History Page" width="800">
 
 ### 6. หน้าคู่มือการใช้งาน (Guide)
 คำแนะนำและวิธีการใช้งานระบบจองห้องอย่างละเอียด สำหรับผู้ใช้ใหม่
 <br>
-<img src="![alt text](public/img-demo/Howto.png)" alt="Guide Page" width="800">
+<img src="public/img-demo/Howto.png" alt="Guide Page" width="800">
 
 ### 7. หน้าจัดการประวัติส่วนตัว (Profile)
 หน้าสำหรับจัดการข้อมูลส่วนตัวของผู้ใช้งาน เปลี่ยนรหัสผ่าน และตั้งค่าบัญชี
 <br>
-<img src="![alt text](<public/img-demo/User setting.png>)" alt="Profile Page" width="800">
+<img src="public/img-demo/User%20setting.png" alt="Profile Page" width="800">
 
 ### 8. หน้าเกี่ยวกับเรา (About)
 แสดงข้อมูลรายละเอียดเกี่ยวกับผู้จัดทำโปรเจกต์
