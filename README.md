@@ -1,3 +1,99 @@
+# 🏢 Booking CP System (ระบบจองห้องเรียน/ห้องประชุม)
+
+เป็นระบบเว็บแอปพลิเคชันสำหรับจัดการการจองห้องเรียนหรือห้องประชุมภายในอาคาร ถูกพัฒนาด้วย Laravel Framework โดยมีฟีเจอร์สำหรับการเลือกชั้น, ดูสถานะห้องว่าง/ไม่ว่าง, ทำการจอง, ดูประวัติการจองของผู้ใช้, และระบบจัดการคำขอจองสำหรับผู้ดูแลระบบ (Admin)
+
+---
+
+## 💻 แนะนำหน้าจอการใช้งาน (Pages & Features)
+
+### 1. หน้าเข้าสู่ระบบและสมัครสมาชิก (Login / Register)
+หน้าสำหรับการเข้าสู่ระบบของสมาชิกและผู้ดูแลระบบ รวมถึงการสมัครสมาชิกใหม่ (รองรับระบบ 인증 ผ่าน Laravel Jetstream)
+<br>
+<img src="" alt="Login Page" width="800">
+<br>
+<img src="" alt="Register Page" width="800">
+
+### 2. หน้าหลัก / แผนผังแต่ละชั้น (Floor 1, 2, 4, 5)
+แสดงรายละเอียดและแผนผังของห้องแต่ละชั้น สถานะปัจจุบันของห้อง และปุ่มให้ผู้ใช้กดเลือกห้องที่ต้องการจอง
+<br>
+<img src="" alt="Floor View Page" width="800">
+
+### 3. หน้าจองห้อง (Booking Page)
+แบบฟอร์มให้ผู้ใช้ทำการจองห้องที่เลือก โดยแสดงข้อมูลห้องนั้นๆ และให้กรอกรายละเอียด วัน เวลาเริ่มต้น-สิ้นสุด และจุดประสงค์ในการใช้งาน
+<br>
+<img src="" alt="Booking Room Page" width="800">
+
+### 4. หน้าประวัติการจอง (Booking History)
+แสดงรายการคำขอจองห้องของผู้ใช้งาน พร้อมระบุสถานะ (เช่น รออนุมัติ, อนุมัติแล้ว, ถูกปฏิเสธ) รวมไปถึงปุ่มสำหรับแก้ไข/ยกเลิกคำขอในกรณีที่ยังไม่ได้รับการอนุมัติ
+<br>
+<img src="" alt="User History Page" width="800">
+
+### 5. หน้าจัดการคำขอจองสำหรับผู้ดูแลระบบ (Admin Dashboard)
+เฉพาะผู้ใช้ระดับผู้ดูแลระบบ (Admin) เท่านั้นที่จะเข้าถึงได้ ใช้ตรวจสอบ อนุมัติ (Approve) ปฏิเสธ (Reject) ดัดแปลง (Update) หรือลบประวัติการจองห้องจากผู้ใช้งานในระบบ
+<br>
+<img src="" alt="Admin History Page" width="800">
+
+### 6. หน้าคู่มือการใช้งาน (Guide)
+คำแนะนำและวิธีการใช้งานระบบจองห้องอย่างละเอียด สำหรับผู้ใช้ใหม่
+<br>
+<img src="" alt="Guide Page" width="800">
+
+### 7. หน้าจัดการประวัติส่วนตัว (Profile)
+หน้าสำหรับจัดการข้อมูลส่วนตัวของผู้ใช้งาน เปลี่ยนรหัสผ่าน และตั้งค่าบัญชี
+<br>
+<img src="" alt="Profile Page" width="800">
+
+### 8. หน้าเกี่ยวกับเรา (About)
+แสดงข้อมูลรายละเอียดเกี่ยวกับผู้จัดทำโปรเจกต์
+<br>
+<img src="" alt="About Page" width="800">
+
+---
+
+## 🚀 วิธีการติดตั้งและใช้งานเบื้องต้น (Installation & Usage)
+
+1. **โคลนโปรเจกต์ (Clone the repository)**
+   ```bash
+   git clone <repository-url>
+   cd Booking-CP-system
+   ```
+
+2. **ติดตั้ง Dependencies**
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. **คัดลอกไฟล์ตั้งค่า Environment (.env)**
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **สร้าง Application Key**
+   ```bash
+   php artisan key:generate
+   ```
+
+5. **ตั้งค่าฐานข้อมูล (Database Configuration)**
+   เปิดไฟล์ `.env` และแก้ไขค่า `DB_DATABASE`, `DB_USERNAME`, และ `DB_PASSWORD` ให้ตรงกับระบบจัดการฐานข้อมูล (เช่น MySQL หรือ MariaDB)
+
+6. **รัน Migration และ Seed (สร้างตารางและข้อมูลเริ่มต้น)**
+   ```bash
+   php artisan migrate --seed
+   ```
+
+7. **รันเซิร์ฟเวอร์ (Run Local Server)**
+   เปิด 2 Terminal เพื่อรันคำสั่งต่อไปนี้พร้อมกัน:
+   ```bash
+   # Terminal 1: สำหรับรันฝั่ง Frontend (Vite)
+   npm run dev
+
+   # Terminal 2: สำหรับรันฝั่ง Backend (Laravel)
+   php artisan serve
+   ```
+   จากนั้นเปิดเบราว์เซอร์แล้วเข้าสู่ `http://localhost:8000` ตามที่ระบบแสดง
+
+---
 
 ## 👥 ผู้จัดทำ (Team Members)
 
@@ -7,91 +103,13 @@
 | <a href="https://github.com/SandKingTH"><img src="https://github.com/SandKingTH.png" width="50px" style="border-radius:50%;" alt="พีรพัฒน์"></a>  | 673380053-3 | นายพีรพัฒน์ ป้องกันยา | 1 |
 | <a href="https://github.com/NongpandarX"><img src="https://github.com/NongpandarX.png" width="50px" style="border-radius:50%;" alt="ธนันชัย "></a> | 673380042-8 | นายธนันชัย พันธราช | 1 |
 | <a href="https://github.com/nattapong-61"><img src="https://github.com/nattapong-61.png" width="50px" style="border-radius:50%;" alt="ณัฐพงศ์"></a> | 673380038-9 | นายณัฐพงศ์ กรธนกิจ | 1 |
-|<a href="https://github.com/kixmbap"><img src="https://github.com/kixmbap.png" width="50px" style="border-radius:50%;" alt="ปิยะพล"></a>  | 673380048-6 | นายปวัฒน์ ปัดทุมมา | 2 |
+| <a href="https://github.com/kixmbap"><img src="https://github.com/kixmbap.png" width="50px" style="border-radius:50%;" alt="ปวัฒน์"></a>  | 673380048-6 | นายปวัฒน์ ปัดทุมมา | 2 |
 
+---
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-
+## 💾 Database Initial Data (Room Seed)
+ข้อมูลเริ่มต้นของห้องในระบบ (ตัวอย่าง Table `room`):
+```sql
 INSERT INTO `room`(`id`,`day`) VALUES ('CP9127','null');
 INSERT INTO `room`(`id`,`day`) VALUES ('CP9228','null');
 INSERT INTO `room`(`id`,`day`) VALUES ('CP9227','null');
@@ -100,3 +118,4 @@ INSERT INTO `room`(`id`,`day`) VALUES ('CP9422','null');
 INSERT INTO `room`(`id`,`day`) VALUES ('CP9421','null');
 INSERT INTO `room`(`id`,`day`) VALUES ('CP9525','null');
 INSERT INTO `room`(`id`,`day`) VALUES ('CP9524','null');
+```
